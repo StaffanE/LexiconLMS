@@ -34,11 +34,16 @@ namespace LexiconLMS.Models
 
 
         public DbSet<Models.Group> Group { get; set; }
+       // public DbSet<Models.Course> Course { get; set; }
 
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
+
+         public System.Data.Entity.DbSet<LexiconLMS.Models.Course> Courses { get; set; }
+
+         public System.Data.Entity.DbSet<LexiconLMS.Models.Activities> Activities { get; set; }
 
        //  public System.Data.Entity.DbSet<LexiconLMS.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
