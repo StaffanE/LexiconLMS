@@ -45,6 +45,8 @@ namespace LexiconLMS.Models
 
          public System.Data.Entity.DbSet<LexiconLMS.Models.Activities> Activities { get; set; }
 
+         public System.Data.Entity.DbSet<LexiconLMS.Models.Document> Documents { get; set; }
+
        //  public System.Data.Entity.DbSet<LexiconLMS.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }
