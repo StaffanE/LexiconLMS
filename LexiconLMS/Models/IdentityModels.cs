@@ -13,8 +13,8 @@ namespace LexiconLMS.Models
         public string LastName { get; set; }
         public string Fullname { get; set; }
         public string Title { get; set; }
-        public int UserEmail { get; set; }
-        public string Phone { get; set; }
+        //public string UserEmail { get; set; }
+        //public string Phone { get; set; }
         
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
