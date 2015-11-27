@@ -27,7 +27,7 @@ namespace LexiconLMS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ApplicationUser applicationUser = db.Users.Find(id);
+            ApplicationUser applicationUser = db.Users.Find(id);     //Bytt alla db.ApplicationUsers mot db.Users
             if (applicationUser == null)
             {
                 return HttpNotFound();

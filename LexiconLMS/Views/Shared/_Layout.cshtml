@@ -22,8 +22,11 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Om Lexicon LMS", "About", "Home")</li>
+                    <li>@Html.ActionLink("Grupper", "Index", "Groups")</li>
+                    <li>@Html.ActionLink("Kurser", "Index", "Courses")</li>
+                    <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Användare", "Index", "Users")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

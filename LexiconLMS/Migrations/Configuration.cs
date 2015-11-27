@@ -47,6 +47,8 @@ namespace LexiconLMS.Migrations
             var user = new ApplicationUser();
 
             string[] userArray = { "User1@gmail.se", "User2@gmail.se", "User3@gmail.se", "User4@gmail.se", "User5@gmail.se" };                               //  Skapar array för users
+           //string[,] userArray = new string[3,3]{ "User1@gmail.se", "User2@gmail.se", "User3@gmail.se", "User4@gmail.se", "User5@gmail.se" };                               //  Skapar array för users
+
 
             foreach (var userString in userArray)
             {
@@ -67,6 +69,12 @@ namespace LexiconLMS.Migrations
             //userManager.AddToRole(user.Id, "Student");
             //user = userManager.FindByName("User5@gmail.se");
             //userManager.AddToRole(user.Id, "Student");
+
+
+
+ 
+
+
         }
     }
 }
