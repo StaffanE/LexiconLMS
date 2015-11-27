@@ -35,8 +35,7 @@ namespace LexiconLMS.Models
         public int? ApplicationUserId { get; set; }                      //Foreign Key
         public virtual ApplicationUser ApplicationUser { get; set; }    //Navigation Property
 
-        //Testar Igen
-        // lägger in massa text bla bla bla
+      
 
     }
 }
