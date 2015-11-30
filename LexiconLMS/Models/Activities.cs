@@ -30,13 +30,23 @@ namespace LexiconLMS.Models
         
         [Display(Name = "Aktivitetstyp")]
         public ActivityTypeEnum ActivityType { get; set; }
+
+        [Display(Name = "Titel")]
         public string Name { get; set; }
+
+        [Display(Name = "Beskrivning")]
         public string Description { get; set; }
+
+        [Display(Name = "Start datum/tid")]
         public DateTime StartTime { get; set; }
+
+        [Display(Name = "Slut datum/tid")]
         public DateTime EndTime { get; set; }
         //public DateTime Deadline  { get; set; }
+        [Display(Name = "Inlämningsuppgift")]
         public bool Deadline { get; set; }
 
+        //[Display(Name = "Kurs")]
         public int CourseId { get; set; }                       // Foreign key
 
         // [Display(Name = "Ägare / Medlem")]

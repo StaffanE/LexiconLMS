@@ -3,7 +3,7 @@ namespace LexiconLMS.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class deadline : DbMigration
+    public partial class AddGroups : DbMigration
     {
         public override void Up()
         {
@@ -46,7 +46,8 @@ namespace LexiconLMS.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(),
                         Description = c.String(),
-                        Startdate = c.DateTime(),
+                        StartDate = c.DateTime(),
+                        EndDate = c.DateTime(),
                     })
                 .PrimaryKey(t => t.Id);
             
