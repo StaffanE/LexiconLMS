@@ -2,6 +2,7 @@ namespace LexiconLMS.Migrations
 {
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
+    using LexiconLMS.Models;
     using Models;                                     // Tillagd manuellt    
     using System;
     using System.Data.Entity;
@@ -17,7 +18,8 @@ namespace LexiconLMS.Migrations
 
         protected override void Seed(LexiconLMS.Models.ApplicationDbContext context)
         {
-     
+           // context.Database.
+
             string[,] groupArray = new string[,]
    	        {
                {".Net", "Kurs för utvecklare .Net/MVC/C#"},
@@ -25,7 +27,7 @@ namespace LexiconLMS.Migrations
                {"Java", "Utvecklare Java"},
                {"Tomte", "Kurs varuhustomte (säsongsberoende)"}
    	        };
-            for (int i = 0; i < groupArray.Length / 2; i++)
+            for (int i = 1; i < groupArray.Length / 2; i++)
             {
                 var nName = groupArray[i, 0];
                 var nDescription = groupArray[i, 1];
@@ -69,6 +71,40 @@ namespace LexiconLMS.Migrations
                     }
                 }
    	        };
+
+
+            context.Courses.AddOrUpdate(
+              c => c.Name,
+              new Course { Id = 1, Name = "C# grundkurs", Description = "Grunderna i C#", StartDate = DateTime.Today.AddDays(-45), EndDate = DateTime.Today.AddDays(-40), GroupId = 1 },
+              new Course { Id = 2, Name = "C# fortsättingskurs", Description = "Påbyggnad i C#", StartDate = DateTime.Today.AddDays(-39), EndDate = DateTime.Today.AddDays(-35), GroupId = 1 },
+              new Course { Id = 3, Name = "Webutveckling", Description = "Utveckla i webapplikationer", StartDate = DateTime.Today.AddDays(-34), EndDate = DateTime.Today.AddDays(-30), GroupId = 1 },
+              new Course { Id = 4, Name = "Testmetodik", Description = "Testing, testing...", StartDate = DateTime.Today.AddDays(-29), EndDate = DateTime.Today.AddDays(-25), GroupId = 2 }
+            );
+
+            context.Activities.AddOrUpdate(
+              a => a.Name,
+              new Activities { Id = 1, ActivityType = ActivityTypeEnum.ELearning, Name = "C# Fundamentals", Description = "A Scott Allen video about C#", StartTime = DateTime.Today.AddDays(-45), EndTime = DateTime.Today.AddDays(-40), Deadline = false, CourseId = 1 },
+              new Activities { Id = 2, ActivityType = ActivityTypeEnum.Excercise, Name = "Garage 1.0", Description = "Sätta upp ett garage", StartTime = DateTime.Today.AddDays(-35), EndTime = DateTime.Today.AddDays(-30), Deadline = true, CourseId = 1 },
+              new Activities { Id = 3, ActivityType = ActivityTypeEnum.Lecture, Name = "Garage 1.0", Description = "Sätta upp ett garage", StartTime = DateTime.Today.AddDays(-35), EndTime = DateTime.Today.AddDays(-30), Deadline = false, CourseId = 1 },
+              new Activities { Id = 4, ActivityType = ActivityTypeEnum.Other, Name = "Garage 1.0", Description = "Sätta upp ett garage", StartTime = DateTime.Today.AddDays(-35), EndTime = DateTime.Today.AddDays(-30), Deadline = false, CourseId = 2 },
+              new Activities { Id = 5, ActivityType = ActivityTypeEnum.Excercise, Name = "Garage 1.0", Description = "Sätta upp ett garage", StartTime = DateTime.Today.AddDays(-35), EndTime = DateTime.Today.AddDays(-30), Deadline = false, CourseId = 3 },
+              new Activities { Id = 6, ActivityType = ActivityTypeEnum.ELearning, Name = "Garage 1.0", Description = "Sätta upp ett garage", StartTime = DateTime.Today.AddDays(-35), EndTime = DateTime.Today.AddDays(-30), Deadline = false, CourseId = 4 },
+              new Activities { Id = 7, ActivityType = ActivityTypeEnum.Lecture, Name = "Garage 1.0", Description = "Sätta upp ett garage", StartTime = DateTime.Today.AddDays(-35), EndTime = DateTime.Today.AddDays(-30), Deadline = false, CourseId = 2 },
+              new Activities { Id = 8, ActivityType = ActivityTypeEnum.Excercise, Name = "Garage 1.0", Description = "Sätta upp ett garage", StartTime = DateTime.Today.AddDays(-35), EndTime = DateTime.Today.AddDays(-30), Deadline = true, CourseId = 3 }
+            );
+
+
+            context.Documents.AddOrUpdate(
+             d => d.Name,
+             new Document { Id = 1, Name = "Övning 1", Description = "Övningsuppgift om loopar etc", dateCreated = DateTime.Today.AddDays(-45), GroupId = 1, ApplicationUserId = 1 },
+             new Document { Id = 2, Name = "Kursinformation", Description = "Översikt över delkursen", dateCreated = DateTime.Today.AddDays(-40), CourseId = 1, ApplicationUserId = 1 },
+             new Document { Id = 3, Name = "Inlämningsuppgift 5", Description = "Inlämningsuppgift", dateCreated = DateTime.Today.AddDays(-45), ActivitiesId = 1, ApplicationUserId = 1 },
+             new Document { Id = 4, Name = "Inlämningsuppgift 5", Description = "Elevinlämnad inlämningsuppgift", dateCreated = DateTime.Today.AddDays(-35), ActivitiesId = 1, ApplicationUserId = 4 },
+             new Document { Id = 5, Name = "Inlämningsuppgift 5", Description = "Elevinlämnad inlämningsuppgift", dateCreated = DateTime.Today.AddDays(-35), ActivitiesId = 1, ApplicationUserId = 2 }
+
+           );
+
+
 
             // Loop based on length.
             // ... Assumes each subarray is five elements long.

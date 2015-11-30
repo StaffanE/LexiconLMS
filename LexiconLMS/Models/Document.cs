@@ -15,12 +15,13 @@ namespace LexiconLMS.Models
         [Display(Name = "Dokumentnamn")]
         public string Name { get; set; }
 
-        public string Desciption { get; set; }
+        public string Description { get; set; }
 
         [Display(Name = "Dokument skapat")]
         public DateTime dateCreated
         {
-            get { return DateTime.Now; }
+           get; set;
+           // get { return DateTime.Now; }
         }
 
         public int? GroupId { get; set; }

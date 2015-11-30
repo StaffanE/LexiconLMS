@@ -39,7 +39,7 @@ namespace LexiconLMS.Controllers
         // GET: Documents/Create
         public ActionResult Create()
         {
-            ViewBag.ActivitiesId = new SelectList(db.Activities, "Id", "Type");
+            ViewBag.ActivitiesId = new SelectList(db.Activities, "Id", "Name");
             ViewBag.CourseId = new SelectList(db.Courses, "Id", "Name");
             ViewBag.GroupId = new SelectList(db.Group, "Id", "Name");
             return View();
@@ -50,7 +50,7 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Desciption,GroupId,CourseId,ActivitiesId,ApplicationUserId")] Document document)
+        public ActionResult Create([Bind(Include = "Id,Name,Description,dateCreated,GroupId,CourseId,ActivitiesId,ApplicationUserId")] Document document)
         {
             if (ModelState.IsValid)
             {
@@ -59,7 +59,7 @@ namespace LexiconLMS.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ActivitiesId = new SelectList(db.Activities, "Id", "Type", document.ActivitiesId);
+            ViewBag.ActivitiesId = new SelectList(db.Activities, "Id", "Name", document.ActivitiesId);
             ViewBag.CourseId = new SelectList(db.Courses, "Id", "Name", document.CourseId);
             ViewBag.GroupId = new SelectList(db.Group, "Id", "Name", document.GroupId);
             return View(document);
@@ -77,7 +77,7 @@ namespace LexiconLMS.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ActivitiesId = new SelectList(db.Activities, "Id", "Type", document.ActivitiesId);
+            ViewBag.ActivitiesId = new SelectList(db.Activities, "Id", "Name", document.ActivitiesId);
             ViewBag.CourseId = new SelectList(db.Courses, "Id", "Name", document.CourseId);
             ViewBag.GroupId = new SelectList(db.Group, "Id", "Name", document.GroupId);
             return View(document);
@@ -88,7 +88,7 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Desciption,GroupId,CourseId,ActivitiesId,ApplicationUserId")] Document document)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,dateCreated,GroupId,CourseId,ActivitiesId,ApplicationUserId")] Document document)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +96,7 @@ namespace LexiconLMS.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ActivitiesId = new SelectList(db.Activities, "Id", "Type", document.ActivitiesId);
+            ViewBag.ActivitiesId = new SelectList(db.Activities, "Id", "Name", document.ActivitiesId);
             ViewBag.CourseId = new SelectList(db.Courses, "Id", "Name", document.CourseId);
             ViewBag.GroupId = new SelectList(db.Group, "Id", "Name", document.GroupId);
             return View(document);
