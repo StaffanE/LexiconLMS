@@ -17,14 +17,23 @@ namespace LexiconLMS.Migrations
 
         protected override void Seed(LexiconLMS.Models.ApplicationDbContext context)
         {
-
-            context.Group.AddOrUpdate(
-              g => g.Name,
-              new Group{ Id = 1, Name = ".Net", Description = "Kurs i .Net"  },
-              new Group { Id = 2, Name = "Sharepoint" },
-              new Group { Id = 3, Name = "Java" },
-              new Group { Id = 4, Name = ".Net2" }
-            );
+     
+            string[,] groupArray = new string[,]
+   	        {
+               {".Net", "Kurs för utvecklare .Net/MVC/C#"},
+               {"Sharepoint", "Kurs administratörer Sharepoint"},
+               {"Java", "Utvecklare Java"},
+               {"Tomte", "Kurs varuhustomte (säsongsberoende)"}
+   	        };
+            for (int i = 0; i < groupArray.Length / 2; i++)
+            {
+                var nName = groupArray[i, 0];
+                var nDescription = groupArray[i, 1];
+                context.Group.AddOrUpdate
+                ( g => g.Name,
+                  new Group { Id = i, Name = nName, Description = nDescription }
+                );
+            }
 
 
             var roleStore = new RoleStore<IdentityRole>(context);                                  // Role behöver tilldelas innan user, för att det ska funka att registrera
@@ -46,35 +55,46 @@ namespace LexiconLMS.Migrations
 
             var user = new ApplicationUser();
 
-            string[] userArray = { "User1@gmail.se", "User2@gmail.se", "User3@gmail.se", "User4@gmail.se", "User5@gmail.se" };                               //  Skapar array för users
-           //string[,] userArray = new string[3,3]{ "User1@gmail.se", "User2@gmail.se", "User3@gmail.se", "User4@gmail.se", "User5@gmail.se" };                               //  Skapar array för users
-
-
-            foreach (var userString in userArray)
-            {
-                if (!context.Users.Any(u => u.UserName == userString))                              // I Users-tabellen kollar vi om någon heter staffan. Om det inte finns någon, gör nedanstående:
+            string[, , , ,] userArray = new string[,,,,]
+   	        {
                 {
-                    user = new ApplicationUser { UserName = userString, Email = userString };                    // Här skapas en user...
-                    userManager.Create(user, "foobar");                                                        // ..och här kopplas usern till vår databas. Usern läggs till med en hash - foobar är "lösenordet"
+                    {
+                        {
+                        //  {"FirstName", "LastName","Email","Role","Phone"},
+   	                        {"Adolf", "Hitler","dead.nazze@nazist.de","Student","07000000"},
+	                        {"Nisse", "Näsa","nisse.nose@gmail.se","Teacher","070909090"},
+	                        {"Donald", "Duck","kalle.anka@gmail.se","Student","070919091"},
+	                        {"Mickey", "Mouse","the.rat@gmail.se","Student","070919291"},
+  	                        {"Ronald", "Reagan","dead.expresident@gmail.se","Student","070929292"}                        }
+                    }
+                }
+   	        };
+
+            // Loop based on length.
+            // ... Assumes each subarray is five elements long.
+            for (int i = 0; i < userArray.Length / 5; i++) {
+                // userArray[0, 0, 0, rad, kolumn/element];
+                string uFirstName = userArray[0, 0, 0, i, 0];
+                string uLastName = userArray[0, 0, 0, i, 1];
+                string eMail = userArray[0, 0, 0, i, 2];
+                string uTitle = userArray[0, 0, 0, i, 3];
+                string uPhone = userArray[0, 0, 0, i, 4];
+                if (!context.Users.Any(u => u.Email == eMail))  // I Users-tabellen kollar vi mot e-mail(förhoppningsvis unikt)
+                {                                               //Om användare med detta e-mail inte finns i databasen läggs ny användare upp
+                    user = new ApplicationUser {
+                        UserName = eMail,
+                        FirstName = uFirstName,
+                        LastName = uLastName,
+                        Fullname = uFirstName + " " + uLastName,
+                        Email = eMail,
+                        Title = uTitle,
+                        PhoneNumber = uPhone
+                    };        // Här skapas en user...
+                    userManager.Create(user, "foobar");       // ..och här kopplas usern till vår databas. Usern läggs till med en hash - foobar är "lösenordet"
+                    user = userManager.FindByEmail(eMail);    // Sök rätt på vår nysakapade användare och tilldela UserRole med rätt id
+                    userManager.AddToRole(user.Id, uTitle);
                 }
             }
-
-            user = userManager.FindByName("User1@gmail.se");
-            userManager.AddToRole(user.Id, "Teacher");
-            user = userManager.FindByName("User2@gmail.se");
-            userManager.AddToRole(user.Id, "Student");
-            //user = userManager.FindByName("User3@gmail.se");
-            //userManager.AddToRole(user.Id, "Student");
-            //user = userManager.FindByName("User4@gmail.se");
-            //userManager.AddToRole(user.Id, "Student");
-            //user = userManager.FindByName("User5@gmail.se");
-            //userManager.AddToRole(user.Id, "Student");
-
-
-
- 
-
-
         }
     }
 }
