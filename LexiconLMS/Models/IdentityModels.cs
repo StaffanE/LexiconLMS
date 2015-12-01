@@ -3,15 +3,24 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace LexiconLMS.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        [Display(Name = "Förnamn")]
         public string FirstName { get; set; }
+
+        [Display(Name = "Efternamn")]
         public string LastName { get; set; }
+
+        [Display(Name = "Namn")]
         public string Fullname { get; set; }
+
+        [Display(Name = "Roll")]
         public string Title { get; set; }
         //public string UserEmail { get; set; }
         //public string Phone { get; set; }
