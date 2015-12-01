@@ -24,6 +24,14 @@ namespace LexiconLMS.Models
         public string Title { get; set; }
         //public string UserEmail { get; set; }
         //public string Phone { get; set; }
+
+
+
+        [Display(Name = "Grupp")]
+        public int? GroupId { get; set; }                         // Foreign key
+
+        [Display(Name = "Grupp")]
+        public virtual Group Group { get; set; }                // Navigation property
         
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

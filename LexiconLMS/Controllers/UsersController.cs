@@ -17,7 +17,8 @@ namespace LexiconLMS.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            var Users = db.Users.Include(a => a.Group);
+            return View(Users.ToList());
         }
 
         // GET: Users/Details/5
@@ -38,6 +39,7 @@ namespace LexiconLMS.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
+            ViewBag.GroupId = new SelectList(db.Group, "Id", "Name");
             return View();
         }
 
@@ -46,7 +48,7 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,Fullname,Title,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
+        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,Fullname,Title,GroupId,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)
             {
@@ -55,6 +57,7 @@ namespace LexiconLMS.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.GroupId = new SelectList(db.Group, "Id", "Name", applicationUser.GroupId);
             return View(applicationUser);
         }
 
@@ -70,6 +73,7 @@ namespace LexiconLMS.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.GroupId = new SelectList(db.Group, "Id", "Name", applicationUser.GroupId);
             return View(applicationUser);
         }
 
@@ -78,7 +82,7 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Fullname,Title,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
+        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Fullname,Title,GroupId,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +90,7 @@ namespace LexiconLMS.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.GroupId = new SelectList(db.Group, "Id", "Name", applicationUser.GroupId);
             return View(applicationUser);
         }
 
