@@ -169,9 +169,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201511301438212_deadline.cs" />
-    <Compile Include="Migrations\201511301438212_deadline.Designer.cs">
-      <DependentUpon>201511301438212_deadline.cs</DependentUpon>
+    <Compile Include="Migrations\201511301544571_AddGroups.cs" />
+    <Compile Include="Migrations\201511301544571_AddGroups.Designer.cs">
+      <DependentUpon>201511301544571_AddGroups.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -240,11 +240,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Groups\Create.cshtml" />
-    <Content Include="Views\Groups\Delete.cshtml" />
-    <Content Include="Views\Groups\Details.cshtml" />
-    <Content Include="Views\Groups\Edit.cshtml" />
-    <Content Include="Views\Groups\Index.cshtml" />
     <Content Include="Views\Courses\Create.cshtml" />
     <Content Include="Views\Courses\Delete.cshtml" />
     <Content Include="Views\Courses\Details.cshtml" />
@@ -265,6 +260,11 @@
     <Content Include="Views\Documents\Details.cshtml" />
     <Content Include="Views\Documents\Edit.cshtml" />
     <Content Include="Views\Documents\Index.cshtml" />
+    <Content Include="Views\Groups\Create.cshtml" />
+    <Content Include="Views\Groups\Delete.cshtml" />
+    <Content Include="Views\Groups\Details.cshtml" />
+    <Content Include="Views\Groups\Edit.cshtml" />
+    <Content Include="Views\Groups\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -277,8 +277,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201511301438212_deadline.resx">
-      <DependentUpon>201511301438212_deadline.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201511301544571_AddGroups.resx">
+      <DependentUpon>201511301544571_AddGroups.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

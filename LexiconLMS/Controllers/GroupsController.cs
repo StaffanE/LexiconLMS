@@ -12,9 +12,8 @@ namespace LexiconLMS.Controllers
 {
     public class GroupsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();   // de heter dbContext i gamla uppgiften. Ändra om något strular
+        private ApplicationDbContext db = new ApplicationDbContext();
 
-        [Authorize(Roles = "Teacher")]
         // GET: Groups
         public ActionResult Index()
         {
@@ -47,7 +46,7 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description,Startdate")] Group group)
+        public ActionResult Create([Bind(Include = "Id,Name,Description,StartDate,EndDate")] Group group)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +78,7 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,Startdate")] Group group)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,StartDate,EndDate")] Group group)
         {
             if (ModelState.IsValid)
             {
