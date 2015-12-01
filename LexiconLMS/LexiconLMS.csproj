@@ -169,9 +169,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201511301544571_AddGroups.cs" />
-    <Compile Include="Migrations\201511301544571_AddGroups.Designer.cs">
-      <DependentUpon>201511301544571_AddGroups.cs</DependentUpon>
+    <Compile Include="Migrations\201512010856277_PappaMatti.cs" />
+    <Compile Include="Migrations\201512010856277_PappaMatti.Designer.cs">
+      <DependentUpon>201512010856277_PappaMatti.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -277,8 +277,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201511301544571_AddGroups.resx">
-      <DependentUpon>201511301544571_AddGroups.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201512010856277_PappaMatti.resx">
+      <DependentUpon>201512010856277_PappaMatti.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

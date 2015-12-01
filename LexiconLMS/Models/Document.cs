@@ -18,6 +18,7 @@ namespace LexiconLMS.Models
         public string Description { get; set; }
 
         [Display(Name = "Dokument skapat")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime dateCreated
         {
            get; set;

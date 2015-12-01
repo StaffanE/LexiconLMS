@@ -3,7 +3,7 @@ namespace LexiconLMS.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddGroups : DbMigration
+    public partial class PappaMatti : DbMigration
     {
         public override void Up()
         {

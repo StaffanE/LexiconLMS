@@ -19,9 +19,11 @@ namespace LexiconLMS.Models
         public string Description { get; set; }
 
         [Display(Name = "Start Datum")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? StartDate { get; set; }
 
         [Display(Name = "Slut Datum")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? EndDate { get; set; }
     }
 }
