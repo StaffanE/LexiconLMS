@@ -25,17 +25,33 @@ namespace LexiconLMS.Controllers
         // GET: Groups
         public ActionResult Index(string sortOrder)                                         //  sortOrder sätt som en inparameter. Den används inte när man kör Index-actionresult första gången, utan bara om man väljer att sortera via någon av kolumnrubriks-länkarna.
         {
+            
+            
+            
+            
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";                      //   Om sortOrder-parametern är null eller tom, sätts ViewBag.NameSortParm till "name_desc"; annars sätts den till en tom sträng.
-            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";                             //    _ ? _ : _  är det samma som  "if ... then ... else", dvs if (sortOrder == "Date") then {ViewBag.DateSortParm = "date_desc";} else {ViewBag.DataSortParm ="Date";}
-         
-            //if (sortOrder == "Date")                                                                //  Det omständliga sättet att skriva det, som dessutom inte riktigt funkar just nu. 
-            //{
-            //    ViewBag.DateSortParm = "date_desc";
-            //}
-            //else
-            //{
-            //    ViewBag.DataSortParm = "Date";
-            //}
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";                             //    _ ? _ : _  är det samma som  "if ... then ... else", dvs if (sortOrder == "Date") then {ViewBag.DateSortParm = "date_desc";} else {ViewBag.DateSortParm ="Date";}
+            ViewBag.EndDateSortParm = sortOrder == "end_date" ? "end_date_desc" : "end_date";
+                        
+              //if (sortOrder == "Date")                                                                //  Det omständliga sättet att skriva det, som dessutom inte riktigt funkar just nu. 
+              //{
+              //    ViewBag.DateSortParm = "date_desc";
+              //}
+              //else
+              //{
+              //    ViewBag.DateSortParm = "Date";
+              //}
+
+              //if (sortOrder == "Date")                                                                //  Det omständliga sättet att skriva det, som dessutom inte riktigt funkar just nu. 
+              //{
+              //    ViewBag.DateSortParm = "date_desc";
+              //}
+              //else
+              //{
+              //    ViewBag.DateSortParm = "Date";
+              //}
+
+
             
             var groups = from g in db.Group
                   select g;
@@ -50,6 +66,12 @@ namespace LexiconLMS.Controllers
                 case "date_desc":
                     groups = groups.OrderByDescending(g => g.StartDate);
                     break;
+                case "end_date":
+                    groups = groups.OrderBy(g => g.EndDate);
+                    break;
+                case "end_date_desc":
+                    groups = groups.OrderByDescending(g => g.EndDate);
+                    break;                
                 default:
                     groups = groups.OrderBy(g => g.Name);
                 break;
