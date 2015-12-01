@@ -15,10 +15,52 @@ namespace LexiconLMS.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Groups
-        public ActionResult Index()
+        //public ActionResult Index()
+        //{
+        //    return View(db.Group.ToList());
+        //}
+
+
+
+        // GET: Groups
+        public ActionResult Index(string sortOrder)                                         //  sortOrder sätt som en inparameter. Den används inte när man kör Index-actionresult första gången, utan bara om man väljer att sortera via någon av kolumnrubriks-länkarna.
         {
-            return View(db.Group.ToList());
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";                      //   Om sortOrder-parametern är null eller tom, sätts ViewBag.NameSortParm till "name_desc"; annars sätts den till en tom sträng.
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";                             //    _ ? _ : _  är det samma som  "if ... then ... else", dvs if (sortOrder == "Date") then {ViewBag.DateSortParm = "date_desc";} else {ViewBag.DataSortParm ="Date";}
+         
+            //if (sortOrder == "Date")                                                                //  Det omständliga sättet att skriva det, som dessutom inte riktigt funkar just nu. 
+            //{
+            //    ViewBag.DateSortParm = "date_desc";
+            //}
+            //else
+            //{
+            //    ViewBag.DataSortParm = "Date";
+            //}
+            
+            var groups = from g in db.Group
+                  select g;
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    groups = groups.OrderByDescending(g => g.Name);
+                    break;
+                case "Date":
+                    groups = groups.OrderBy(g => g.StartDate);
+                    break;
+                case "date_desc":
+                    groups = groups.OrderByDescending(g => g.StartDate);
+                    break;
+                default:
+                    groups = groups.OrderBy(g => g.Name);
+                break;
+            }
+            return View(groups.ToList());
         }
+        
+
+
+
+
 
         // GET: Groups/Details/5
         public ActionResult Details(int? id)

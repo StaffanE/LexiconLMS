@@ -25,6 +25,4 @@ textarea {
 }
 
 
-#test1 {
-    align-content: center;
-}
+.my-class1 { color: #000000 }   /*Sätter färgen på de sorterbara rubriklänkarna i kolumnera i Group-Index */

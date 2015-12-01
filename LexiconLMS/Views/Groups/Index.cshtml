@@ -12,16 +12,19 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @*@Html.DisplayNameFor(model => model.Name)*@
+            @Html.ActionLink("Namn", "Index", new { sortOrder = ViewBag.NameSortParm }, new { @class = "my-class1" })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.StartDate)
+            @*@Html.DisplayNameFor(model => model.StartDate)*@
+            @Html.ActionLink("Startdatum", "Index", new { sortOrder = ViewBag.DateSortParm }, new { @class = "my-class1" })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EndDate)
+            @*@Html.DisplayNameFor(model => model.EndDate)*@
+            @Html.ActionLink("Slutdatum", "Index", new { sortOrder = ViewBag.DateSortParm }, new { @class = "my-class1" })
         </th>
         <th></th>
     </tr>
