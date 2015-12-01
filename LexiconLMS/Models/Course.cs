@@ -22,7 +22,8 @@ namespace LexiconLMS.Models
         public DateTime StartDate { get; set; }
 
         [Display(Name = "Slut Datum")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
+        // [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime EndDate { get; set; }
 
         [Display(Name = "Grupp")]

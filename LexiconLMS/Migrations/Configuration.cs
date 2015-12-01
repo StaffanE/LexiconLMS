@@ -33,7 +33,7 @@ namespace LexiconLMS.Migrations
                 var nDescription = groupArray[i, 1];
                 context.Group.AddOrUpdate
                 (g => g.Name,
-                  new Group { Id = i + 1, Name = nName, Description = nDescription, StartDate = DateTime.Now.AddDays(-20) }
+                  new Group { Id = i + 1, Name = nName, Description = nDescription, StartDate = DateTime.Now.AddDays(-20), EndDate = DateTime.Now.AddDays(40) }
                 );
             }
 
