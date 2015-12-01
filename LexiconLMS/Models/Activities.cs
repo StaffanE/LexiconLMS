@@ -27,11 +27,11 @@ namespace LexiconLMS.Models
     public class Activities
     {
         public int Id { get; set; }
-        
-        [Display(Name = "Aktivitetstyp")]
+
+        [Display(Name = "Typ")]
         public ActivityTypeEnum ActivityType { get; set; }
 
-        [Display(Name = "Titel")]
+        [Display(Name = "Aktivitet")]
         public string Name { get; set; }
 
         [Display(Name = "Beskrivning")]

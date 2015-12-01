@@ -11,7 +11,7 @@ namespace LexiconLMS.Models
     {
         public int Id { get; set; }
 
-        [Display(Name = "Kursnamn")]
+        [Display(Name = "Kurs")]
         public string Name { get; set; }
 
         [Display(Name = "Kursbeskrivning")]
