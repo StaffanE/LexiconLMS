@@ -9,10 +9,12 @@ namespace LexiconLMS.Models
 {
     public class Group
     {
+        [Display(Name = "Grupp ID")]
         public int Id { get; set; }
 
         [Display(Name = "Gruppnamn")]
         public string Name { get; set; }
+
         [Display(Name = "Beskrivning")]
         public string Description { get; set; }
 

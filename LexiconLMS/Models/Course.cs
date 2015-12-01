@@ -23,10 +23,11 @@ namespace LexiconLMS.Models
         [Display(Name = "Slut Datum")]
         public DateTime EndDate { get; set; }
 
-        // [Required(ErrorMessage = "Ägare / Medlem krävs.")]
+        [Display(Name = "Grupp")]
         public int GroupId { get; set; }                         // Foreign key
         
         // [Display(Name = "Ägare / Medlem")]
+        [Display(Name = "Grupp")]
         public virtual Group Group { get; set; }                // Navigation property
 
         // [Display(Name = "Fordonstyp")]                           //  Det verkar vara denna som styr displaNameFor i Viewen, ine den i VehicleType-modellen
