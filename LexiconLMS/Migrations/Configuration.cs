@@ -122,11 +122,16 @@ namespace LexiconLMS.Migrations
                 string uPhone = userArray[0, 0, 0, 0, i, 4];
                 string uGroupId = userArray[0, 0, 0, 0, i, 5];
 
+               
+
+               // GroupId = 2;
+
+
 
 
                 if (!context.Users.Any(u => u.Email == eMail))  // I Users-tabellen kollar vi mot e-mail(förhoppningsvis unikt)
                 {
-
+                    int GroupId = 4;
    
                     //Om användare med detta e-mail inte finns i databasen läggs ny användare upp
                     user = new ApplicationUser
