@@ -4,6 +4,19 @@
     ViewBag.Title = "Index";
 }
 
+@*@{
+    var className = "";
+    if (ViewBag.sortOrder.Equals("name_desc"))
+    {
+        className = "glyphicon glyphicon-triangle-top";
+    }
+    else
+    {
+        className = "glyphicon glyphicon-triangle-bottom";
+    }
+}*@
+
+
 <h2>Index</h2>
 
 <p>
@@ -14,6 +27,7 @@
         <th>
             @*@Html.DisplayNameFor(model => model.Name)*@
             @Html.ActionLink("Namn", "Index", new { sortOrder = ViewBag.NameSortParm }, new { @class = "my-class1" })
+            @*<i class="@className"></i>*@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
@@ -21,6 +35,12 @@
         <th>
             @*@Html.DisplayNameFor(model => model.StartDate)*@
             @Html.ActionLink("Startdatum", "Index", new { sortOrder = ViewBag.DateSortParm }, new { @class = "my-class1" })
+            @if (ViewBag.DateSortParm == "Date") {
+                <i class="glyphicon glyphicon-sort-by-alphabet"></i>
+            } else if (ViewBag.DateSortParm == "date_desc") {
+                <i class="glyphicon glyphicon-sort-by-alphabet-alt"></i>
+            } 
+            
         </th>
         <th>
             @*@Html.DisplayNameFor(model => model.EndDate)*@

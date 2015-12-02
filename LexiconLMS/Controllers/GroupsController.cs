@@ -14,7 +14,7 @@ namespace LexiconLMS.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Groups
+        // GET: Groups                               //   Ursprungliga Index-versionen
         //public ActionResult Index()
         //{
         //    return View(db.Group.ToList());
@@ -31,7 +31,7 @@ namespace LexiconLMS.Controllers
             
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";                      //   Om sortOrder-parametern är null eller tom, sätts ViewBag.NameSortParm till "name_desc"; annars sätts den till en tom sträng.
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";                             //    _ ? _ : _  är det samma som  "if ... then ... else", dvs if (sortOrder == "Date") then {ViewBag.DateSortParm = "date_desc";} else {ViewBag.DateSortParm ="Date";}
-            ViewBag.EndDateSortParm = sortOrder == "end_date" ? "end_date_desc" : "end_date";
+            ViewBag.EndDateSortParm = sortOrder == "end_date" ? "end_date_desc" : "end_date";              //   Om sortOrder har istället har fått värdet från EndDate-kolumnen, så blir det antingen stigande eller fallande.
                         
               //if (sortOrder == "Date")                                                                //  Det omständliga sättet att skriva det, som dessutom inte riktigt funkar just nu. 
               //{
@@ -41,27 +41,16 @@ namespace LexiconLMS.Controllers
               //{
               //    ViewBag.DateSortParm = "Date";
               //}
-
-              //if (sortOrder == "Date")                                                                //  Det omständliga sättet att skriva det, som dessutom inte riktigt funkar just nu. 
-              //{
-              //    ViewBag.DateSortParm = "date_desc";
-              //}
-              //else
-              //{
-              //    ViewBag.DateSortParm = "Date";
-              //}
-
-
             
-            var groups = from g in db.Group
-                  select g;
-            switch (sortOrder)
+            var groups = from g in db.Group                                           //  Variabeln groups skapas från Group-tabellen mha LINQ...
+                  select g;                                                           
+            switch (sortOrder)                                                        //  En switch där man mha LINQ kollar värdet på sortOrder                     
             {
-                case "name_desc":
+                case "name_desc":                                                     // Om sortOrder == "name_desc" sorterar man fallande på Name, annars kollar man vidare i switchen, osv...                 
                     groups = groups.OrderByDescending(g => g.Name);
                     break;
                 case "Date":
-                    groups = groups.OrderBy(g => g.StartDate);
+                    groups = groups.OrderBy(g => g.StartDate);                    
                     break;
                 case "date_desc":
                     groups = groups.OrderByDescending(g => g.StartDate);
