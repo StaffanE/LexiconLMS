@@ -1,22 +1,18 @@
-namespace LexiconLMS.Migrations
-{
+namespace LexiconLMS.Migrations {
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
-    using LexiconLMS.Models;  
+    using LexiconLMS.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<LexiconLMS.Models.ApplicationDbContext>
-    {
-        public Configuration()
-        {
+    internal sealed class Configuration : DbMigrationsConfiguration<LexiconLMS.Models.ApplicationDbContext> {
+        public Configuration() {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(LexiconLMS.Models.ApplicationDbContext context)
-        {
+        protected override void Seed(LexiconLMS.Models.ApplicationDbContext context) {
             // context.Database.
 
             string[,] groupArray = new string[,]
@@ -26,8 +22,7 @@ namespace LexiconLMS.Migrations
                {"Java", "Utvecklare Java"},
                {"Tomte", "Kurs varuhustomte (säsongsberoende)"}
    	        };
-            for (int i = 0; i < groupArray.Length / 2; i++)
-            {
+            for (int i = 0; i < groupArray.Length / 2; i++) {
                 var nName = groupArray[i, 0];
                 var nDescription = groupArray[i, 1];
                 context.Group.AddOrUpdate
@@ -77,8 +72,7 @@ namespace LexiconLMS.Migrations
             var roleStore = new RoleStore<IdentityRole>(context);                                  // Role behöver tilldelas innan user, för att det ska funka att registrera
             var roleManager = new RoleManager<IdentityRole>(roleStore);
             string[] rolesArray = { "Teacher", "Student" };                               //  Skapar array för roles
-            foreach (var roleName in rolesArray)
-            {
+            foreach (var roleName in rolesArray) {
                 if (!roleManager.RoleExists(roleName))                                        // Kollar nedan om rolesen finns sen innan, annars tilldelar man dem
                 {
                     var role = new IdentityRole { Name = roleName };
@@ -112,8 +106,7 @@ namespace LexiconLMS.Migrations
 
             // Loop based on length.
             // ... Assumes each subarray is five elements long.
-            for (int i = 0; i < userArray.Length / 6; i++)
-            {
+            for (int i = 0; i < userArray.Length / 6; i++) {
                 // userArray[0, 0, 0, rad, kolumn/element];
                 string uFirstName = userArray[0, 0, 0, 0, i, 0];
                 string uLastName = userArray[0, 0, 0, 0, i, 1];
@@ -122,9 +115,9 @@ namespace LexiconLMS.Migrations
                 string uPhone = userArray[0, 0, 0, 0, i, 4];
                 string uGroupId = userArray[0, 0, 0, 0, i, 5];
 
-               
 
-               // GroupId = 2;
+
+                // GroupId = 2;
 
 
 
@@ -132,10 +125,9 @@ namespace LexiconLMS.Migrations
                 if (!context.Users.Any(u => u.Email == eMail))  // I Users-tabellen kollar vi mot e-mail(förhoppningsvis unikt)
                 {
                     int GroupId = 4;
-   
+
                     //Om användare med detta e-mail inte finns i databasen läggs ny användare upp
-                    user = new ApplicationUser
-                    {
+                    user = new ApplicationUser {
                         UserName = eMail,
                         FirstName = uFirstName,
                         LastName = uLastName,
@@ -145,10 +137,10 @@ namespace LexiconLMS.Migrations
                         PhoneNumber = uPhone,
                         GroupId = 2
 
-                            //if (String.IsNullOrEmpty(uGroupId)) 
-                            //    GroupId = null;
-                            //else
-                            //    GroupId = 2;
+                        //if (String.IsNullOrEmpty(uGroupId)) 
+                        //    GroupId = null;
+                        //else
+                        //    GroupId = 2;
 
 
                     };        // Här skapas en user...
