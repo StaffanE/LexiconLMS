@@ -23,33 +23,54 @@ namespace LexiconLMS.Controllers
 
 
         // GET: Groups
-        public ActionResult Index(string sortOrder)                                         //  sortOrder sätt som en inparameter. Den används inte när man kör Index-actionresult första gången, utan bara om man väljer att sortera via någon av kolumnrubriks-länkarna.
-        {
+        public ActionResult Index(string sortOrder)                                         //  sortOrder sätts som en inparameter. Den används inte när man kör Index-actionresult första gången, utan bara om man väljer att sortera via någon av kolumnrubriks-länkarna. 
+        {                                                                                   //  sortOrder får sitt in-värde beroende på vilken kolumnrubrik man trycker på i Viewen.               
+        
+            sortOrder = String.IsNullOrEmpty(sortOrder) ? "name" : sortOrder;                      //   Om sortOrder-parametern är null eller tom, som den är första gången, så sätts den istället till "name". Är den inte tom när den kommer in så behålls den som den är. 
+            ViewBag.NameSortParm = sortOrder == "name" ? "name_desc" : "name";                     //    ViewBag.NameSortParm sätts till sortOrder. Om sortOrder har värdet "name" så ändras det till name_desc istället, har den något annat värde så sätts den till "name".
+            ViewBag.DateSortParm = sortOrder == "date" ? "date_desc" : "date";                             //    _ ? _ : _  är det samma som  "if ... then ... else", dvs if (sortOrder == "Date") then {ViewBag.DateSortParm = "date_desc";} else {ViewBag.DateSortParm ="Date";}
+            ViewBag.EndDateSortParm = sortOrder == "end_date" ? "end_date_desc" : "end_date";              //   ViewBag.EndDateSortParm sätts till sortOrder. Om sortOrder har värdet "end_date" sätts det istället till "end_date_desc", har den något annat värde så sätts den till "end_date".
+            ViewBag.sortOrder = sortOrder;
+
+            //ViewBag.NameSortParm = sortOrder;                                                                //  Det omständliga sättet att skriva det.
+            //if (String.IsNullOrEmpty(sortOrder))
+            //{
+            //    ViewBag.NameSortParm = "name_desc";
+            //}
+            //else
+            //{
+            //    ViewBag.NameSortParm = "name";
+            //}
+
+
+            //ViewBag.DateSortParm = sortOrder;                                                                //  Det omständliga sättet att skriva det.
+            //if (sortOrder == "date")
+            //{
+            //    ViewBag.DateSortParm = "date_desc";
+            //}
+            //else
+            //{
+            //    ViewBag.DateSortParm = "date";
+            //}   
             
-            
-            
-            
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";                      //   Om sortOrder-parametern är null eller tom, sätts ViewBag.NameSortParm till "name_desc"; annars sätts den till en tom sträng.
-            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";                             //    _ ? _ : _  är det samma som  "if ... then ... else", dvs if (sortOrder == "Date") then {ViewBag.DateSortParm = "date_desc";} else {ViewBag.DateSortParm ="Date";}
-            ViewBag.EndDateSortParm = sortOrder == "end_date" ? "end_date_desc" : "end_date";              //   Om sortOrder har istället har fått värdet från EndDate-kolumnen, så blir det antingen stigande eller fallande.
-                        
-              //if (sortOrder == "Date")                                                                //  Det omständliga sättet att skriva det, som dessutom inte riktigt funkar just nu. 
-              //{
-              //    ViewBag.DateSortParm = "date_desc";
-              //}
-              //else
-              //{
-              //    ViewBag.DateSortParm = "Date";
-              //}
+            //ViewBag.EndDateSortParm = sortOrder;                                                     //  Det omständliga sättet att skriva det. 
+                //if (sortOrder == "end_date")                                                                
+                //{
+                //    ViewBag.EndDateSortParm = "end_date_desc";
+                //}
+                //  else // if (sortOrder == "EndDate")
+                //{
+                //    ViewBag.EndDateSortParm = "end_date"; 
+                //}   
             
             var groups = from g in db.Group                                           //  Variabeln groups skapas från Group-tabellen mha LINQ...
                   select g;                                                           
             switch (sortOrder)                                                        //  En switch där man mha LINQ kollar värdet på sortOrder                     
             {
-                case "name_desc":                                                     // Om sortOrder == "name_desc" sorterar man fallande på Name, annars kollar man vidare i switchen, osv...                 
+                case "name_desc":                                                     //  Om sortOrder == "name_desc" sorterar man fallande på Name, annars kollar man vidare i switchen, osv...                 
                     groups = groups.OrderByDescending(g => g.Name);
                     break;
-                case "Date":
+                case "date":
                     groups = groups.OrderBy(g => g.StartDate);                    
                     break;
                 case "date_desc":
