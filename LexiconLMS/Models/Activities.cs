@@ -23,8 +23,7 @@ namespace LexiconLMS.Models
         Other 
 
     }
-
-    public class Activities
+     public class Activities
     {
         public int Id { get; set; }
 

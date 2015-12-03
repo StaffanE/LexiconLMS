@@ -33,6 +33,7 @@ namespace LexiconLMS.Models
         [Display(Name = "Grupp")]
         public virtual Group Group { get; set; }                // Navigation property
 
+        public virtual ICollection<Activities> CourseActivities { get; set; }
         // [Display(Name = "Fordonstyp")]                           //  Det verkar vara denna som styr displaNameFor i Viewen, ine den i VehicleType-modellen
         // public virtual VehicleType VehicleType { get; set; }
     }
