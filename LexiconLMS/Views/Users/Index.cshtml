@@ -6,30 +6,65 @@
 
 <h2>Index</h2>
 
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create")
-</p>
+</p>*@
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Group.Name)
-        </th>
-        <th>
+        @if (Request.IsAuthenticated)
+        {
+            if (User.IsInRole("Teacher"))
+            {
+                <th>
+                    @*@Html.DisplayNameFor(model => model.Group.Name)*@
+                    @Html.ActionLink("Gruppnamn", "Index", new { sortOrder = ViewBag.GroupSortParm }, new { @class = "my-class1" })
+                    @if (ViewBag.sortOrder == "group_desc")
+                    {
+                        <i class="glyphicon glyphicon-sort-by-alphabet-alt"></i>
+                    }
+                        else if (ViewBag.sortOrder == "group")
+                    {
+                        <i class="glyphicon glyphicon-sort-by-alphabet"></i>
+                    }
+                </th>
+            }
+        }
+        
+        @*<th>
             @Html.DisplayNameFor(model => model.FirstName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.LastName)
-        </th>
+        </th>*@
         <th>
-            @Html.DisplayNameFor(model => model.Fullname)
+            @*@Html.DisplayNameFor(model => model.Fullname)*@
+            @Html.ActionLink("Namn", "Index", new { sortOrder = ViewBag.NameSortParm }, new { @class = "my-class1" })
+            @if (ViewBag.sortOrder == "name_desc")
+            {
+                <i class="glyphicon glyphicon-sort-by-alphabet-alt"></i>
+            }
+            else if (ViewBag.sortOrder == "name")
+            {
+                <i class="glyphicon glyphicon-sort-by-alphabet"></i>
+            }
+
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Title)
-        </th>
+        </th>*@
         <th>
-            @Html.DisplayNameFor(model => model.Email)
+            @*@Html.DisplayNameFor(model => model.Email)*@
+            @Html.ActionLink("E-post", "Index", new { sortOrder = ViewBag.MailSortParm }, new { @class = "my-class1" })
+            @if (ViewBag.sortOrder == "mail_desc")
+            {
+                <i class="glyphicon glyphicon-sort-by-alphabet-alt"></i>
+            }
+            else if (ViewBag.sortOrder == "mail")
+            {
+                <i class="glyphicon glyphicon-sort-by-alphabet"></i>
+            }
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.EmailConfirmed)
         </th>
         <th>
@@ -37,11 +72,11 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.SecurityStamp)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.PhoneNumber)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
         </th>
         <th>
@@ -58,31 +93,38 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.UserName)
-        </th>
+        </th>*@
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Group.Name)
-        </td>
-        <td>
+        @if (Request.IsAuthenticated)
+        {
+            if (User.IsInRole("Teacher"))
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Group.Name)
+                </td>
+            }
+        }
+                
+        @*<td>
             @Html.DisplayFor(modelItem => item.FirstName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.LastName)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.Fullname)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.Title)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.Email)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.EmailConfirmed)
         </td>
         <td>
@@ -90,11 +132,11 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.SecurityStamp)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.PhoneNumber)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.PhoneNumberConfirmed)
         </td>
         <td>
@@ -111,7 +153,7 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.UserName)
-        </td>
+        </td>*@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |

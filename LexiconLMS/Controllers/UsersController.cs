@@ -14,12 +14,54 @@ namespace LexiconLMS.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        // GET: Users                                  //  Original-index
+        //public ActionResult Index()
+        //{
+        //    var Users = db.Users.Include(a => a.Group);
+        //    return View(Users.ToList());
+        //}
+
+
         // GET: Users
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
             var Users = db.Users.Include(a => a.Group);
-            return View(Users.ToList());
+            // return View(Users.ToList());
+
+            sortOrder = String.IsNullOrEmpty(sortOrder) ? "name" : sortOrder;                      //   Om sortOrder-parametern är null eller tom, som den är första gången, så sätts den istället till "name". Är den inte tom när den kommer in så behålls den som den är. 
+            ViewBag.NameSortParm = sortOrder == "name" ? "name_desc" : "name";                     //   ViewBag.NameSortParm sätts till sortOrder. Om sortOrder har värdet "name" så ändras det till name_desc istället, har den något annat värde så sätts den till "name".
+            ViewBag.GroupSortParm = sortOrder == "group" ? "group_desc" : "group";                 //   _ ? _ : _  är det samma som  "if ... then ... else", dvs if (sortOrder == "group") then {ViewBag.GroupSortParm = "group_desc";} else {ViewBag.GroupSortParm ="group";}
+            ViewBag.MailSortParm = sortOrder == "mail" ? "mail_desc" : "mail";                     //   ViewBag.MaildSortParm sätts till sortOrder. Om sortOrder har värdet "mail" sätts det istället till "mail_desc", har den något annat värde så sätts den till "mail".
+            ViewBag.sortOrder = sortOrder;                                                         //   Viewbag.sortOrder sätts till sortOrder för att kunna kolla i Viewen vilket värde på sortOrder som gäller.
+                        
+            var users = from u in db.Users                                                         //   Variabeln users skapas från Users-tabellen mha LINQ...
+                  select u;                                                           
+            switch (sortOrder)                                                                             
+            {
+                case "name_desc":                                                                  //  Om sortOrder == "name_desc" sorterar man fallande på Fullname, annars kollar man vidare i switchen, osv...                 
+                    users = users.OrderByDescending(u => u.Fullname);
+                    break;
+                case "group":
+                    users = users.OrderBy(u => u.Group.Name);                    
+                    break;
+                case "group_desc":
+                    users = users.OrderByDescending(u => u.Group.Name);
+                    break;
+                case "mail":
+                    users = users.OrderBy(u => u.Email);
+                    break;
+                case "mail_desc":
+                    users = users.OrderByDescending(u => u.Email);
+                    break;                
+                default:
+                    users = users.OrderBy(u => u.Fullname);
+                break;
+            }
+            return View(users.ToList());
         }
+
+        
+
 
         // GET: Users/Details/5
         public ActionResult Details(string id)

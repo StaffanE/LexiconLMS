@@ -93,11 +93,11 @@ namespace LexiconLMS.Migrations {
                         {
                            {
                         //  {"FirstName", "LastName","Email","Role","Phone"},
-   	                        {"Adolf", "Hitler","dead.nazze@nazist.de","Student","07000000","3"},
-	                        {"Nisse", "Näsa","nisse.nose@gmail.se","Teacher","070909090",""},
-	                        {"Donald", "Duck","kalle.anka@gmail.se","Student","070919091","1"},
-	                        {"Mickey", "Mouse","the.rat@gmail.se","Student","070919291","2"},
-  	                        {"Ronald", "Reagan","dead.expresident@gmail.se","Student","070929292","3"} 
+                            {"Oscar", "Jakobsson","user1@gmail.com","Teacher","070909090",""},
+   	                        {"Jonas", "Jakobsson","user2@gmail.com","Student","07000000","3"},
+	                        {"Matti", "Boustedt","user3@gmail.com","Student","070909090",""},
+	                        {"Staffan", "Ericsson","user4@gmail.com","Student","070919091","1"},
+	                        {"Kalle", "Anka","user5@gmail.se","Student","070919291","2"}  	                        
                            }
                         }
                     }
@@ -145,7 +145,7 @@ namespace LexiconLMS.Migrations {
 
                     };        // Här skapas en user...
                     userManager.Create(user, "foobar");       // ..och här kopplas usern till vår databas. Usern läggs till med en hash - foobar är "lösenordet"
-                    user = userManager.FindByEmail(eMail);    // Sök rätt på vår nysakapade användare och tilldela UserRole med rätt id
+                    user = userManager.FindByEmail(eMail);    // Sök rätt på vår nyskapade användare och tilldela UserRole med rätt id
                     userManager.AddToRole(user.Id, uTitle);
                 }
             }
