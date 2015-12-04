@@ -34,13 +34,13 @@
             else if (ViewBag.sortOrder == "name")
             {
                 <i class="glyphicon glyphicon-sort-by-alphabet"></i>
-            }     
-            
+            }
+
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
-        <th>
+        <th>   
             @*@Html.DisplayNameFor(model => model.StartDate)*@
             @Html.ActionLink("Startdatum", "Index", new { sortOrder = ViewBag.DateSortParm }, new { @class = "my-class1" })
             @if (ViewBag.sortOrder == "date_desc")
@@ -50,7 +50,8 @@
             else if (ViewBag.sortOrder == "date")
             {
                 <i class="glyphicon glyphicon-sort-by-order"></i>
-            } 
+            }
+             
             
         </th>
         <th>
@@ -63,7 +64,7 @@
             else if (ViewBag.sortOrder == "end_date")
             {
                 <i class="glyphicon glyphicon-sort-by-order"></i>
-            } 
+            }
 
         </th>
         <th></th>
