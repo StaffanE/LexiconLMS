@@ -6,9 +6,16 @@
 
 <h2>Index</h2>
 
-@*<p>
-    @Html.ActionLink("Create New", "Create")
-</p>*@
+@if (Request.IsAuthenticated)
+{
+    if (User.IsInRole("Teacher"))
+    {
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+    }
+}
+
 <table class="table">
     <tr>
         @if (Request.IsAuthenticated)

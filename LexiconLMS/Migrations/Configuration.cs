@@ -97,6 +97,7 @@ namespace LexiconLMS.Migrations {
    	                        {"Jonas", "Jakobsson","user2@gmail.com","Student","07000000","3"},
 	                        {"Matti", "Boustedt","user3@gmail.com","Student","070909090",""},
 	                        {"Staffan", "Ericsson","user4@gmail.com","Student","070919091","1"},
+                            {"John", "Doe","user6@gmail.com","Student","070919091","1"},
 	                        {"Kalle", "Anka","user5@gmail.se","Student","070919291","2"}  	                        
                            }
                         }
@@ -135,7 +136,7 @@ namespace LexiconLMS.Migrations {
                         Email = eMail,
                         Title = uTitle,
                         PhoneNumber = uPhone,
-                        GroupId = 2
+                        GroupId = 1
 
                         //if (String.IsNullOrEmpty(uGroupId)) 
                         //    GroupId = null;
