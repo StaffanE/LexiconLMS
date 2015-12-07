@@ -95,7 +95,7 @@ namespace LexiconLMS.Migrations {
                         //  {"FirstName", "LastName","Email","Role","Phone"},
                             {"Oscar", "Jakobsson","user1@gmail.com","Teacher","070909090",""},
    	                        {"Jonas", "Jakobsson","user2@gmail.com","Student","07000000","3"},
-	                        {"Matti", "Boustedt","user3@gmail.com","Student","070909090",""},
+	                        {"Matti", "Boustedt","user3@gmail.com","Student","070909090","2"},
 	                        {"Staffan", "Ericsson","user4@gmail.com","Student","070919091","1"},
 	                        {"Kalle", "Anka","user5@gmail.se","Student","070919291","2"}  	                        
                            }
@@ -124,7 +124,19 @@ namespace LexiconLMS.Migrations {
 
                 if (!context.Users.Any(u => u.Email == eMail))  // I Users-tabellen kollar vi mot e-mail(förhoppningsvis unikt)
                 {
-                    int GroupId = 4;
+
+                    if (uGroupId == "")
+                    {
+                        uGroupId = "0";
+                    }
+
+                    // Om grupp id inte har en siffra sätter vi gruppId till null.
+                    int? tGroupId = Int32.Parse(uGroupId);
+                        
+                    if  (!(tGroupId > 0)) {
+                       tGroupId = null;
+                    }
+   
 
                     //Om användare med detta e-mail inte finns i databasen läggs ny användare upp
                     user = new ApplicationUser {
@@ -135,7 +147,7 @@ namespace LexiconLMS.Migrations {
                         Email = eMail,
                         Title = uTitle,
                         PhoneNumber = uPhone,
-                        GroupId = 2
+                        GroupId = tGroupId
 
                         //if (String.IsNullOrEmpty(uGroupId)) 
                         //    GroupId = null;
