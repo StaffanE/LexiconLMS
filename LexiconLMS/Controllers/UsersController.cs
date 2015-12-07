@@ -35,11 +35,15 @@ namespace LexiconLMS.Controllers
             ViewBag.sortOrder = sortOrder;                                                         //   Viewbag.sortOrder sätts till sortOrder för att kunna kolla i Viewen vilket värde på sortOrder som gäller.
                         
             var users = from u in db.Users                                                         //   Variabeln users skapas från Users-tabellen mha LINQ...
-                  select u;                                                           
+                  where u.GroupId == 1
+                //  u.GroupId == User.Identity.
+                  //select u;     
+                  join g in db.Group on u.GroupId equals g.Id
+                  select u;                     
             switch (sortOrder)                                                                             
             {
                 case "name_desc":                                                                  //  Om sortOrder == "name_desc" sorterar man fallande på Fullname, annars kollar man vidare i switchen, osv...                 
-                    users = users.OrderByDescending(u => u.Fullname);
+                    users = users.OrderByDescending(u => u.LastName);
                     break;
                 case "group":
                     users = users.OrderBy(u => u.Group.Name);                    
@@ -54,7 +58,7 @@ namespace LexiconLMS.Controllers
                     users = users.OrderByDescending(u => u.Email);
                     break;                
                 default:
-                    users = users.OrderBy(u => u.Fullname);
+                    users = users.OrderBy(u => u.LastName);
                 break;
             }
             return View(users.ToList());
