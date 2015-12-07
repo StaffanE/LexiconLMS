@@ -59,14 +59,7 @@ namespace LexiconLMS.Migrations {
             );
 
 
-            context.Documents.AddOrUpdate(
-              d => d.Name,
-              new Document { Id = 1, Name = "Övning 1", Description = "Övningsuppgift om loopar etc", dateCreated = DateTime.Today.AddDays(-45), GroupId = 1, ApplicationUserId = 1 },
-              new Document { Id = 2, Name = "Kursinformation", Description = "Översikt över delkursen", dateCreated = DateTime.Today.AddDays(-40), CourseId = 1, ApplicationUserId = 1 },
-              new Document { Id = 3, Name = "Inlämningsuppgift 5", Description = "Inlämningsuppgift", dateCreated = DateTime.Today.AddDays(-45), ActivitiesId = 1, ApplicationUserId = 1 },
-              new Document { Id = 4, Name = "Inlämningsuppgift 6", Description = "Elevinlämnad inlämningsuppgift", dateCreated = DateTime.Today.AddDays(-35), ActivitiesId = 1, ApplicationUserId = 4 },
-              new Document { Id = 5, Name = "Inlämningsuppgift 7", Description = "Elevinlämnad inlämningsuppgift", dateCreated = DateTime.Today.AddDays(-35), ActivitiesId = 1, ApplicationUserId = 2 }
-            );
+
 
 
             var roleStore = new RoleStore<IdentityRole>(context);                                  // Role behöver tilldelas innan user, för att det ska funka att registrera
@@ -95,9 +88,8 @@ namespace LexiconLMS.Migrations {
                         //  {"FirstName", "LastName","Email","Role","Phone"},
                             {"Oscar", "Jakobsson","user1@gmail.com","Teacher","070909090",""},
    	                        {"Jonas", "Jakobsson","user2@gmail.com","Student","07000000","3"},
-	                        {"Matti", "Boustedt","user3@gmail.com","Student","070909090",""},
+	                        {"Matti", "Boustedt","user3@gmail.com","Student","070909090","2"},
 	                        {"Staffan", "Ericsson","user4@gmail.com","Student","070919091","1"},
-                            {"John", "Doe","user6@gmail.com","Student","070919091","1"},
 	                        {"Kalle", "Anka","user5@gmail.se","Student","070919291","2"}  	                        
                            }
                         }
@@ -125,7 +117,19 @@ namespace LexiconLMS.Migrations {
 
                 if (!context.Users.Any(u => u.Email == eMail))  // I Users-tabellen kollar vi mot e-mail(förhoppningsvis unikt)
                 {
-                    int GroupId = 4;
+
+                    if (uGroupId == "")
+                    {
+                        uGroupId = "0";
+                    }
+
+                    // Om grupp id inte har en siffra sätter vi gruppId till null.
+                    int? tGroupId = Int32.Parse(uGroupId);
+                        
+                    if  (!(tGroupId > 0)) {
+                       tGroupId = null;
+                    }
+   
 
                     //Om användare med detta e-mail inte finns i databasen läggs ny användare upp
                     user = new ApplicationUser {
@@ -136,7 +140,7 @@ namespace LexiconLMS.Migrations {
                         Email = eMail,
                         Title = uTitle,
                         PhoneNumber = uPhone,
-                        GroupId = 1
+                        GroupId = tGroupId
 
                         //if (String.IsNullOrEmpty(uGroupId)) 
                         //    GroupId = null;
@@ -150,6 +154,18 @@ namespace LexiconLMS.Migrations {
                     userManager.AddToRole(user.Id, uTitle);
                 }
             }
+
+
+            context.Documents.AddOrUpdate(
+              d => d.Name,
+              new Document { Id = 1, Name = "Övning 1", Description = "Övningsuppgift om loopar etc", dateCreated = DateTime.Today.AddDays(-45), GroupId = 1, ApplicationUserId = 1 },
+              new Document { Id = 2, Name = "Kursinformation", Description = "Översikt över delkursen", dateCreated = DateTime.Today.AddDays(-40), CourseId = 1, ApplicationUserId = 1 },
+              new Document { Id = 3, Name = "Inlämningsuppgift 5", Description = "Inlämningsuppgift", dateCreated = DateTime.Today.AddDays(-45), ActivitiesId = 1, ApplicationUserId = 1 },
+              new Document { Id = 4, Name = "Inlämningsuppgift 6", Description = "Elevinlämnad inlämningsuppgift", dateCreated = DateTime.Today.AddDays(-35), ActivitiesId = 1, ApplicationUserId = 4 },
+              new Document { Id = 5, Name = "Inlämningsuppgift 7", Description = "Elevinlämnad inlämningsuppgift", dateCreated = DateTime.Today.AddDays(-35), ActivitiesId = 1, ApplicationUserId = 2 }
+            );
+
+
         }
     }
 }
