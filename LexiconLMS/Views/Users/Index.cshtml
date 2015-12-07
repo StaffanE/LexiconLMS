@@ -103,12 +103,21 @@
         {
             if (User.IsInRole("Teacher"))
             {
-                <td>
-                    @Html.DisplayFor(modelItem => item.Group.Name)
-                </td>
+                if (item.Group == null)
+                {
+                    <td>
+                        LÄRARE
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Group.Name)
+                    </td>
+                }
             }
         }
-                
+
         @*<td>
             @Html.DisplayFor(modelItem => item.FirstName)
         </td>
