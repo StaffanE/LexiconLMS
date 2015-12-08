@@ -48,7 +48,7 @@ namespace LexiconLMS.Controllers
                 {
                    users = db.Users.Where(u => u.GroupId == (int)currentUser.GroupId);              //   users tilldelas användarna med samma grupp.id som currentUser
                    ViewBag.groupName = currentUser.Group.Name;
-                   ViewBag.groupDesription = currentUser.Group.Description;
+                   ViewBag.groupDescription = currentUser.Group.Description;
                    ViewBag.groupStartDate = currentUser.Group.StartDate;
                    ViewBag.groupEndDate = currentUser.Group.EndDate;
                 }
