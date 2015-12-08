@@ -3,12 +3,13 @@
 @{
     ViewBag.Title = "Kurs detaljerad beskrivning";
     ViewBag.GoBackToView = "../Courses/Details/";
+    ViewBag.GoBackToUrl = "../Courses/Details/" + Model.Id;
     ViewBag.CourseId = Model.Id;
 }
-
 <h2>Kurs detaljerad beskrivning</h2>
-
-<div style="color:red">
+@using GridMvc.Html;
+@using LexiconLMS;
+<div>
     <h4>@Html.DisplayFor(model => model.Group.Name) / @Html.DisplayFor(model => model.Name)/</h4>
     <hr />
     <dl class="dl-horizontal">
@@ -17,15 +18,17 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Group.Name)
+            @Html.ActionLink(Model.Group.Name, "../Groups/Details", new { id = Model.GroupId })
+            @*@Html.DisplayFor(model => model.Group.Name)*@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => Model.Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Name)
+            @Html.ActionLink(Model.Name, "../Courses/Details", new { id = Model.Id })
+            @*@Html.DisplayFor(model => model.Name)*@
         </dd>
 
         <dt>
@@ -53,45 +56,63 @@
         </dd>
 
         <dd>
-            <h4>Aktiviteter ingående i @Html.DisplayFor(model => model.Name) </h4>
+            <h3 style="background: rgba(0, 137, 208, 0.6);color:#FFFFFF">Aktiviteter ingående i @Html.DisplayFor(model => model.Name) </h3>
             <table class="table">
-                <tr>
-                    <th>Starttid)</th>
-                    <th>Sluttid</th>
-                    <th>ID</th>
-                    <th>Namn</th>
-                    <th>Aktivitet</th>
-                    <th>Beskrivning</th>
-                    <th>Deadline</th>
-                </tr>
-                @foreach (var item in Model.CourseActivities) {
-                    string Style = "color:red";
-                    if ((item.StartTime <= DateTime.Now) || (item.StartTime >= DateTime.Now)) {
-                        Style = "color:green";
+                @for (int i = 0; i < 1; i++) 
+                { 
+                <tr style="background:rgba(0, 137, 208, 0.8);color:#FFFFFF">
+                    <th>
+                        @Html.DisplayNameFor(model => model.StartDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EndDate)
+                    </th>
 
-                    }
-                    <tr style="@Style">
-                        <td style="@Style">
-                            @Html.ActionLink(item.StartTime.ToString("yyyy-MM-dd hh:mm"), "../Activities/Details", new { id = item.Id })
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <td>
+                        @Html.Display("Aktivitetstyp") 
+                    </td>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.Display("Deadline")
+                    </th>
+                </tr>
+                }
+                @foreach (var item in Model.CourseActivities) 
+                {
+                    string visibleText = ExtensionMethods.trTextColor(item.StartTime, item.EndTime);
+                    string GoToUrl = "../Activities/Details";
+                    string GoToUrlForId = @GoToUrl+"/"+item.Id;
+
+                    <tr style=@ExtensionMethods.trColor(item.StartTime,item.EndTime)>
+                        <td>
+                            @Html.ActionLink(item.StartTime.ToString("yyyy-MM-dd hh:mm"), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
                         </td>
                         <td>
-                            @Html.ActionLink(item.EndTime.ToString("yyyy-MM-dd hh:mm"), "../Activities/Details", new { id = item.Id })
+                            @Html.ActionLink(item.EndTime.ToString("yyyy-MM-dd hh:mm"), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
                         </td>
                         <td>
-                            @Html.ActionLink(item.Id.ToString(), "../Activities/Details", new { id = item.Id })
+                            @Html.ActionLink(item.Id.ToString(), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
                         </td>
                         <td>
-                            @Html.ActionLink(item.Name, "../Activities/Details", new { id = item.Id })
+                            @Html.ActionLink(item.Name, @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
                         </td>
                         <td>
-                            @Html.ActionLink(LexiconLMS.ExtensionMethods.ExtensionMethods.DisplayFor(item.ActivityType), "../Activities/Details", new { id = item.Id })
-                            @*@Html.DisplayFor(modelItem => item.ActivityType, "../Activities/Details", new { id = item.Id })*@
+                            @Html.ActionLink(ExtensionMethods.DisplayFor(item.ActivityType), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
                         </td>
                         <td>
-                            @Html.ActionLink(item.Description, "../Activities/Details", new { id = item.Id })
+                            @Html.ActionLink(item.Description, @GoToUrl, new { id = item.Id }, new { @class = @visibleText})
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Deadline)
+                            @Html.DisplayFor(model => item.Deadline)
                         </td>
                     </tr>
                 }
@@ -99,8 +120,11 @@
         </dd>
     </dl>
 </div>
-    <p>
-        @Html.ActionLink("Ändra", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("Åter till lista", "Index")
-    </p>
-    @*@Html.Partial("_PartialCourseActivites.cshtml", IEnumerable<LexiconLMS.Models.Activities>)*@
+@*@Html.Partial("../Activities/_PartialActivities")*@
+<p>
+@if (User.IsInRole("Teacher")) {
+    @Html.ActionLink("Ändra", "Edit", new { id = Model.Id }) 
+}
+    @Html.ActionLink("Åter till lista", "Index")
+</p>
+@*@Html.Partial("_PartialCourseActivites.cshtml", IEnumerable<LexiconLMS.Models.Activities>)*@

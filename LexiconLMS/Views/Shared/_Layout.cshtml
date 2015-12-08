@@ -6,6 +6,9 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+   
+    <link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/gridmvc.min.js")" type="text/javascript"> </script>
 
 </head>
 <body>
@@ -23,12 +26,14 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Om Lexicon LMS", "About", "Home")</li>
+                    @if (User.IsInRole("Teacher") || User.IsInRole("Student")) {
                     <li>@Html.ActionLink("Grupper", "Index", "Groups")</li>
                     <li>@Html.ActionLink("Kurser", "Index", "Courses")</li>
                     <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Användare", "Index", "Users")</li>
                     <li>@Html.ActionLink("Aktiviteter", "Index", "Activities")</li>
                     <li>@Html.ActionLink("Dok.", "Index", "Documents")</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

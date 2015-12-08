@@ -1,4 +1,7 @@
 ﻿@model LexiconLMS.Models.Group
+@using Microsoft.AspNet.Identity
+@using GridMvc.Html;
+@using LexiconLMS;
 
 @{
     ViewBag.Title = "Details";
@@ -41,10 +44,34 @@
         <dd>
             @Html.DisplayFor(model => model.EndDate)
         </dd>
-
+        @User.Identity.GetUserId()
     </dl>
+    <table id="users">
+        <h3 style="background: rgba(0, 137, 208, 0.6);color:#FFFFFF">Elever i kurs @Html.DisplayFor(model => model.Name) </h3>
+
+        <tr style="background:rgba(0, 137, 208, 0.8);color:#FFFFFF">
+            <th>
+                "Namn"
+            </th>
+            <th>
+                "e-post"
+            </th>
+            </tr>
+            @foreach (var user in Model.CourseUsers) {
+            <tr>
+                <td>
+                    @Html.Display(user.Fullname)
+                </td>
+                <td>
+                    @Html.Display(user.Email)
+                </td>
+            </tr>
+            }
+        </table>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @if (User.IsInRole("Teacher")) {
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) 
+    }
     @Html.ActionLink("Back to List", "Index")
 </p>

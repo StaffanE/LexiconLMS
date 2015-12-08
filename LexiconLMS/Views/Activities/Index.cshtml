@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<LexiconLMS.Models.Activities>
-
+@using GridMvc.Html;
+@using LexiconLMS;
 @{
     ViewBag.Title = "Index";
 }
@@ -7,7 +8,9 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @if (User.IsInRole("Teacher")) {
+        @Html.ActionLink("Create New", "Create")
+    }
 </p>
 <table class="table">
     <tr>
@@ -35,13 +38,15 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
+@foreach (var item in Model) 
+{
+    var visibleText = ExtensionMethods.trTextColor(item.StartTime, item.EndTime);
+    <tr style=@ExtensionMethods.trColor(item.StartTime, item.EndTime)>
         <td>
             @Html.DisplayFor(modelItem => item.Course.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ActivityType)
+            @ExtensionMethods.DisplayFor(item.ActivityType)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
@@ -59,11 +64,21 @@
             @Html.DisplayFor(modelItem => item.Deadline)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+    
+        <td>
+            @if (User.IsInRole("Teacher")) {
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+            }
+        </td>
+        <td>
+            @if (User.IsInRole("Teacher")) {
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            }
+        </td>
+            }
+        <td>
+            @Html.ActionLink("Details", "Details", new { id = item.Id })
         </td>
     </tr>
 }
-
 </table>
