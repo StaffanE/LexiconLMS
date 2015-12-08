@@ -27,8 +27,10 @@ namespace LexiconLMS.Controllers
         // GET: Users
         public ActionResult Index(string sortOrder)
         {
-            var Users = db.Users.Include(a => a.Group);
+            // var Users = db.Users.Include(a => a.Group);
             // return View(Users.ToList());
+
+            var users = db.Users.Include(u => u.Group);                                            //  Users utbytt mot users...
 
             sortOrder = String.IsNullOrEmpty(sortOrder) ? "name" : sortOrder;                      //   Om sortOrder-parametern är null eller tom, som den är första gången, så sätts den istället till "name". Är den inte tom när den kommer in så behålls den som den är. 
             ViewBag.NameSortParm = sortOrder == "name" ? "name_desc" : "name";                     //   ViewBag.NameSortParm sätts till sortOrder. Om sortOrder har värdet "name" så ändras det till name_desc istället, har den något annat värde så sätts den till "name".
@@ -38,13 +40,25 @@ namespace LexiconLMS.Controllers
 
             string currentUserId = User.Identity.GetUserId();                                      //   Hämtar inloggade användarens Id
             var currentUser = db.Users.Where(u => u.Id == currentUserId).FirstOrDefault();         //   CurrentUser sätts till den användaren från dbUsers som har samma ID som  inloggade användaren. FirstOrDeafault används istället för First som inte riktigt funkar. Returnerar första hittade värdet.
-            var users = db.Users.Where(u => u.GroupId == (int)currentUser.GroupId);                //   users tilldelas användarna med samma grupp.id som currentUser
-              //  User.Identity.GetUserId()
-              //  where u.GroupId ==
-              //  u.GroupId == User.Identity.
-                              
-                  //join g in db.Group on u.GroupId equals g.Id
-                  //select u;                     
+            // var users = db.Users.Where(u => u.GroupId == (int)currentUser.GroupId); 
+            
+            if (Request.IsAuthenticated)
+            {
+                if (User.IsInRole("Student"))
+                {
+                   users = db.Users.Where(u => u.GroupId == (int)currentUser.GroupId);              //   users tilldelas användarna med samma grupp.id som currentUser
+                   ViewBag.groupName = currentUser.Group.Name;
+                   ViewBag.groupDesription = currentUser.Group.Description;
+                   ViewBag.groupStartDate = currentUser.Group.StartDate;
+                   ViewBag.groupEndDate = currentUser.Group.EndDate;
+                }
+            }
+            
+            //var users = from u in db.Users
+                  
+            //join g in db.Group on u.GroupId equals g.Id
+            //select u;      
+                        
             switch (sortOrder)                                                                             
             {
                 case "name_desc":                                                                  //  Om sortOrder == "name_desc" sorterar man fallande på Fullname, annars kollar man vidare i switchen, osv...                 
