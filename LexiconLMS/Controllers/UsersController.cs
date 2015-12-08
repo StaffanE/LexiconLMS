@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LexiconLMS.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace LexiconLMS.Controllers
 {
@@ -33,13 +35,20 @@ namespace LexiconLMS.Controllers
             ViewBag.GroupSortParm = sortOrder == "group" ? "group_desc" : "group";                 //   _ ? _ : _  är det samma som  "if ... then ... else", dvs if (sortOrder == "group") then {ViewBag.GroupSortParm = "group_desc";} else {ViewBag.GroupSortParm ="group";}
             ViewBag.MailSortParm = sortOrder == "mail" ? "mail_desc" : "mail";                     //   ViewBag.MaildSortParm sätts till sortOrder. Om sortOrder har värdet "mail" sätts det istället till "mail_desc", har den något annat värde så sätts den till "mail".
             ViewBag.sortOrder = sortOrder;                                                         //   Viewbag.sortOrder sätts till sortOrder för att kunna kolla i Viewen vilket värde på sortOrder som gäller.
-                        
-            var users = from u in db.Users                                                         //   Variabeln users skapas från Users-tabellen mha LINQ...
-                  select u;                                                           
+
+            string currentUserId = User.Identity.GetUserId();                                      //   Hämtar inloggade användarens Id
+            var currentUser = db.Users.Where(u => u.Id == currentUserId).FirstOrDefault();         //   CurrentUser sätts till den användaren från dbUsers som har samma ID som  inloggade användaren. FirstOrDeafault används istället för First som inte riktigt funkar. Returnerar första hittade värdet.
+            var users = db.Users.Where(u => u.GroupId == (int)currentUser.GroupId);                //   users tilldelas användarna med samma grupp.id som currentUser
+              //  User.Identity.GetUserId()
+              //  where u.GroupId ==
+              //  u.GroupId == User.Identity.
+                              
+                  //join g in db.Group on u.GroupId equals g.Id
+                  //select u;                     
             switch (sortOrder)                                                                             
             {
                 case "name_desc":                                                                  //  Om sortOrder == "name_desc" sorterar man fallande på Fullname, annars kollar man vidare i switchen, osv...                 
-                    users = users.OrderByDescending(u => u.Fullname);
+                    users = users.OrderByDescending(u => u.LastName);
                     break;
                 case "group":
                     users = users.OrderBy(u => u.Group.Name);                    
@@ -54,7 +63,7 @@ namespace LexiconLMS.Controllers
                     users = users.OrderByDescending(u => u.Email);
                     break;                
                 default:
-                    users = users.OrderBy(u => u.Fullname);
+                    users = users.OrderBy(u => u.LastName);
                 break;
             }
             return View(users.ToList());
