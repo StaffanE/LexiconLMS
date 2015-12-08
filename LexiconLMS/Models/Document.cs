@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace LexiconLMS.Models
@@ -34,6 +35,7 @@ namespace LexiconLMS.Models
         public int? ActivitiesId { get; set; }
         public virtual Activities Activities { get; set; }    //Navigation Property
 
+        [ForeignKey("ApplicationUser")]
         public string ApplicationUserId { get; set; }                      //Foreign Key
         //public virtual ApplicationUser ApplicationUser { get; set; }    //Navigation Property
         public virtual ApplicationUser ApplicationUser { get; set; }    //Navigation Property

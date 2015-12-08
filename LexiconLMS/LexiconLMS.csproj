@@ -178,6 +178,10 @@
     <Compile Include="Migrations\201512071510000_DocumentsApplicationUserId.Designer.cs">
       <DependentUpon>201512071510000_DocumentsApplicationUserId.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201512080926056_DocumentForeignKeyApplicationUser.cs" />
+    <Compile Include="Migrations\201512080926056_DocumentForeignKeyApplicationUser.Designer.cs">
+      <DependentUpon>201512080926056_DocumentForeignKeyApplicationUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Activities.cs" />
@@ -286,6 +290,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201512071510000_DocumentsApplicationUserId.resx">
       <DependentUpon>201512071510000_DocumentsApplicationUserId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512080926056_DocumentForeignKeyApplicationUser.resx">
+      <DependentUpon>201512080926056_DocumentForeignKeyApplicationUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

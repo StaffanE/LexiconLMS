@@ -90,7 +90,12 @@ namespace LexiconLMS.Migrations {
    	                        {"Jonas", "Jakobsson","user2@gmail.com","Student","07000000","3"},
 	                        {"Matti", "Boustedt","user3@gmail.com","Student","070909090","2"},
 	                        {"Staffan", "Ericsson","user4@gmail.com","Student","070919091","1"},
-	                        {"Kalle", "Anka","user5@gmail.se","Student","070919291","2"}  	                        
+	                        {"Kalle", "Anka","user5@gmail.com","Student","070919291","2"},  	
+                            {"Adrian", "Luzano","user6@gmail.com","Teacher","070919292",""},  	
+                            {"Anna", "Eklund","user7@gmail.com","Student","070919293","4"},  	
+                            {"Kenneth", "Forsström","user8@gmail.com","Student","070919294","2"},  	
+                            {"Anna", "Ronnegard","user9@gmail.com","Student","070919295","3"},  	
+                            {"Christina", "Kronblad","user10@gmail.com","Student","070919296","2"}  	
                            }
                         }
                     }
@@ -158,11 +163,11 @@ namespace LexiconLMS.Migrations {
 
             context.Documents.AddOrUpdate(
               d => d.Name,
-              new Document { Id = 1, Name = "Övning 1", Description = "Övningsuppgift om loopar etc", dateCreated = DateTime.Today.AddDays(-45), GroupId = 1, ApplicationUserId = "5f0d1c7b-34d3-42ab-bebb-87e9e5918548" },
-              new Document { Id = 2, Name = "Kursinformation", Description = "Översikt över delkursen", dateCreated = DateTime.Today.AddDays(-40), CourseId = 1, ApplicationUserId = "5f0d1c7b-34d3-42ab-bebb-87e9e5918548" },
-              new Document { Id = 3, Name = "Inlämningsuppgift 5", Description = "Inlämningsuppgift", dateCreated = DateTime.Today.AddDays(-45), ActivitiesId = 1, ApplicationUserId = "5f0d1c7b-34d3-42ab-bebb-87e9e5918548" },
-              new Document { Id = 4, Name = "Inlämningsuppgift 6", Description = "Elevinlämnad inlämningsuppgift", dateCreated = DateTime.Today.AddDays(-35), ActivitiesId = 1, ApplicationUserId = "635c65a0-7301-4424-a638-c32c047d08c9" },
-              new Document { Id = 5, Name = "Inlämningsuppgift 7", Description = "Elevinlämnad inlämningsuppgift", dateCreated = DateTime.Today.AddDays(-35), ActivitiesId = 1, ApplicationUserId = "635c65a0-7301-4424-a638-c32c047d08c9" }
+              new Document { Id = 1, Name = "Övning 1", Description = "Övningsuppgift om loopar etc", dateCreated = DateTime.Today.AddDays(-45), GroupId = 1, ApplicationUserId = context.Users.Where(u => u.FirstName == "Oscar").FirstOrDefault().Id },
+              new Document { Id = 2, Name = "Kursinformation", Description = "Översikt över delkursen", dateCreated = DateTime.Today.AddDays(-40), CourseId = 1, ApplicationUserId = context.Users.Where(u => u.FirstName == "Staffan").FirstOrDefault().Id },
+              new Document { Id = 3, Name = "Inlämningsuppgift 5", Description = "Inlämningsuppgift", dateCreated = DateTime.Today.AddDays(-45), ActivitiesId = 1, ApplicationUserId = context.Users.Where(u => u.FirstName == "Matti").FirstOrDefault().Id },
+              new Document { Id = 4, Name = "Inlämningsuppgift 6", Description = "Elevinlämnad inlämningsuppgift", dateCreated = DateTime.Today.AddDays(-35), ActivitiesId = 1, ApplicationUserId = context.Users.Where(u => u.FirstName == "Jonas").FirstOrDefault().Id },
+              new Document { Id = 5, Name = "Inlämningsuppgift 7", Description = "Elevinlämnad inlämningsuppgift", dateCreated = DateTime.Today.AddDays(-35), ActivitiesId = 1, ApplicationUserId = context.Users.Where(u => u.FirstName == "Oscar").FirstOrDefault().Id }
             );
 
 
