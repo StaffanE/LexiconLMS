@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace LexiconLMS.Models
 {
@@ -32,6 +33,8 @@ namespace LexiconLMS.Models
 
         [Display(Name = "Grupp")]
         public virtual Group Group { get; set; }                // Navigation property
+
+        public virtual ICollection<Document> Documents { get; set; }
         
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

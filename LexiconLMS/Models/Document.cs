@@ -34,8 +34,13 @@ namespace LexiconLMS.Models
         public int? ActivitiesId { get; set; }
         public virtual Activities Activities { get; set; }    //Navigation Property
 
-        public int? ApplicationUserId { get; set; }                      //Foreign Key
+        public string ApplicationUserId { get; set; }                      //Foreign Key
+        //public virtual ApplicationUser ApplicationUser { get; set; }    //Navigation Property
         public virtual ApplicationUser ApplicationUser { get; set; }    //Navigation Property
+
+
+        //public int UserId { get; set; }                      //Foreign Key
+        //public virtual ApplicationUser ApplicationUser { get; set; }    //Navigation Property
 
       
 
