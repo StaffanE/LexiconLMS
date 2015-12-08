@@ -58,13 +58,22 @@
             @Html.DisplayFor(model => model.dateCreated)
         </dd>
 
+
         <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUser.Fullname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUser.Fullname)
+        </dd>
+
+        @*<dt>
             @Html.DisplayNameFor(model => model.ApplicationUserId)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.ApplicationUserId)
-        </dd>
+        </dd>*@
 
     </dl>
 </div>
