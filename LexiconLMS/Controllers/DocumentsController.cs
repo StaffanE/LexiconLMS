@@ -17,7 +17,7 @@ namespace LexiconLMS.Controllers
         // GET: Documents
         public ActionResult Index()
         {
-            var documents = db.Documents.Include(d => d.Activities).Include(d => d.Course).Include(d => d.Group);
+            var documents = db.Documents.Include(d => d.Activities).Include(d => d.Course).Include(d => d.Group).Include(d => d.ApplicationUser);
             return View(documents.ToList());
         }
 
@@ -42,6 +42,9 @@ namespace LexiconLMS.Controllers
             ViewBag.ActivitiesId = new SelectList(db.Activities, "Id", "Name");
             ViewBag.CourseId = new SelectList(db.Courses, "Id", "Name");
             ViewBag.GroupId = new SelectList(db.Group, "Id", "Name");
+            //ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "Fullname");
+            //ViewBag.ApplicationUserId = new SelectList(db2.Users, "Id", "UserName", usercontent.ApplicationUserId);
+
             return View();
         }
 

@@ -4,119 +4,239 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+@*<h2>Index</h2>*@
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
+@if (Request.IsAuthenticated)
+{
+    if (User.IsInRole("Student"))
+    {
+        <h2>
+            Grupp: @ViewBag.groupName
+        </h2>
+        <dl class="dl-horizontal2">
+            <dt>
+                @Html.DisplayNameFor(model => model.Group.Description)
+            </dt>
+            <dd>
+                @ViewBag.groupDescription
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Group.StartDate)
+            </dt>
+            <dd>
+                @ViewBag.groupStartDate
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Group.EndDate)
+            </dt>
+            <dd>
+                @ViewBag.groupEndDate
+            </dd>
+        </dl>
+
+
+        @*<table class="table2">
+            <tr>
+                <th>
+                    @html.displaynamefor(model => model.group.description)
+                </th>
+                @*<td>
+                    @html.displayfor(model => model.group.description)
+                </td>*@
+
+
+        @*<th>
+                        @html.displaynamefor(model => model.group.startdate)
+                    </th>
+                    <th>
+                        @html.displaynamefor(model => model.group.enddate)
+                    </th>
+                </tr>
+            </table>*@
+
+
+
+        }
+        }
+
+
+        @if (Request.IsAuthenticated)
+{
+    if (User.IsInRole("Teacher"))
+    {
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+    }
+}
+
+        <table class="table">
+            <tr>
+                @if (Request.IsAuthenticated)
+        {
+            if (User.IsInRole("Teacher"))
+            {
+                <th>
+                    @*@Html.DisplayNameFor(model => model.Group.Name)*@
+                    @Html.ActionLink("Gruppnamn", "Index", new { sortOrder = ViewBag.GroupSortParm }, new { @class = "my-class1" })
+                    @if (ViewBag.sortOrder == "group_desc")
+                    {
+                        <i class="glyphicon glyphicon-sort-by-alphabet-alt"></i>
+                    }
+                        else if (ViewBag.sortOrder == "group")
+                    {
+                            <i class="glyphicon glyphicon-sort-by-alphabet"></i>
+                    }
+                </th>
+            }
+        }
+
+        @*<th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>*@
         <th>
-            @Html.DisplayNameFor(model => model.Group.Name)
+            @*@Html.DisplayNameFor(model => model.Fullname)*@
+            @Html.ActionLink("Namn", "Index", new { sortOrder = ViewBag.NameSortParm }, new { @class = "my-class1" })
+            @if (ViewBag.sortOrder == "name_desc")
+            {
+                <i class="glyphicon glyphicon-sort-by-alphabet-alt"></i>
+            }
+            else if (ViewBag.sortOrder == "name")
+            {
+                <i class="glyphicon glyphicon-sort-by-alphabet"></i>
+            }
+
         </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>*@
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @*@Html.DisplayNameFor(model => model.Email)*@
+            @Html.ActionLink("E-post", "Index", new { sortOrder = ViewBag.MailSortParm }, new { @class = "my-class1" })
+            @if (ViewBag.sortOrder == "mail_desc")
+            {
+                <i class="glyphicon glyphicon-sort-by-alphabet-alt"></i>
+            }
+            else if (ViewBag.sortOrder == "mail")
+            {
+                <i class="glyphicon glyphicon-sort-by-alphabet"></i>
+            }
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fullname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EmailConfirmed)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PasswordHash)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SecurityStamp)
-        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.EmailConfirmed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PasswordHash)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SecurityStamp)
+            </th>*@
         <th>
             @Html.DisplayNameFor(model => model.PhoneNumber)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TwoFactorEnabled)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LockoutEndDateUtc)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LockoutEnabled)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AccessFailedCount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TwoFactorEnabled)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LockoutEndDateUtc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LockoutEnabled)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccessFailedCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>*@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Group.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
+    @foreach (var item in Model) {
+        <tr>
+            @if (Request.IsAuthenticated)
+        {
+            if (User.IsInRole("Teacher"))
+            {
+                if (item.Group == null)
+                {
+                    <td>
+                        LÄRARE
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Group.Name)
+                    </td>
+                }
+            }
+        }
+
+        @*<td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.Fullname)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
+        @*<td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.Email)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmailConfirmed)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PasswordHash)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SecurityStamp)
-        </td>
+        @*<td>
+                @Html.DisplayFor(modelItem => item.EmailConfirmed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PasswordHash)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SecurityStamp)
+            </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.PhoneNumber)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNumberConfirmed)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TwoFactorEnabled)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LockoutEndDateUtc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LockoutEnabled)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AccessFailedCount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
+        @*<td>
+                @Html.DisplayFor(modelItem => item.PhoneNumberConfirmed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TwoFactorEnabled)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LockoutEndDateUtc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LockoutEnabled)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccessFailedCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>*@
+        @if (Request.IsAuthenticated)
+        {
+            if (User.IsInRole("Teacher"))
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            }
+        }
+
+
     </tr>
 }
 

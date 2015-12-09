@@ -20,33 +20,53 @@
 
 <h2>Index</h2>
 
-<p>@if (User.IsInRole("Teacher")) {
-    @Html.ActionLink("Create New", "Create")
-}
+<p>
+    @if (User.IsInRole("Teacher")) { @Html.ActionLink("Create New", "Create")}
 </p>
 <table class="table">
     <tr>
         <th>
             @*@Html.DisplayNameFor(model => model.Name)*@
             @Html.ActionLink("Namn", "Index", new { sortOrder = ViewBag.NameSortParm }, new { @class = "my-class1" })
-            @*<i class="@className"></i>*@
+            @if (ViewBag.sortOrder == "name_desc")
+            {
+                <i class="glyphicon glyphicon-sort-by-alphabet-alt"></i>
+            }
+            else if (ViewBag.sortOrder == "name")
+            {
+                <i class="glyphicon glyphicon-sort-by-alphabet"></i>
+            }
+
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
-        <th>
+        <th>   
             @*@Html.DisplayNameFor(model => model.StartDate)*@
             @Html.ActionLink("Startdatum", "Index", new { sortOrder = ViewBag.DateSortParm }, new { @class = "my-class1" })
-            @if (ViewBag.DateSortParm == "Date") {
-                <i class="glyphicon glyphicon-sort-by-alphabet"></i>
-            } else if (ViewBag.DateSortParm == "date_desc") {
-                <i class="glyphicon glyphicon-sort-by-alphabet-alt"></i>
-            } 
+            @if (ViewBag.sortOrder == "date_desc")
+            {
+                <i class="glyphicon glyphicon-sort-by-order-alt"></i>
+            }
+            else if (ViewBag.sortOrder == "date")
+            {
+                <i class="glyphicon glyphicon-sort-by-order"></i>
+            }
+             
             
         </th>
         <th>
             @*@Html.DisplayNameFor(model => model.EndDate)*@
             @Html.ActionLink("Slutdatum", "Index", new { sortOrder = ViewBag.EndDateSortParm }, new { @class = "my-class1" })
+            @if (ViewBag.sortOrder == "end_date_desc")
+            {
+                <i class="glyphicon glyphicon-sort-by-order-alt"></i>
+            }
+            else if (ViewBag.sortOrder == "end_date")
+            {
+                <i class="glyphicon glyphicon-sort-by-order"></i>
+            }
+
         </th>
         <th></th>
     </tr>
@@ -67,9 +87,9 @@
             @Html.DisplayFor(modelItem => item.EndDate)
         </td>
         <td>
-            @if (User.IsInRole("Teacher")) { @Html.ActionLink("Edit", "Edit", new { id=item.Id }) @Html.Display("|")}
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) 
-            @if (User.IsInRole("Teacher")) {@Html.Display("|") @Html.ActionLink("Delete", "Delete", new { id=item.Id })}
+            @if (User.IsInRole("Teacher")) { @Html.ActionLink("Ändra", "Edit", new { id=item.Id }) @Html.Display("|")}
+            @Html.ActionLink("Detaljer", "Details", new { id=item.Id }) 
+            @if (User.IsInRole("Teacher")) {@Html.Display("|") @Html.ActionLink("Ta bort", "Delete", new { id=item.Id })}
         </td>
     </tr>
 }

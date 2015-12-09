@@ -26,6 +26,7 @@ namespace LexiconLMS.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? EndDate { get; set; }
 
-        public virtual ICollection<ApplicationUser> CourseUsers { get; set; }
+        public virtual ICollection<ApplicationUser> GroupStudents { get; set; }
+        public virtual ICollection<Course>          GroupCourses { get; set; }
     }
 }

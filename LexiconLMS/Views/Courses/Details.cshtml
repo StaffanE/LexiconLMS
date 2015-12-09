@@ -6,11 +6,11 @@
     ViewBag.GoBackToUrl = "../Courses/Details/" + Model.Id;
     ViewBag.CourseId = Model.Id;
 }
-<h2>Kurs detaljerad beskrivning</h2>
+<h2>@Html.DisplayFor(model => model.Group.Name) / @Html.DisplayFor(model => model.Name)/</h2>
 @using GridMvc.Html;
 @using LexiconLMS;
 <div>
-    <h4>@Html.DisplayFor(model => model.Group.Name) / @Html.DisplayFor(model => model.Name)/</h4>
+    <h4>Kurs detaljerad beskrivning</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -86,13 +86,12 @@
                     </th>
                 </tr>
                 }
-                @foreach (var item in Model.CourseActivities) 
+                @foreach (var item in Model.CourseActivities)
                 {
                     string visibleText = ExtensionMethods.trTextColor(item.StartTime, item.EndTime);
                     string GoToUrl = "../Activities/Details";
                     string GoToUrlForId = @GoToUrl+"/"+item.Id;
-
-                    <tr style=@ExtensionMethods.trColor(item.StartTime,item.EndTime)>
+                    <tr style=@ExtensionMethods.trColor(item.StartTime,item.EndTime) onclick="this.children[0].children[0].click();">
                         <td>
                             @Html.ActionLink(item.StartTime.ToString("yyyy-MM-dd hh:mm"), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
                         </td>
@@ -122,9 +121,7 @@
 </div>
 @*@Html.Partial("../Activities/_PartialActivities")*@
 <p>
-@if (User.IsInRole("Teacher")) {
-    @Html.ActionLink("Ändra", "Edit", new { id = Model.Id }) 
-}
+    @if (User.IsInRole("Teacher")) {@Html.ActionLink("Ändra", "Edit", new { id = Model.Id })}
     @Html.ActionLink("Åter till lista", "Index")
 </p>
 @*@Html.Partial("_PartialCourseActivites.cshtml", IEnumerable<LexiconLMS.Models.Activities>)*@

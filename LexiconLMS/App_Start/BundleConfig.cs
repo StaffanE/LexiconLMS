@@ -21,11 +21,14 @@ namespace LexiconLMS
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
+                      "~/Scripts/gridmvc.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/gridmvc.datepicker.css",
+                      "~/Content/gridmvc.css"));
         }
     }
 }

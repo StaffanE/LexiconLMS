@@ -2,16 +2,16 @@
 @using GridMvc.Html;
 @using LexiconLMS;
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Aktiviteter index";
+    ViewBag.GoBackToView = "../Activities/Index";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
 <p>
-    @if (User.IsInRole("Teacher")) {
-        @Html.ActionLink("Create New", "Create")
-    }
+    @if (User.IsInRole("Teacher")) {@Html.ActionLink("Lägg upp ny", "Create")}
 </p>
+<h4>Aktiviteter</h4>
 <table class="table">
     <tr>
         <th>
@@ -38,47 +38,45 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) 
-{
-    var visibleText = ExtensionMethods.trTextColor(item.StartTime, item.EndTime);
-    <tr style=@ExtensionMethods.trColor(item.StartTime, item.EndTime)>
-        <td>
-            @Html.DisplayFor(modelItem => item.Course.Name)
-        </td>
-        <td>
-            @ExtensionMethods.DisplayFor(item.ActivityType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Deadline)
-        </td>
-        <td>
-    
-        <td>
-            @if (User.IsInRole("Teacher")) {
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id })
-            }
-        </td>
-        <td>
-            @if (User.IsInRole("Teacher")) {
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            }
-        </td>
-            }
-        <td>
-            @Html.ActionLink("Details", "Details", new { id = item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model) {
+        string visibleText = ExtensionMethods.trTextColor(item.StartTime, item.EndTime);
+        string GoToUrl = "../Activities/Details";
+        string GoToUrlForId = @GoToUrl + "/" + item.Id;
+
+        <tr style=@ExtensionMethods.trColor(item.StartTime, item.EndTime) onclick="this.children[0].children[0].click();">
+            <td>
+                @Html.ActionLink((item.Course.Name), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
+            </td>
+            <td>
+                @Html.ActionLink((@ExtensionMethods.DisplayFor(item.ActivityType)), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
+            </td>
+            <td>
+                @Html.ActionLink((item.Name), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
+            </td>
+            <td>
+                @Html.ActionLink((item.Description), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
+            </td>
+            <td>
+                @Html.ActionLink(item.StartTime.ToString("yyyy-MM-dd hh:mm"), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
+            </td>
+            <td>
+                @Html.ActionLink(item.EndTime.ToString("yyyy-MM-dd hh:mm"), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Deadline)
+            </td>
+            <td>
+
+            <td>
+                @if (User.IsInRole("Teacher")) {@Html.ActionLink("Edit", "Edit", new { id = item.Id })}
+            </td>
+            <td>
+                @if (User.IsInRole("Teacher")) {@Html.ActionLink("Delete", "Delete", new { id = item.Id })}
+            </td>
+
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.Id })
+            </td>
+        </tr>
+    }
 </table>
