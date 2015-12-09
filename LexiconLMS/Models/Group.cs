@@ -25,5 +25,8 @@ namespace LexiconLMS.Models
         [Display(Name = "Slut Datum")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? EndDate { get; set; }
+
+        public virtual ICollection<ApplicationUser> GroupStudents { get; set; }
+        public virtual ICollection<Course>          GroupCourses { get; set; }
     }
 }
