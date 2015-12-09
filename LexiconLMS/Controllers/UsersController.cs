@@ -138,6 +138,22 @@ namespace LexiconLMS.Controllers
             {
                 return HttpNotFound();
             }
+
+
+            // Get list of roles that user is a member of
+            //var userRoles = UserManager.GetRoles(AspNetUsers.Id);
+
+            //var model = new UserViewModel()
+            //{
+            //    RolesList = RoleManager.Roles.ToList().Select(r => new SelectListItem
+            //    {
+            //        Selected = userRoles.Contains(r.Name),
+            //        Text = r.Name,
+            //        Value = r.Name
+            //    }).OrderBy(r => r.Text),
+            //};
+
+
             ViewBag.GroupId = new SelectList(db.Group, "Id", "Name", applicationUser.GroupId);
             return View(applicationUser);
         }

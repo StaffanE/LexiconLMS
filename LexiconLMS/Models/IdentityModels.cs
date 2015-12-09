@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace LexiconLMS.Models
 {
@@ -35,7 +36,11 @@ namespace LexiconLMS.Models
         public virtual Group Group { get; set; }                // Navigation property
 
         public virtual ICollection<Document> Documents { get; set; }
-        
+
+        //public IEnumerable<SelectListItem> RolesList { get; set; }
+        //public string RolesListId { get; set; }
+
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
