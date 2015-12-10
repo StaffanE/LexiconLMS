@@ -4,19 +4,19 @@
 @using LexiconLMS;
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detaljerad gruppinformation " + @Html.DisplayFor(model => model.Name);
+    ViewBag.OddOrEven = 0;
 }
 
-<h2>Kurs @Html.DisplayFor(model => model.Name)</h2>
-
 <div>
-    <h4>Detaljer</h4>
+    <h2 style="background: #f2f2f2;;color:rgb(214, 0, 0)">@ViewBag.Title </h2>
 </div>
 <div class="container-fluid topMarg">
     <div class="col-sm-12">
-        <div class="col-sm-4">
-            <div class="mini-box" style="background: #E0E0E0;color:#0000">
+        <div class="col-sm-6">
+            <div class="mini-box" style="background: #f2f2f2;color:#0000">
                 <dl class="dl-horizontal">
+                    <h2 style="background: rgb(214, 0, 0);color:#FFFFFF;">Grupp @Html.DisplayFor(model => model.Name)</h2>
                     <dt>
                         @Html.DisplayNameFor(model => model.Name)
                     </dt>
@@ -50,72 +50,93 @@
                     </dd>
                 </dl>
             </div>
-            @if (User.IsInRole("Teacher"))
-            {@Html.ActionLink("Redigera", "Edit", new { id = Model.Id })}
-            @Html.ActionLink("Åter till lista", "Index")
-        </div>
-        <div class="col-sm-4">
-            <div class="mini-box">
-                <table id="users" style="background: #E0E0E0;color:#0000">
-                    <h4 style="background: rgba(0, 137, 208, 0.6);color:#FFFFFF">Elever i kurs @Html.DisplayFor(model => model.Name) </h4>
-                    <tr style="background:rgba(0, 137, 208, 0.8);color:#FFFFFF">
-                        <td>
-                            Namn________|
-                        </td>
+            @if (User.IsInRole("Teacher")) {
+                <span>
+                    <a href="@Url.Action("Edit", "Groups", new { id = Model.Id })" class="btn btn-warning btn-sm">
+                        <span class="glyphicon glyphicon-edit">
+                        </span>
+                        Redigera grupp
+                    </a>
+                </span>
+            }
+            <a href="@Url.Action("Index", "Groups")" type="button" class="btn btn-info btn-sm">
+                <span class="glyphicon glyphicon-arrow-up">
+                </span>
+                Åter till lista
+            </a>
 
-                        <td>
-                            e-postadress__________________
-                        </td>
-                        <td></td>
-                    </tr>
-                    @foreach (var student in Model.GroupStudents)
-                    {
-                        <tr onclick="this.children[0].children[0].click();">
-                            <td>
-                                @Html.DisplayFor(model => student.Fullname)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(model => student.Email)
-                            </td>
-                        </tr>
-                    }
-                </table>
-            </div>
+            @*@Html.ActionLink("Åter till lista", "Index")*@
         </div>
-        <div class="col-sm-4">
-            <h4 style="background: rgba(0, 137, 208, 0.6);color:#FFFFFF" ;> Delkurser i utbildning @Html.DisplayFor(model => model.Name) </h4>
-            <table id="courses" style="background: #E0E0E0;color:#0000">
-                <tr style="background:rgba(0, 137, 208, 0.8);color:#FFFFFF">
+
+        <div class="col-sm-6">
+            <h2 style="background: rgb(65, 173, 73);color:#FFFFFF;"> Kurser ingående i @Html.DisplayFor(model => model.Name) </h2>
+            <table id="courses" cellspacing="1" style="background: rgb(65, 173, 73);color:#fff">
+                <tr style="color:#ffffff">
+                    <td width="16">
+                        Startdatum
+                    </td>
                     <td>
                         Namn
                     </td>
                     <td>
                         Beskrivning
                     </td>
-                    >
                 </tr>
-                @foreach (var course in Model.GroupCourses)
-                {
+                @foreach (var course in Model.GroupCourses) {
                     string visibleText = ExtensionMethods.trTextColor(course.StartDate, course.EndDate);
                     string GoToUrl = "../Courses/Details";
-                    <tr style=@ExtensionMethods.trColor(course.StartDate, course.EndDate) onclick="this.children[0].children[0].click();">
+                    string contDescr = " ...(Utförlig beskrivning finns)";
+                    //if The text in description is long then shorten it down and display the first 25 characters for more detailed description go to Detail/Edit/Delete-Views
+                    int dispLength = 20;
+                    if (course.Description.Length < dispLength) { dispLength = course.Description.Length; contDescr = ""; };
+                    string dispDescription = course.Description.Substring(0, dispLength) + contDescr;
+                    <tr style=@ExtensionMethods.trColorGrayWhite(ViewBag.OddOrEven) onclick="this.children[0].children[0].click();">
+                        <td width="16">
+                            <a> @Html.ActionLink(course.StartDate.ToString("yyyy-MM-dd"), @GoToUrl, new { id = course.Id })</a>
+                            @*@Html.DisplayFor(model => course.Name)*@
+                        </td>
                         <td>
                             <a> @Html.ActionLink(course.Name, @GoToUrl, new { id = course.Id })</a>
                             @*@Html.DisplayFor(model => course.Name)*@
                         </td>
                         <td>
-                            @Html.ActionLink(course.Description, @GoToUrl, new { id = course.Id })
+                            @Html.ActionLink(@dispDescription, @GoToUrl, new { id = course.Id })
+                            @*@Html.ActionLink(course.Description, @GoToUrl, new { id = course.Id })*@
                             @*@Html.DisplayFor(model => course.Description)*@
                         </td>
                     </tr>
+                    ViewBag.OddOrEven = ViewBag.OddOrEven + 1;
                 }
             </table>
-
+            <div class="mini-box">
+                <table id="users" style="background: #E0E0E0;color:#0000">
+                    <h4 style="background: rgba(0, 137, 208, 0.6);color:#FFFFFF"> Elever i grupp @Html.DisplayFor(model => model.Name) </h4>
+                    <tr style="background:rgba(0, 137, 208, 0.8);color:#FFFFFF">
+                        <td width="300">
+                            @Html.DisplayNameFor(model => model.GroupStudents.First().Fullname)
+                        </td>
+                        <td width="300">
+                            @Html.DisplayNameFor(model => model.GroupStudents.First().Email)
+                        </td>
+                        <td></td>
+                    </tr>
+                    @foreach (var student in Model.GroupStudents) {
+                        <tr style=@ExtensionMethods.trColorGrayWhite(ViewBag.OddOrEven) onclick="this.children[0].children[0].click();">
+                            <td>
+                                @Html.DisplayFor(model => student.Fullname)
+                            </td>
+                             <td>
+                                @Html.DisplayFor(model => student.Email)
+                            </td>
+                        </tr>
+                    }
+                </table>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<div class="container botMarg">
-    <div class="col-sm-12">
+    <div class="container botMarg">
+       <div class="col-sm-12">
         <p>
         </p>
     </div>

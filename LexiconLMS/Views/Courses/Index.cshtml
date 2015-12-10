@@ -1,19 +1,26 @@
 ﻿@model IEnumerable<LexiconLMS.Models.Course>
-@using GridMvc.Html;
-@using LexiconLMS;
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Alla kurser";
+    ViewBag.OddOrEven = 0;
 }
 
-<h2>Kurser index</h2>
+<h2>@ViewBag.Title</h2>
+
 <p>
-    @if (User.IsInRole("Teacher")) {@Html.ActionLink("Create New", "Create")}
+   @if (User.IsInRole("Teacher")) {
+    <span>
+        <a href="@Url.Action("Create")" class="btn btn-success btn-sm">
+            <span class="glyphicon glyphicon-plus-sign"></span>
+            Lägg upp ny kurs
+        </a>
+    </span>
+   }
 </p>
-<h4>Kurser</h4>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Group.Name)                        @*rubrikerna*@
+            @Html.DisplayNameFor(model => model.Group.Name)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -27,36 +34,64 @@
         <th>
             @Html.DisplayNameFor(model => model.EndDate)
         </th>
-        <th></th>
+        <th>
+            Status
+        </th>
+        
     </tr>
 
-    @foreach (var item in Model) 
-    {
-         var visibleText = ExtensionMethods.trTextColor(item.StartDate, item.EndDate);
-        string GoToUrl = "../Activities/Details";
-        string GoToUrlForId = @GoToUrl+"/"+item.Id;				
-    <tr style=@ExtensionMethods.trColor(item.StartDate, item.EndDate) onclick="this.children[0].children[0].click();">
-        <td>
-            @Html.ActionLink((item.Group.Name), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })        @*själva datat...*@
-        </td>
-        <td>
-            @Html.ActionLink((item.Name), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
-        </td>
-        <td>
-            @Html.ActionLink((item.Description), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
-        </td>
-        <td>
-            @Html.ActionLink((item.StartDate.ToString("yyyy-MM-dd hh:mm")), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
-        </td>
-        <td>
-            @Html.ActionLink((item.EndDate.ToString("yyyy-MM-dd hh:mm")), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
-        </td>
-        <td>
-            @if (User.IsInRole("Teacher")) {@Html.ActionLink("Redigera", "Edit", new { id = item.Id })} |
-            @Html.ActionLink("Detaljer", "Details", new { id = item.Id }) |
-            @if (User.IsInRole("Teacher")) {@Html.ActionLink("Ta bort", "Delete", new { id = item.Id })}
-        </td>
-    </tr>
+    @foreach (var item in Model) {
+        @*Korta ner Description i listvyn om den blir för maffig att visa i sin helhet*@
+        int dispLength = 25;
+        if (item.Description.Length < dispLength) { dispLength = item.Description.Length; };
+        string dispDescription = item.Description.Substring(0, dispLength);
+        <tr style=@ExtensionMethods.trColorGrayWhite(ViewBag.OddOrEven) onclick="this.children[0].children[0].click();">
+            <td>
+                @Html.DisplayFor(modelItem => item.Group.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @dispDescription
+                @*@Html.DisplayFor(modelItem => item.Description)*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @ExtensionMethods.PeriodStatus(item.StartDate, item.EndDate)
+            </td>
+            <td>
+                @if (User.IsInRole("Teacher")) {
+                    <span>
+                        <a href="@Url.Action("Edit", "Courses", new { id = item.Id })" class="btn btn-warning btn-sm">
+                            <span class="glyphicon glyphicon-edit"></span>
+                            Redigera kurs
+                        </a>
+                    </span>
+                }
+                <span>
+                    <a href="@Url.Action("Details", "Courses", new { id = item.Id })" class=" btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-exclamation-sign"></span>
+                        Detaljer om kurs
+                    </a>
+                </span>
+                @if (User.IsInRole("Teacher")) {
+                    <span>
+                        <a href="@Url.Action("Delete", "Courses", new { id = item.Id })" class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-minus-sign"></span>
+                            Ta bort kurs
+                        </a>
+                    </span>
+                }
+            </td>
+            @{ViewBag.OddOrEven = ViewBag.OddOrEven + 1;
+    }
+        </tr>
     }
 
 </table>
