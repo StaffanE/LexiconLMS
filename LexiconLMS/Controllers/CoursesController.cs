@@ -25,7 +25,8 @@ namespace LexiconLMS.Controllers
             var courses = db.Courses.Include(c=> c.Group);                                            
 
             sortOrder = String.IsNullOrEmpty(sortOrder) ? "date" : sortOrder;                      
-            ViewBag.StartDateSortParm = sortOrder == "date" ? "date_desc" : "date";                     
+            ViewBag.StartDateSortParm = sortOrder == "date" ? "date_desc" : "date";
+            ViewBag.EndDateSortParm = sortOrder == "end_date" ? "end_date_desc" : "end_date";         
             ViewBag.GroupSortParm = sortOrder == "group" ? "group_desc" : "group";                 
             ViewBag.CourseSortParm = sortOrder == "course" ? "course_desc" : "course";                     
             ViewBag.sortOrder = sortOrder;                                                         
@@ -60,9 +61,15 @@ namespace LexiconLMS.Controllers
                 case "course":
                     courses = courses.OrderBy(c => c.Name);
                     break;
-                case "mail_desc":
+                case "course_desc":
                     courses = courses.OrderByDescending(c => c.Name);
-                    break;                
+                    break;
+                case "end_date_desc":
+                    courses = courses.OrderByDescending(c => c.EndDate);
+                    break;
+                case "end_date":
+                    courses = courses.OrderBy(c => c.EndDate);
+                    break;         
                 default:
                     courses = courses.OrderBy(c => c.StartDate);
                 break;

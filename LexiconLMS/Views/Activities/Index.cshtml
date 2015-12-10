@@ -43,24 +43,28 @@
         string GoToUrl = "../Activities/Details";
         string GoToUrlForId = @GoToUrl + "/" + item.Id;
 
-        <tr style=@ExtensionMethods.trColor(item.StartTime, item.EndTime) onclick="this.children[0].children[0].click();">
+       // @*<tr style=@ExtensionMethods.trColor(item.StartTime, item.EndTime) onclick="this.children[0].children[0].click();">*@
+          <tr>
             <td>
-                @Html.ActionLink((item.Course.Name), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
+                @*@Html.ActionLink((item.Course.Name), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })*@
+                @Html.DisplayFor(modelItem => item.Course.Name)
             </td>
             <td>
-                @Html.ActionLink((@ExtensionMethods.DisplayFor(item.ActivityType)), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
+                @Html.DisplayFor(modelItem => item.ActivityType)
             </td>
             <td>
-                @Html.ActionLink((item.Name), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
+                @Html.DisplayFor(modelItem => item.Name)                
             </td>
             <td>
-                @Html.ActionLink((item.Description), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
+                @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.ActionLink(item.StartTime.ToString("yyyy-MM-dd hh:mm"), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
-            </td>
+                @*@Html.ActionLink(item.StartTime.ToString("yyyy-MM-dd hh:mm"), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })*@
+                @*@Html.DisplayFor(modelItem => item.StartTime.ToString("yyyy-MM-dd hh:mm"))*@
+                @Html.DisplayFor(modelItem => item.StartTime)
             <td>
-                @Html.ActionLink(item.EndTime.ToString("yyyy-MM-dd hh:mm"), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
+                @*@Html.ActionLink(item.EndTime.ToString("yyyy-MM-dd hh:mm"), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })*@
+                @Html.DisplayFor(modelItem => item.EndTime)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Deadline)
@@ -68,14 +72,16 @@
             <td>
 
             <td>
-                @if (User.IsInRole("Teacher")) {@Html.ActionLink("Edit", "Edit", new { id = item.Id })}
+                @if (User.IsInRole("Teacher"))
+                { <a class="btn btn-success" href="Create">Ändra &raquo;</a>  }         @*Obs!LÄnkar till Create just nu. ID måste skickas med till Edit!*@                     @*{@Html.ActionLink("Edit", "Edit", new { id = item.Id })}*@       
             </td>
             <td>
-                @if (User.IsInRole("Teacher")) {@Html.ActionLink("Delete", "Delete", new { id = item.Id })}
+                @if (User.IsInRole("Teacher"))
+                { <a class="btn btn-primary" href="~/Views/Activities/Edit.cshtml">Ta bort &raquo;</a>  }   @*{@Html.ActionLink("Delete", "Delete", new { id = item.Id })}*@
             </td>
 
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.Id })
+                  <a class="btn btn-danger" href="~/Views/Activities/Edit.cshtml">Detaljer &raquo;</a>     @*@Html.ActionLink("Details", "Details", new { id = item.Id })*@
             </td>
         </tr>
     }
