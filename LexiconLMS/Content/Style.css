@@ -1,0 +1,162 @@
+﻿body {
+    padding-top: 0%;
+    align-content: center;
+    
+}
+
+
+.banner-top {
+    padding-top:0%;
+        
+     background-color: #f5f5f5;
+}
+
+.topbar {
+    height: 110px;
+    background-color: #0a0a0a;
+
+}
+
+.navigation-bar {
+    
+    height:52px;
+    background-color: #f5f5f5;
+    border-bottom:1px solid #cf0202;
+    border-bottom-width: 5px;
+    border-bottom-left-radius:20px;
+    width: 880px;
+    //border-bottom-right-radius: 30px;
+}
+
+#lexicon-logo {
+    padding-left: 10%;
+    width: 280px;
+    padding-top: 15px;
+    padding-left: 40px;
+
+}
+
+ul {
+    padding-left: 5%;
+   //padding: 20px;
+   // margin: 70px;
+   //border-bottom:1px solid #cccccc;
+   
+}
+
+ul li {
+    margin: 10px;
+    //border-bottom: 3px solid #f5f5f5;
+}
+
+.sub {
+    padding-top: 2px;
+    padding-left: 18px;
+    padding-right:18px;
+    padding-bottom: 2px;
+    display:block;
+    float:left;
+    right:0;
+    top:0;
+    border: 1px solid #f5f5f5;
+
+    
+}
+
+.sub:hover {
+    background-color: #e6ebe9;
+    border: 1px solid #dedede;
+    position: relative;
+}
+
+
+
+.line-separator {
+    /*height:5px;
+    background:#ff0000;
+    border-bottom:1px solid #ff0000;
+    width:650px;*/
+
+margin: 0 0 15px 0;
+border-bottom:1px solid #cccccc;
+padding: 0px 0 0px 0;
+padding: 20px 0 20px 0;
+padding: 10px 0 10px 0;
+
+
+}
+
+
+
+.current {
+    background-color: #d60000;
+}
+
+.current a {
+
+    color: #fff;
+}
+
+.current:hover {
+    //color: #fff;
+    background-color: #d60000;
+}
+
+.current a:hover {
+    color: #fff;
+}
+
+
+.group {
+        //width: 50px;
+    //height: 50px;
+   // background: #999;
+    //display: inline-block;
+    vertical-align: top; /* here */
+
+}
+
+.group a {
+        color: #fff;
+}
+
+
+
+ul li a {
+    color: #000;
+    font-family:"Whitney SSm A","Whitney SSm B",arial,sans-serif;
+    font-size:15px;
+    font-weight:400;
+    line-height:26px;
+    outline: 0;
+    -webkit-font-smoothing: antialiased;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.004);
+
+}
+
+ul li a:hover {
+    text-decoration: none;
+    color: #000;
+}
+
+input::-moz-focus-inner { 
+  border: 0; 
+}
+
+ul.line li {
+       // display: inline;
+  width: auto;
+  float: left;
+  line-height:26px;
+}
+
+#test a:hover {
+    color: #fff;
+    background-color: #0a0a0a;
+}
+
+.nav {
+        //vertical-align: text-bottom;
+
+}
+
