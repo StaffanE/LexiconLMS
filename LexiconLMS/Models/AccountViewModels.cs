@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace LexiconLMS.Models
 {
     public class ExternalLoginConfirmationViewModel
@@ -92,9 +93,9 @@ namespace LexiconLMS.Models
         [Display(Name = "Efternamn")]
         public string LastName { get; set; }
 
-        [Required]
-        [Display(Name = "Fullt namn")]
-        public string FullName { get; set; }
+        //[Required]
+        //[Display(Name = "Fullt namn")]
+        //public string FullName { get; set; }
 
         [Required]
         [Display(Name = "Telefonnummer")]
@@ -106,10 +107,8 @@ namespace LexiconLMS.Models
         [Display(Name = "Roll")]
         public string Title { get; set; }
 
-                
-        //[Required]
-        //[Display(Name = "Roll")]
-        //public string Role { get; set; }
+        [Display(Name = "Grupp")]
+        public virtual Group Group { get; set; }                // Navigation property
                      
     }
 
