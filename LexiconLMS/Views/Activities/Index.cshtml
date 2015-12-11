@@ -2,14 +2,22 @@
 @using GridMvc.Html;
 @using LexiconLMS;
 @{
-    ViewBag.Title = "Aktiviteter index";
+    ViewBag.Title = "Alla aktiviteter";
     ViewBag.GoBackToView = "../Activities/Index";
+    ViewBag.OddOrEven = 0;
 }
 
 <h2>@ViewBag.Title</h2>
 
 <p>
-    @if (User.IsInRole("Teacher")) {@Html.ActionLink("Lägg upp ny", "Create")}
+    @if (User.IsInRole("Teacher")) {
+        <span>
+            <a href="@Url.Action("Create")" class="btn btn-success btn-sm">
+                <span class="glyphicon glyphicon-plus-sign"></span>
+                Lägg upp ny aktivitet
+            </a>
+        </span>
+    }
 </p>
 <h4>Aktiviteter</h4>
 <table class="table">
@@ -39,32 +47,28 @@
     </tr>
 
     @foreach (var item in Model) {
-        string visibleText = ExtensionMethods.trTextColor(item.StartTime, item.EndTime);
+        string visibleText = ExtensionMethods.trColorGrayWhite(ViewBag.OddOrEven);
         string GoToUrl = "../Activities/Details";
         string GoToUrlForId = @GoToUrl + "/" + item.Id;
 
-       // @*<tr style=@ExtensionMethods.trColor(item.StartTime, item.EndTime) onclick="this.children[0].children[0].click();">*@
-          <tr>
+        <tr style=@ExtensionMethods.trColorGrayWhite(ViewBag.OddOrEven) onclick="this.children[0].children[0].click();">
             <td>
-                @*@Html.ActionLink((item.Course.Name), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })*@
-                @Html.DisplayFor(modelItem => item.Course.Name)
+                @Html.ActionLink((item.Course.Name), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ActivityType)
+                @Html.ActionLink((@ExtensionMethods.DisplayFor(item.ActivityType)), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)                
+                @Html.ActionLink((item.Name), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                @Html.ActionLink((item.Description), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
             </td>
             <td>
-                @*@Html.ActionLink(item.StartTime.ToString("yyyy-MM-dd hh:mm"), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })*@
-                @*@Html.DisplayFor(modelItem => item.StartTime.ToString("yyyy-MM-dd hh:mm"))*@
-                @Html.DisplayFor(modelItem => item.StartTime)
+                @Html.ActionLink(item.StartTime.ToString("yyyy-MM-dd"), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
+            </td>
             <td>
-                @*@Html.ActionLink(item.EndTime.ToString("yyyy-MM-dd hh:mm"), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })*@
-                @Html.DisplayFor(modelItem => item.EndTime)
+                @Html.ActionLink(item.EndTime.ToString("yyyy-MM-dd"), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Deadline)
@@ -72,17 +76,53 @@
             <td>
 
             <td>
-                @if (User.IsInRole("Teacher"))
-                { <a class="btn btn-success" href="Create">Ändra &raquo;</a>  }         @*Obs!LÄnkar till Create just nu. ID måste skickas med till Edit!*@                     @*{@Html.ActionLink("Edit", "Edit", new { id = item.Id })}*@       
+                @if (User.IsInRole("Teacher")) {
+                    <span>
+                        <a href="@Url.Action("Edit", "Activities", new { id = item.Id })" class="btn btn-warning btn-sm">
+                            <span class="glyphicon glyphicon-edit"></span>
+                            Redigera aktivitet
+                        </a>
+                    </span>
+                }
             </td>
             <td>
-                @if (User.IsInRole("Teacher"))
-                { <a class="btn btn-primary" href="~/Views/Activities/Edit.cshtml">Ta bort &raquo;</a>  }   @*{@Html.ActionLink("Delete", "Delete", new { id = item.Id })}*@
+                <span>
+                    <a href="@Url.Action("Details", "Activities", new { id = item.Id })" class=" btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-exclamation-sign"></span>
+                        Detaljer om aktivitet
+                    </a>
+                </span>
             </td>
 
             <td>
-                  <a class="btn btn-danger" href="~/Views/Activities/Edit.cshtml">Detaljer &raquo;</a>     @*@Html.ActionLink("Details", "Details", new { id = item.Id })*@
+                @if (User.IsInRole("Teacher")) {
+                    <span>
+                        <a href="@Url.Action("Delete","Activities", new { id = item.Id })" class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-minus-sign"></span>
+                            Ta bort aktivitet
+                        </a>
+                    </span>
+                }
             </td>
         </tr>
+                ViewBag.OddOrEven = ViewBag.OddOrEven + 1;
     }
 </table>
+@using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+<input type="file" name="file" />
+<input type="submit" value="OK" />
+}
+@*@using (Html.BeginForm(
+    ViewContext.RouteData.GetRequiredString("action"),
+    ViewContext.RouteData.GetRequiredString("controller"),
+    FormMethod.Post,
+    new { enctype = "multipart/form-data" })) {
+    <div>@Html.LabelFor(model => model.UserFile)</div>
+    <div>
+        <input type="file" name="userFiles" />
+        @Html.ValidationMessageFor(model => model.UserFile)
+    </div>*@
+
+    <input type="submit" value="Upload and Save File" />
+}

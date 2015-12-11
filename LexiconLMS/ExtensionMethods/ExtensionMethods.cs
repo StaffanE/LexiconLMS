@@ -68,14 +68,38 @@ namespace LexiconLMS{
             switch ((StartBeforeNow + EndAfterNow)) {
                 // Period ended Endtime lower than actual datetime
                 case 0:
-                    return "color: #000000;";
+                    return "color:rgb(0,0,0);";
                 // Todaysdate lower than startdat(and enddate) = future period
                 case -2:
-                    return "color: #000000;";
+                    return "color:rgb(245,121,32);";
                 // Todaysdate in current tested period
                 default:
-                    return "color: #FFFFFF;";
+                    return "color:rgb(247,247,247);";                    
             }
+        }
+        public static string PeriodStatus(DateTime? Starttime, DateTime? Endtime) {
+            var ThisMoment = DateTime.Now;
+            var StartBeforeNow = ThisMoment.CompareTo(Starttime);
+            var EndAfterNow = ThisMoment.CompareTo(Endtime);
+            switch ((StartBeforeNow + EndAfterNow)) {
+                // Period ended Endtime lower than actual datetime
+                case 0:
+                    return "Pågående"; 
+                // Todaysdate lower than startdat(and enddate) = future period
+                case -2:
+                    return "Kommande";
+                // Todaysdate in current tested period
+                default:
+                    return "Avslutad";
+            }
+        }
+        public static string trColorGrayWhite(int testnum) 
+        {
+            if ((testnum % 2 !=0)) 
+            {
+                return "background:#ffffff";
+            };
+            return "background:#f2f2f2;";
         }
     }
 }

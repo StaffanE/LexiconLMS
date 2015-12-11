@@ -17,7 +17,7 @@ namespace LexiconLMS.Migrations {
 
             string[,] groupArray = new string[,]
    	        {
-               {".Net", "Kurs för utvecklare .Net/MVC/C#", },
+               {".Net", "Kurs för utvecklare .Net/MVC/C# När du genomfört certifieringsprogrammet Certified ASP.NET MVC Development Specialist - C#, har du visat på förmågan att använda grunderna i språket C# och ramverket ASP.NET. Du kan skapa datadrivna webbapplikationer som använder MVC mönstret för att separera data, främja testdriven utveckling (TDD) och kontrollera innehåll. Du kan skapa sofistikerade användargränssnitt som utnyttjar jQuery för att skapa responsiva webbplatser byggda med moderna tekniker inom webbdesign.", },
                {"Sharepoint", "Kurs administratörer Sharepoint"},
                {"Java", "Utvecklare Java"},
                {"Tomte", "Kurs varuhustomte (säsongsberoende)"}
@@ -36,13 +36,12 @@ namespace LexiconLMS.Migrations {
 
             context.Courses.AddOrUpdate(
               c => c.Name,
-              new Course { Id = 1, Name = "C# grundkurs", Description = "Grunderna i C#", StartDate = DateTime.Today.AddDays(-45), EndDate = DateTime.Today.AddDays(-40), GroupId = 1 },
+              new Course { Id = 1, Name = "C# grundkurs", Description = "Programmeringens grunder med exempel i C# En grundläggande lärobok i programmering. Den fokuserar på det som är gemensamt för de flesta programmeringsspråk – de grundläggande elementen och programkonstruktionerna och hur dessa relaterar till varandra, oberoende av språk Boken går igenom såväl grunderna i strukturerad programmering som grunderna i objektorienterad programmering beskrivs.Inlärningen av ett specifikt programmeringsspråk tonas ner, men exemplen är skrivna i C#.Den är i första hand avsedd för nybörjare i programmering på högskolenivå, men kan läsas av alla som vill lära sig programmeringens grunder.", StartDate = DateTime.Today.AddDays(-45), EndDate = DateTime.Today.AddDays(-40), GroupId = 1 },
               new Course { Id = 2, Name = "C# fortsättingskurs", Description = "Påbyggnad i C#", StartDate = DateTime.Today.AddDays(-39), EndDate = DateTime.Today.AddDays(-35), GroupId = 1 },
               new Course { Id = 3, Name = "Webutveckling", Description = "Utveckla i webapplikationer", StartDate = DateTime.Today.AddDays(-34), EndDate = DateTime.Today.AddDays(-30), GroupId = 1 },
               new Course { Id = 4, Name = "Testmetodik", Description = "Testing, testing...", StartDate = DateTime.Today.AddDays(-29), EndDate = DateTime.Today.AddDays(-25), GroupId = 2 },
               new Course { Id = 5, Name = "C# slutkurs", Description = "Ytterligare påbyggnad i C#", StartDate = DateTime.Today.AddDays(-15), EndDate = DateTime.Today.AddDays(-10), GroupId = 1 },
-              new Course { Id = 6, Name = "Sharepoint", Description = "Grunderna i Sharepoint", StartDate = DateTime.Today.AddDays(-12), EndDate = DateTime.Today.AddDays(-8), GroupId = 2 },
-              new Course { Id = 7, Name = "Java 2", Description = "Fortsättningskurs i Java", StartDate = DateTime.Today.AddDays(-15), EndDate = DateTime.Today.AddDays(-10), GroupId = 3 },
+              new Course { Id = 6, Name = "Sharepoint", Description = "SharePoint för användare Denna utbildning lär dig grunderna i SharePoint. Du får en överblick i programmets struktur och lär dig om integrationen med Microsoft Office (med 2013 som grund för exempel och övningar). Det handlar inte längre enbart om intranät utan även om hur vi hanterar information i vår organisation. Målgrupp Den här kursen riktar sig till SharePointanvändare  och blivande administratörer, redaktörer, informationshanterare, kommunikationsansvariga plus dig som arbetar som supportpersonal och behöver en heltäckande bild. Förkunskaper - Inga speciella förkunskaper krävs. Kursmaterial - På Svenska Vår utbildningsportal stöttar dig genom hela utbildningen. Portalen är tidsbesparande och utformad för att ge dig som deltagare en mer effektiv inlärning - som leder till bättre resultat och större kunskapstillämpning efter kursen. Läs mer här > SharepointDU FÅR LÄRA DIG • Vad är Office 365 • Introduktion till SharePoint • Skillnaden mellan olika SharePoint versioner • Så här arbetar du med SharePoints webbsidor • Förstå hur dokumenthantering fungerar med Office • Lär dig söka i SharePoint. • Introduktion till sociala funktioner i SharePoint • Exempel på projektarbete med SharePoint", StartDate = DateTime.Today.AddDays(-12), EndDate = DateTime.Today.AddDays(-8), GroupId = 2 },  new Course { Id = 7, Name = "Java 2", Description = "Fortsättningskurs i Java", StartDate = DateTime.Today.AddDays(-15), EndDate = DateTime.Today.AddDays(-10), GroupId = 3 },
               new Course { Id = 8, Name = "Projektarbete", Description = "Grupparbete med slutlig redovisning", StartDate = DateTime.Today.AddDays(-1), EndDate = DateTime.Today.AddDays(-3), GroupId = 1 }
             );
 
@@ -141,7 +140,7 @@ namespace LexiconLMS.Migrations {
                         UserName = eMail,
                         FirstName = uFirstName,
                         LastName = uLastName,
-                        FullName = uFirstName + " " + uLastName,
+                        Fullname = uFirstName + " " + uLastName,
                         Email = eMail,
                         Title = uTitle,
                         PhoneNumber = uPhone,
