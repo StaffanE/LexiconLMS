@@ -10,19 +10,21 @@ namespace LexiconLMS.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.HomeCurrent = "subopen current";
             return View();
         }
 
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-
+            ViewBag.HomeCurrent = "subopen current";
             return View();
         }
 
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
+            ViewBag.ContactCurrent = "subopen current";
 
             return View();
         }

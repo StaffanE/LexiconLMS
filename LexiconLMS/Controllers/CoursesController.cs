@@ -21,7 +21,9 @@ namespace LexiconLMS.Controllers
         {
            // var courses = db.Courses.Include(c => c.Group);   // Original-rad
            // return View(courses.ToList());                    // Original-rad
-            
+            ViewBag.CourseCurrent = "subopen current";
+
+
             var courses = db.Courses.Include(c=> c.Group);                                            
 
             sortOrder = String.IsNullOrEmpty(sortOrder) ? "date" : sortOrder;                      
@@ -92,6 +94,9 @@ namespace LexiconLMS.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.CourseCurrent = "subopen current";
+
             return View(course);
         }
 
@@ -99,6 +104,7 @@ namespace LexiconLMS.Controllers
         [Authorize(Roles = "Teacher")]
         public ActionResult Create()
         {
+            ViewBag.CourseCurrent = "subopen current";
             ViewBag.GroupId = new SelectList(db.Group, "Id", "Name");
             return View();
         }
@@ -118,6 +124,7 @@ namespace LexiconLMS.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.CourseCurrent = "subopen current";
             ViewBag.GroupId = new SelectList(db.Group, "Id", "Name", course.GroupId);
             return View(course);
         }
@@ -135,6 +142,8 @@ namespace LexiconLMS.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.CourseCurrent = "subopen current";
             ViewBag.GroupId = new SelectList(db.Group, "Id", "Name", course.GroupId);
             return View(course);
         }
@@ -153,6 +162,8 @@ namespace LexiconLMS.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            ViewBag.CourseCurrent = "subopen current";
             ViewBag.GroupId = new SelectList(db.Group, "Id", "Name", course.GroupId);
             return View(course);
         }
@@ -170,6 +181,8 @@ namespace LexiconLMS.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.CourseCurrent = "subopen current";
             return View(course);
         }
 
@@ -182,6 +195,8 @@ namespace LexiconLMS.Controllers
             Course course = db.Courses.Find(id);
             db.Courses.Remove(course);
             db.SaveChanges();
+
+            ViewBag.CourseCurrent = "subopen current";
             return RedirectToAction("Index");
         }
 
