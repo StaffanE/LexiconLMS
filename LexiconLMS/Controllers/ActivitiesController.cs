@@ -18,6 +18,7 @@ namespace LexiconLMS.Controllers
         public ActionResult Index()
         {
             var activities = db.Activities.Include(a => a.Course);
+            ViewBag.ActivitiesCurrent = "subopen current";
             return View(activities.ToList());
         }
 
@@ -33,12 +34,14 @@ namespace LexiconLMS.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ActivitiesCurrent = "subopen current";
             return View(activities);
         }
 
         // GET: Activities/Create
         public ActionResult Create()
         {
+            ViewBag.ActivitiesCurrent = "subopen current";
             ViewBag.CourseId = new SelectList(db.Courses, "Id", "Name");
             return View();
         }
@@ -57,6 +60,7 @@ namespace LexiconLMS.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.ActivitiesCurrent = "subopen current";
             ViewBag.CourseId = new SelectList(db.Courses, "Id", "Name", activities.CourseId);
             return View(activities);
         }
@@ -73,6 +77,8 @@ namespace LexiconLMS.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.ActivitiesCurrent = "subopen current";
             ViewBag.CourseId = new SelectList(db.Courses, "Id", "Name", activities.CourseId);
             return View(activities);
         }
@@ -90,6 +96,8 @@ namespace LexiconLMS.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            ViewBag.ActivitiesCurrent = "subopen current";
             ViewBag.CourseId = new SelectList(db.Courses, "Id", "Name", activities.CourseId);
             return View(activities);
         }
@@ -106,6 +114,8 @@ namespace LexiconLMS.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.ActivitiesCurrent = "subopen current";
             return View(activities);
         }
 
@@ -117,6 +127,8 @@ namespace LexiconLMS.Controllers
             Activities activities = db.Activities.Find(id);
             db.Activities.Remove(activities);
             db.SaveChanges();
+
+            ViewBag.ActivitiesCurrent = "subopen current";
             return RedirectToAction("Index");
         }
 

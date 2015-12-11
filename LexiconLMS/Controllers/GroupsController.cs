@@ -14,6 +14,7 @@ namespace LexiconLMS.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+
         // GET: Groups                               //   Ursprungliga Index-versionen
         //public ActionResult Index()
         //{
@@ -21,16 +22,18 @@ namespace LexiconLMS.Controllers
         //}
 
 
-
         // GET: Groups
         public ActionResult Index(string sortOrder)                                         //  sortOrder sätts som en inparameter. Den används inte när man kör Index-actionresult första gången, utan bara om man väljer att sortera via någon av kolumnrubriks-länkarna. 
         {                                                                                   //  sortOrder får sitt in-värde beroende på vilken kolumnrubrik man trycker på i Viewen.               
-        
+
             sortOrder = String.IsNullOrEmpty(sortOrder) ? "name" : sortOrder;                      //   Om sortOrder-parametern är null eller tom, som den är första gången, så sätts den istället till "name". Är den inte tom när den kommer in så behålls den som den är. 
             ViewBag.NameSortParm = sortOrder == "name" ? "name_desc" : "name";                     //    ViewBag.NameSortParm sätts till sortOrder. Om sortOrder har värdet "name" så ändras det till name_desc istället, har den något annat värde så sätts den till "name".
             ViewBag.DateSortParm = sortOrder == "date" ? "date_desc" : "date";                             //    _ ? _ : _  är det samma som  "if ... then ... else", dvs if (sortOrder == "Date") then {ViewBag.DateSortParm = "date_desc";} else {ViewBag.DateSortParm ="Date";}
             ViewBag.EndDateSortParm = sortOrder == "end_date" ? "end_date_desc" : "end_date";              //   ViewBag.EndDateSortParm sätts till sortOrder. Om sortOrder har värdet "end_date" sätts det istället till "end_date_desc", har den något annat värde så sätts den till "end_date".
             ViewBag.sortOrder = sortOrder;
+
+            ViewBag.GroupsCurrent = "subopen current";
+
 
             //ViewBag.NameSortParm = sortOrder;                                                                //  Det omständliga sättet att skriva det.
             //if (String.IsNullOrEmpty(sortOrder))
@@ -97,6 +100,7 @@ namespace LexiconLMS.Controllers
         // GET: Groups/Details/5
         public ActionResult Details(int? id)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -106,12 +110,17 @@ namespace LexiconLMS.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.GroupsCurrent = "subopen current";
+
             return View(group);
         }
 
         // GET: Groups/Create
         public ActionResult Create()
         {
+            ViewBag.GroupsCurrent = "subopen current";
+
             return View();
         }
 
@@ -122,6 +131,8 @@ namespace LexiconLMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,Description,StartDate,EndDate")] Group group)
         {
+            ViewBag.GroupsCurrent = "subopen current";
+
             if (ModelState.IsValid)
             {
                 db.Group.Add(group);
@@ -135,6 +146,8 @@ namespace LexiconLMS.Controllers
         // GET: Groups/Edit/5
         public ActionResult Edit(int? id)
         {
+
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -144,6 +157,9 @@ namespace LexiconLMS.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.GroupsCurrent = "subopen current";
+
             return View(group);
         }
 
@@ -160,6 +176,8 @@ namespace LexiconLMS.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            ViewBag.GroupsCurrent = "subopen current";
             return View(group);
         }
 
@@ -175,6 +193,8 @@ namespace LexiconLMS.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.GroupsCurrent = "subopen current";
             return View(group);
         }
 
@@ -186,6 +206,8 @@ namespace LexiconLMS.Controllers
             Group group = db.Group.Find(id);
             db.Group.Remove(group);
             db.SaveChanges();
+
+            ViewBag.GroupsCurrent = "subopen current";
             return RedirectToAction("Index");
         }
 

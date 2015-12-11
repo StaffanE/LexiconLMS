@@ -18,6 +18,8 @@ namespace LexiconLMS.Controllers
         public ActionResult Index()
         {
             var documents = db.Documents.Include(d => d.Activities).Include(d => d.Course).Include(d => d.Group).Include(d => d.ApplicationUser);
+
+            ViewBag.DocumentCurrent = "subopen current";
             return View(documents.ToList());
         }
 
@@ -33,6 +35,8 @@ namespace LexiconLMS.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.DocumentCurrent = "subopen current";
             return View(document);
         }
 
@@ -45,6 +49,7 @@ namespace LexiconLMS.Controllers
             //ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "Fullname");
             //ViewBag.ApplicationUserId = new SelectList(db2.Users, "Id", "UserName", usercontent.ApplicationUserId);
 
+            ViewBag.DocumentCurrent = "subopen current";
             return View();
         }
 
@@ -55,16 +60,22 @@ namespace LexiconLMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,Description,dateCreated,GroupId,CourseId,ActivitiesId,ApplicationUserId")] Document document)
         {
+
+            ViewBag.DocumentCurrent = "subopen current";
+
+
             if (ModelState.IsValid)
             {
                 db.Documents.Add(document);
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
             ViewBag.ActivitiesId = new SelectList(db.Activities, "Id", "Name", document.ActivitiesId);
             ViewBag.CourseId = new SelectList(db.Courses, "Id", "Name", document.CourseId);
             ViewBag.GroupId = new SelectList(db.Group, "Id", "Name", document.GroupId);
+
             return View(document);
         }
 
@@ -83,6 +94,8 @@ namespace LexiconLMS.Controllers
             ViewBag.ActivitiesId = new SelectList(db.Activities, "Id", "Name", document.ActivitiesId);
             ViewBag.CourseId = new SelectList(db.Courses, "Id", "Name", document.CourseId);
             ViewBag.GroupId = new SelectList(db.Group, "Id", "Name", document.GroupId);
+            ViewBag.DocumentCurrent = "subopen current";
+
             return View(document);
         }
 
@@ -94,6 +107,8 @@ namespace LexiconLMS.Controllers
        //public ActionResult Edit([Bind(Include = "Id,Name,Description,dateCreated,GroupId,CourseId,ActivitiesId,ApplicationUserId")] Document document)
        public ActionResult Edit([Bind(Include = "Id,Name,Description,dateCreated,GroupId,CourseId,ActivitiesId,ApplicationUserId")] Document document)
         {
+            ViewBag.DocumentCurrent = "subopen current";
+
             if (ModelState.IsValid)
             {
                 db.Entry(document).State = EntityState.Modified;
@@ -118,6 +133,9 @@ namespace LexiconLMS.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.DocumentCurrent = "subopen current";
+
             return View(document);
         }
 
@@ -129,6 +147,8 @@ namespace LexiconLMS.Controllers
             Document document = db.Documents.Find(id);
             db.Documents.Remove(document);
             db.SaveChanges();
+            ViewBag.DocumentCurrent = "subopen current";
+
             return RedirectToAction("Index");
         }
 

@@ -164,6 +164,7 @@ namespace LexiconLMS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Fullname,Title,GroupId,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
+     //    public ActionResult Edit([Bind(Include = "FirstName,LastName,Title,GroupId,Email,PhoneNumber")] ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)
             {

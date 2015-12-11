@@ -10,11 +10,20 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using LexiconLMS.Models;
 
+using System.Collections.Generic;
+using System.Web.Security;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Net;
+using System.Net.Mail;
+using LexiconLMS.Controllers;
+
 namespace LexiconLMS.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+
+        private ApplicationDbContext db = new ApplicationDbContext();     // Tillagd manuellt för att kunna hantera dropdown-listan i register-metoden
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -86,7 +95,7 @@ namespace LexiconLMS.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", "Felaktig inloggning.");
                     return View(model);
             }
         }
@@ -139,23 +148,48 @@ namespace LexiconLMS.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ViewBag.GroupId = new SelectList(db.Group, "Id", "Name", null);      // Tillagd för att hantera dropdownlistan för group-id
+            
             return View();
         }
 
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
+        // [AllowAnonymous]
+        [Authorize(Roles = "Teacher")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, PhoneNumber = model.PhoneNumber, GroupId = model.GroupId, Title = model.Title };
                 var result = await UserManager.CreateAsync(user, model.Password);
+
+                // var roleStore = new RoleStore<IdentityRole>(context);
+                // var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+                // var userStore = new UserStore<ApplicationUser>(context);
+                // var userManager = new UserManager<ApplicationUser>(userStore);
+                // userManager.AddToRole(user.Id, "User");
+
+                //if (result.Succeeded)
+                //{
+                //    await SignInAsync(user, isPersistent: false);
+                //    return RedirectToAction("Index", "Home");
+                //}
+                //else
+                //{
+                //    AddErrors(result);
+                //}
+
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    user = UserManager.FindByEmail(user.Email);            // letar upp usern
+                    UserManager.AddToRole(user.Id, model.Title);             // Tilldelar en roll
+
+                    
+                    // await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);   // Koden med från början, och ser till att en nyregistrerad användare automatiskt loggas in. 
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -166,12 +200,23 @@ namespace LexiconLMS.Controllers
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
+                
             }
 
             // If we got this far, something failed, redisplay form
+            ViewBag.GroupId = new SelectList(db.Group, "Id", "Name", null);     // Tillagd för att hantera dropdownlistan för group-id. Null-värdet motsvarar applicationUser.GroupId, dvs den inloggade användarens gruppId. Behövs i edit, men inte i register, eftersom ingen specifik användare är förvald då.
+            
             return View(model);
         }
 
+
+
+
+
+
+
+
+      
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
