@@ -22,6 +22,8 @@ namespace LexiconLMS.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+
+        private ApplicationDbContext db = new ApplicationDbContext();     // Tillagd manuellt för att kunna hantera dropdown-listan i register-metoden
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -146,6 +148,8 @@ namespace LexiconLMS.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ViewBag.GroupId = new SelectList(db.Group, "Id", "Name", null);      // Tillagd för att hantera dropdownlistan för group-id
+            
             return View();
         }
 
@@ -159,7 +163,7 @@ namespace LexiconLMS.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, FullName = model.FullName, PhoneNumber = model.PhoneNumber, GroupId = model.GroupId, Title = model.Title };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, PhoneNumber = model.PhoneNumber, GroupId = model.GroupId, Title = model.Title };
                 var result = await UserManager.CreateAsync(user, model.Password);
 
                 // var roleStore = new RoleStore<IdentityRole>(context);
@@ -185,7 +189,7 @@ namespace LexiconLMS.Controllers
                     UserManager.AddToRole(user.Id, model.Title);             // Tilldelar en roll
 
                     
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    // await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);   // Koden med från början, och ser till att en nyregistrerad användare automatiskt loggas in. 
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -200,6 +204,8 @@ namespace LexiconLMS.Controllers
             }
 
             // If we got this far, something failed, redisplay form
+            ViewBag.GroupId = new SelectList(db.Group, "Id", "Name", null);     // Tillagd för att hantera dropdownlistan för group-id. Null-värdet motsvarar applicationUser.GroupId, dvs den inloggade användarens gruppId. Behövs i edit, men inte i register, eftersom ingen specifik användare är förvald då.
+            
             return View(model);
         }
 
