@@ -19,11 +19,25 @@ namespace LexiconLMS.Models
         [Display(Name = "Efternamn")]
         public string LastName { get; set; }
 
-        [Display(Name = "Namn")]
-        public string Fullname { get; set; }
+        //[Display(Name = "Namn")]
+        //public string Fullname { get; set; }
+        
+        [Display(Name = "Ägare / Medlem")]
+        public string FullName 
+        { 
+            get
+            {
+                var fullName = FirstName + " " + LastName;
+                fullName.Trim();
+                return fullName;
+            }
+            set {  }
+        }
+
 
         [Display(Name = "Roll")]
         public string Title { get; set; }
+        
         //public string UserEmail { get; set; }
         //public string Phone { get; set; }
 

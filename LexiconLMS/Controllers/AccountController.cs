@@ -10,6 +10,13 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using LexiconLMS.Models;
 
+using System.Collections.Generic;
+using System.Web.Security;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Net;
+using System.Net.Mail;
+using LexiconLMS.Controllers;
+
 namespace LexiconLMS.Controllers
 {
     [Authorize]
@@ -86,7 +93,7 @@ namespace LexiconLMS.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", "Felaktig inloggning.");
                     return View(model);
             }
         }
@@ -145,16 +152,39 @@ namespace LexiconLMS.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
+        // [AllowAnonymous]
+        [Authorize(Roles = "Teacher")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, FullName = model.FullName, PhoneNumber = model.PhoneNumber, GroupId = model.GroupId, Title = model.Title };
                 var result = await UserManager.CreateAsync(user, model.Password);
+
+                // var roleStore = new RoleStore<IdentityRole>(context);
+                // var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+                // var userStore = new UserStore<ApplicationUser>(context);
+                // var userManager = new UserManager<ApplicationUser>(userStore);
+                // userManager.AddToRole(user.Id, "User");
+
+                //if (result.Succeeded)
+                //{
+                //    await SignInAsync(user, isPersistent: false);
+                //    return RedirectToAction("Index", "Home");
+                //}
+                //else
+                //{
+                //    AddErrors(result);
+                //}
+
                 if (result.Succeeded)
                 {
+                    user = UserManager.FindByEmail(user.Email);            // letar upp usern
+                    UserManager.AddToRole(user.Id, model.Title);             // Tilldelar en roll
+
+                    
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
@@ -166,12 +196,21 @@ namespace LexiconLMS.Controllers
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
+                
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
         }
 
+
+
+
+
+
+
+
+      
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]

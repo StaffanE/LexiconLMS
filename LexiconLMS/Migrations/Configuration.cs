@@ -141,7 +141,7 @@ namespace LexiconLMS.Migrations {
                         UserName = eMail,
                         FirstName = uFirstName,
                         LastName = uLastName,
-                        Fullname = uFirstName + " " + uLastName,
+                        FullName = uFirstName + " " + uLastName,
                         Email = eMail,
                         Title = uTitle,
                         PhoneNumber = uPhone,
