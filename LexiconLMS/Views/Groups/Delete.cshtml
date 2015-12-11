@@ -3,58 +3,72 @@
 @{
     ViewBag.Title = "Ta bort grupp";
 }
-
-<h2>Borttag @Html.Display(Model.Name) </h2>
-
-<h3>Är du säker på att du vill ta bort gruppen @Html.DisplayFor(model => model.Name)?</h3>
-<div>
-    <h4>Grupp @Html.DisplayFor(model => model.Name)</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StartDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EndDate)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Ta bort grupp" class="btn btn-danger btn-sm" />
-             <a href="@Url.Action("Index", "Groups")" type="button" class="btn btn-info btn-sm">
-                <span class="glyphicon glyphicon-arrow-up">
-                </span>
-                Åter lista alla grupper
-            </a>
+<div class="container-fluid topMarg">
+    <div class="col-sm-12">
+        <div class="col-sm-3">
         </div>
-    }
-</div>
+        <div class="col-sm-6">
+
+            <h2>Borttag @Html.Display(Model.Name) </h2>
+            <h3 style="background:#FFFFFF;color:rgb(214, 0, 0);"> Är du säker på att du vill ta bort gruppen @Html.DisplayFor(model => model.Name)?</h3>
+            <div>
+                <h4>Grupp @Html.DisplayFor(model => model.Name)</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Description)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.StartDate)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.StartDate)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.EndDate)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.EndDate)
+                    </dd>
+
+                </dl>
+
+                @using (Html.BeginForm()) {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Ta bort grupp" class="btn btn-danger btn-sm" />
+                        <a href="@Url.Action("Index", "Groups")" type="button" class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-arrow-up">
+                            </span>
+                            Åter lista alla grupper
+                        </a>
+                    </div>
+                }
+            </div>
+            <div class="col-sm-3">
+            </div>
+        </div>
+    </div>
+    <div class="container botMarg">
+        <div class="col-sm-12">
+            <p>
+            </p>
+        </div>
+    </div>

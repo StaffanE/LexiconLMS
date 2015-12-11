@@ -8,14 +8,14 @@
 <h2>@ViewBag.Title</h2>
 
 <p>
-   @if (User.IsInRole("Teacher")) {
-    <span>
-        <a href="@Url.Action("Create")" class="btn btn-success btn-sm">
-            <span class="glyphicon glyphicon-plus-sign"></span>
-            Lägg upp ny kurs
-        </a>
-    </span>
-   }
+    @if (User.IsInRole("Teacher")) {
+        <span>
+            <a href="@Url.Action("Create")" class="btn btn-success btn-sm">
+                <span class="glyphicon glyphicon-plus-sign"></span>
+                Lägg upp ny kurs
+            </a>
+        </span>
+    }
 </p>
 <table class="table">
     <tr>
@@ -37,7 +37,7 @@
         <th>
             Status
         </th>
-        
+
     </tr>
 
     @foreach (var item in Model) {
@@ -90,8 +90,14 @@
                 }
             </td>
             @{ViewBag.OddOrEven = ViewBag.OddOrEven + 1;
-    }
+            }
         </tr>
     }
 
 </table>
+<div class="container botMarg">
+    <div class="col-sm-12">
+        <p>
+        </p>
+    </div>
+</div>

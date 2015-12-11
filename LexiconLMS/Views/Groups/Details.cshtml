@@ -8,15 +8,15 @@
     ViewBag.OddOrEven = 0;
 }
 
-<div>
-    <h2 style="background: #f2f2f2;;color:rgb(214, 0, 0)">@ViewBag.Title </h2>
-</div>
 <div class="container-fluid topMarg">
     <div class="col-sm-12">
         <div class="col-sm-6">
+            <div>
+                <h2>@ViewBag.Title </h2>
+            </div>
             <div class="mini-box" style="background: #f2f2f2;color:#0000">
                 <dl class="dl-horizontal">
-                    <h2 style="background: rgb(214, 0, 0);color:#FFFFFF;">Grupp @Html.DisplayFor(model => model.Name)</h2>
+                    <h2>Grupp @Html.DisplayFor(model => model.Name)</h2>
                     <dt>
                         @Html.DisplayNameFor(model => model.Name)
                     </dt>
@@ -69,9 +69,9 @@
         </div>
 
         <div class="col-sm-6">
-            <h2 style="background: rgb(65, 173, 73);color:#FFFFFF;"> Kurser ingående i @Html.DisplayFor(model => model.Name) </h2>
-            <table id="courses" cellspacing="1" style="background: rgb(65, 173, 73);color:#fff">
-                <tr style="color:#ffffff">
+            <h2> Kurser ingående i @Html.DisplayFor(model => model.Name) </h2>
+            <table id="courses" cellspacing="1">
+                <tr>
                     <td width="16">
                         Startdatum
                     </td>
@@ -108,10 +108,11 @@
                     ViewBag.OddOrEven = ViewBag.OddOrEven + 1;
                 }
             </table>
+            <dl></dl>
             <div class="mini-box">
-                <table id="users" style="background: #E0E0E0;color:#0000">
-                    <h4 style="background: rgba(0, 137, 208, 0.6);color:#FFFFFF"> Elever i grupp @Html.DisplayFor(model => model.Name) </h4>
-                    <tr style="background:rgba(0, 137, 208, 0.8);color:#FFFFFF">
+                <table id="users">
+                    <h4 > Elever i grupp @Html.DisplayFor(model => model.Name) </h4>
+                    <tr>
                         <td width="300">
                             @Html.DisplayNameFor(model => model.GroupStudents.First().Fullname)
                         </td>

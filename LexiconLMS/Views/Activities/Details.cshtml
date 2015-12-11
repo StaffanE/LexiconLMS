@@ -3,72 +3,103 @@
 @{
     ViewBag.Title = "Details";
 }
+<div class="col-sm-12">
+    <div class="col-sm-3">
+    </div><div class="col-sm-6">
+        ><h2>Aktivitet / @Html.DisplayFor(model => model.Name)/</h2>
 
-><h2>Aktivitet / @Html.DisplayFor(model => model.Name)/</h2>
+        <div>
+            <h4>Detaljer @Html.DisplayFor(model => model.Name)</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Course.Name)
+                </dt>
 
-<div>
-    <h4>Detaljer</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Course.Name)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Course.Name)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Course.Name)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ActivityType)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ActivityType)
-        </dt>
+                <dd>
+                    @ExtensionMethods.DisplayFor(Model.ActivityType)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ActivityType)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.StartTime)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.StartTime)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.StartTime)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.StartTime)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.EndTime)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.EndTime)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EndTime)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.EndTime)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Deadline)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Deadline)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Deadline)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Deadline)
-        </dd>
-
-    </dl>
+            </dl>
+        </div>
+        <p>
+            @if (User.IsInRole("Teacher")) {
+                <span>
+                    <a href="@Url.Action("Edit", "Activities", new { id = Model.Id })" class="btn btn-warning btn-sm">
+                        <span class="glyphicon glyphicon-edit"></span>
+                        Redigera aktivitet
+                    </a>
+                </span>
+            }
+            <a href="@Url.Action("Index", "Activities")" type="button" class="btn btn-info btn-sm">
+                <span class="glyphicon glyphicon-arrow-up">
+                </span>
+                Åter till lista
+            </a>
+            @if (User.IsInRole("Teacher")) {
+                <span>
+                    <a href="@Url.Action("Delete", "Activities", new { id = Model.Id })" class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-minus-sign"></span>
+                        Ta bort aktivitet
+                    </a>
+                </span>
+            }
+        </p>
+    </div>
+    <div class="col-sm-3">
+    </div>
 </div>
-<p>
-    @if (User.IsInRole("Teacher")) {@Html.ActionLink("Ändra", "Edit", new { id = Model.Id })} 
-    @Html.ActionLink("Åter till lista", "Index")
-</p>
+<div class="container botMarg">
+    <div class="col-sm-12">
+        <p>
+        </p>
+    </div>
+</div>

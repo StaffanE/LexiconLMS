@@ -5,7 +5,7 @@
     ViewBag.OddOrEven = 0;
 }
 
-<h2>Alla grupper</h2>
+<h2>Alla @ViewBag.Title</h2>
 
 <p>
 @if (User.IsInRole("Teacher"))
@@ -16,7 +16,7 @@
             Lägg upp ny grupp
         </a>
     </span>
-    @*@Html.ActionLink("Lägg upp ny grupp", "Create")*@
+  
 }
 </p>
 <table class="table">
@@ -95,3 +95,9 @@
 }
 
 </table>
+<div class="container botMarg">
+    <div class="col-sm-12">
+        <p>
+        </p>
+    </div>
+</div>
