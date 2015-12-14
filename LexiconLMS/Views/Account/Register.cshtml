@@ -5,6 +5,15 @@
 
 <h2>@ViewBag.Title.</h2>
 
+@*Commented by the cause that the View crasches regarding some null-reference
+My thought was that a techer should rgister a number of studens to a course and after he/she has finished return to the connected group*@
+@*<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <a href="@Url.Action("Detail", "Groups", new { id = Model.GroupId })" class="btn btn-warning btn-xs glyphicon glyphicon-backward">
+            Åter
+        </a>
+    </div>
+</div>*@
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
@@ -26,26 +35,12 @@
         </div>
     </div>
 
-    @*<div class="form-group">
-        @Html.LabelFor(m => m.FullName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.FullName, new { @class = "form-control" })
-        </div>
-    </div>*@
-
     <div class="form-group">
         @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
         </div>
     </div>
-
-    @*<div class="form-group">
-        @Html.LabelFor(m => m.GroupId, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.GroupId, new { @class = "form-control" })
-        </div>
-    </div>*@
 
     <div class="form-group">
         @Html.LabelFor(m => m.GroupId, "Grupp", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -55,14 +50,6 @@
         </div>
     </div>
 
-    @*<div class="form-group">
-        @Html.LabelFor(model => model.GroupId, "Grupp", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("GroupId", null, " - Välj grupp - ", htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.GroupId, "", new { @class = "text-danger" })
-        </div>
-    </div>*@
-
     <div class="form-group">
         @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
@@ -70,53 +57,34 @@
         </div>
     </div>
 
-    @*<div class="form-group">
-        @Html.LabelFor(m => m.Title, "Title", htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.DropDownList("Title", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
         </div>
-    </div>*@
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
         </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-            </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
         </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-            </div>
-        </div>
+    </div>
+
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" class="btn btn-success" value="Registrera">
         </div>
     </div>
-
-    @*<div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <button type="submit" class="btn btn-success">
-                    <i class="glyphicon glyphicon-plus-sign"></i> Registrera
-                </button>
-        </div>
-    </div>*@
+}
 
 
-                
-
-
-           
-        }
-
-        @section Scripts {
-            @Scripts.Render("~/bundles/jqueryval")
-        }
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

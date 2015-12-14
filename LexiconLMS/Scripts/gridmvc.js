@@ -383,21 +383,21 @@ GridMvc = (function ($) {
 if (typeof (GridMvc.lang) == 'undefined')
     GridMvc.lang = {};
 GridMvc.lang.en = {
-    filterTypeLabel: "Type: ",
-    filterValueLabel: "Value:",
-    applyFilterButtonText: "Apply",
+    filterTypeLabel: "Villkor: ",
+    filterValueLabel: "Värde:",
+    applyFilterButtonText: "Använd",
     filterSelectTypes: {
-        Equals: "Equals",
-        StartsWith: "StartsWith",
-        Contains: "Contains",
-        EndsWith: "EndsWith",
-        GreaterThan: "Greater than",
-        LessThan: "Less than"
+        Equals: "Exakt sökning",
+        StartsWith: "Börjar med",
+        Contains: "Innehåller",
+        EndsWith: "Slutar med",
+        GreaterThan: "Större än",
+        LessThan: "Mindre än"
     },
     code: 'en',
-    boolTrueLabel: "Yes",
-    boolFalseLabel: "No",
-    clearFilterLabel: "Clear filter"
+    boolTrueLabel: "Ja",
+    boolFalseLabel: "Nej",
+    clearFilterLabel: "Rensa sökfilter"
 };
 /***
 * ============= FILTER WIDGETS =============

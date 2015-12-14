@@ -75,20 +75,20 @@
                 <span>
                     <a href="@Url.Action("Edit", "Activities", new { id = Model.Id })" class="btn btn-warning btn-sm">
                         <span class="glyphicon glyphicon-edit"></span>
-                        Redigera aktivitet
+                        Redigera 
                     </a>
                 </span>
             }
             <a href="@Url.Action("Index", "Activities")" type="button" class="btn btn-info btn-sm">
                 <span class="glyphicon glyphicon-arrow-up">
                 </span>
-                Åter till lista
+                Åter lista
             </a>
             @if (User.IsInRole("Teacher")) {
                 <span>
                     <a href="@Url.Action("Delete", "Activities", new { id = Model.Id })" class="btn btn-danger btn-sm">
                         <span class="glyphicon glyphicon-minus-sign"></span>
-                        Ta bort aktivitet
+                        Ta bort
                     </a>
                 </span>
             }

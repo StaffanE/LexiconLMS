@@ -49,15 +49,16 @@
 
                 </dl>
 
-                @using (Html.BeginForm()) {
+                @using (Html.BeginForm())
+                {
                     @Html.AntiForgeryToken()
 
                     <div class="form-actions no-color">
-                        <input type="submit" value="Ta bort grupp" class="btn btn-danger btn-sm" />
+                        <input type="submit" value="Ta bort" class="btn btn-danger btn-sm" />
                         <a href="@Url.Action("Index", "Groups")" type="button" class="btn btn-info btn-sm">
                             <span class="glyphicon glyphicon-arrow-up">
                             </span>
-                            Åter lista alla grupper
+                            Åter lista
                         </a>
                     </div>
                 }
@@ -66,9 +67,11 @@
             </div>
         </div>
     </div>
-    <div class="container botMarg">
-        <div class="col-sm-12">
-            <p>
-            </p>
-        </div>
+</div>
+<div class="container botMarg">
+    <div class="col-sm-12">
+        <p>
+        </p>
     </div>
+</div>
+

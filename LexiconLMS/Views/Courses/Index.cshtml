@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<LexiconLMS.Models.Course>
+@using GridMvc.Html;
+@using GridMvc.Sorting;
+@using System.Web.Helpers;
 
 @{
     ViewBag.Title = "Alla kurser";
@@ -10,91 +13,79 @@
 <p>
     @if (User.IsInRole("Teacher")) {
         <span>
-            <a href="@Url.Action("Create")" class="btn btn-success btn-sm">
+            <a href="@Url.Action("Create")" class="btn btn-success btn-xs">
                 <span class="glyphicon glyphicon-plus-sign"></span>
-                Lägg upp ny kurs
+                Lägg upp
             </a>
         </span>
     }
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Group.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </th>
-        <th>
-            Status
-        </th>
+@Html.Grid(Model).Columns(columns =>{
 
-    </tr>
+       /* Adding "Groupname" column: */
+        columns.Add(model => model.Group.Name)
+            .Sortable(true)
+            .Titled("Grupp")
+            .SetWidth(20);
 
-    @foreach (var item in Model) {
-        @*Korta ner Description i listvyn om den blir för maffig att visa i sin helhet*@
-        int dispLength = 25;
-        if (item.Description.Length < dispLength) { dispLength = item.Description.Length; };
-        string dispDescription = item.Description.Substring(0, dispLength);
-        <tr style=@ExtensionMethods.trColorGrayWhite(ViewBag.OddOrEven) onclick="this.children[0].children[0].click();">
-            <td>
-                @Html.DisplayFor(modelItem => item.Group.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @dispDescription
-                @*@Html.DisplayFor(modelItem => item.Description)*@
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td>
-                @ExtensionMethods.PeriodStatus(item.StartDate, item.EndDate)
-            </td>
-            <td>
-                @if (User.IsInRole("Teacher")) {
-                    <span>
-                        <a href="@Url.Action("Edit", "Courses", new { id = item.Id })" class="btn btn-warning btn-sm">
-                            <span class="glyphicon glyphicon-edit"></span>
-                            Redigera kurs
-                        </a>
-                    </span>
-                }
-                <span>
-                    <a href="@Url.Action("Details", "Courses", new { id = item.Id })" class=" btn btn-primary btn-sm">
-                        <span class="glyphicon glyphicon-exclamation-sign"></span>
-                        Detaljer om kurs
-                    </a>
-                </span>
-                @if (User.IsInRole("Teacher")) {
-                    <span>
-                        <a href="@Url.Action("Delete", "Courses", new { id = item.Id })" class="btn btn-danger btn-sm">
-                            <span class="glyphicon glyphicon-minus-sign"></span>
-                            Ta bort kurs
-                        </a>
-                    </span>
-                }
-            </td>
-            @{ViewBag.OddOrEven = ViewBag.OddOrEven + 1;
-            }
-        </tr>
-    }
+        /* Adding "OrderID" column: */
+        columns.Add(model => model.Name)
+            .Sortable(true)
+            .Titled("Kurs")
+            .SetWidth(20);
 
-</table>
+        /* Adding "Description" column: */
+        columns.Add(model => model.Description)
+            .Encoded(true)
+            .Sanitized(false)
+            .SetWidth(12)
+        ;
+
+        /* Adding "StartDate" column: */
+        columns.Add(model => model.StartDate)
+            .Titled("Starttdatum")
+            .Format("{0:yyyy-MM-dd}")
+            .Sortable(true)
+            .SetWidth(12)
+            .SortInitialDirection(GridSortDirection.Descending);
+
+        columns.Add(model => model.EndDate)
+            .Sortable(true)
+            .Titled("Slutdatum")
+            .Format("{0:yyyy-MM-dd}")
+            .SetWidth(12)
+            .ThenSortByDescending(model => model.EndDate)
+            ;
+    /* Adding not mapped column, that renders body, using inline Razor html helper */
+    columns.Add()
+            .Encoded(false)
+            .Sanitized(false)
+            .SetWidth(12)
+            .RenderValueAs(
+            @<a href="@Url.Action("Edit", "Courses", new { id = item.Id })" class="btn btn-warning btn-xs">
+                <span class="glyphicon glyphicon-edit"></span>
+                Redigera
+            </a>);
+     columns.Add()
+            .Encoded(false)
+            .Sanitized(false)
+            .SetWidth(12)
+            .RenderValueAs(
+            @<a href="@Url.Action("Details", "Courses", new { id = item.Id })" class=" btn btn-primary btn-xs">
+                <span class="glyphicon glyphicon-exclamation-sign"></span>
+                Detaljer
+            </a>);
+                    columns.Add()
+            .Encoded(false)
+            .Sanitized(false)
+            .SetWidth(12)
+            .RenderValueAs(
+            @<a href="@Url.Action("Delete", "Courses", new { id = item.Id })" class="btn btn-danger btn-xs">
+                <span class="glyphicon glyphicon-minus-sign"></span>
+                Ta bort
+            </a>);
+        }).WithPaging(5).Sortable().Filterable().WithMultipleFilters();
+
 <div class="container botMarg">
     <div class="col-sm-12">
         <p>

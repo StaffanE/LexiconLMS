@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using GridMvc;
+using GridMvc.DataAnnotations;
+//using GridMvc.Pagination;
 
 namespace LexiconLMS.Models
 {
@@ -23,25 +26,32 @@ namespace LexiconLMS.Models
         Other 
 
     }
+    [GridTable(PagingEnabled = true, PageSize = 20)]
      public class Activities
     {
         public int Id { get; set; }
-
+        [GridColumn(Title = "Aktivitetstyp", SortEnabled = true, FilterEnabled = true)]
         [Display(Name = "Typ")]
         public ActivityTypeEnum ActivityType { get; set; }
-
+  
+        [GridColumn(Title = "Aktivitetsnamn", SortEnabled = true, FilterEnabled = true)]
         [Display(Name = "Aktivitet")]
         public string Name { get; set; }
 
+        [GridColumn(Title = "Aktivitetsbeskrivning", SortEnabled = true, FilterEnabled = true)]
         [Display(Name = "Beskrivning")]
         public string Description { get; set; }
 
+        [GridColumn(Title = "Startdatum/tid", SortEnabled = true, FilterEnabled = true)]
         [Display(Name = "Start datum/tid")]
         public DateTime StartTime { get; set; }
 
+        [GridColumn(Title = "Slutdatum/tid", SortEnabled = true, FilterEnabled = true)]
         [Display(Name = "Slut datum/tid")]
         public DateTime EndTime { get; set; }
         //public DateTime Deadline  { get; set; }
+
+        [GridColumn(Title = "Inlämningsuppgift", SortEnabled = true, FilterEnabled = true)]
         [Display(Name = "Inlämningsuppgift")]
         public bool Deadline { get; set; }
 

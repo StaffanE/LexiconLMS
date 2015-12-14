@@ -43,18 +43,18 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control" } })
+                <div class="form-group date-picker" id="#datetimepickerStartdate">
+                    @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label col-md-2 date-picker" })
+                    <div class="col-md-10 date-picker">
+                        @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control date-picker" } })
                         @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group date-picker" id="datetimepickerEnddate">
                     @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control" } })
+                    <div class="input-group col-md-10 date-picker">
+                        @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control date-picker" } })
                         @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                             </span>
                             Åter lista
                         </a>
-                        <input type="submit" value="Spara aktivitet" class="btn btn-sm glyphicon-save" />
+                        <input type="submit" value="Spara " class="btn btn-sm glyphicon-save" />
                     </div>
                 </div>
             </div>
@@ -99,7 +99,20 @@
             </p>
         </div>
     </div>
- 
+ <script type="text/javascript">
+    $(function () {
+        $('#datetimepickerStartdate').datetimepicker();
+        $('#datetimepickerEnddate').datetimepicker({
+            useCurrent: false //Important! See issue #1075
+        });
+        $("#datetimepickerStartdate").on("dp.change", function (e) {
+            $('#datetimepickerEnddate').data("DateTimePicker").minDate(e.date);
+        });
+        $("#datetimepickerEnddate").on("dp.change", function (e) {
+            $('#datetimepickerStartdate').data("DateTimePicker").maxDate(e.date);
+        });
+    });
+</script>
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
     }

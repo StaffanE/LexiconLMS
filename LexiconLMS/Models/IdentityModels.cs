@@ -7,22 +7,31 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using GridMvc;
+using GridMvc.DataAnnotations;
+using GridMvc.Resources;
+using GridMvc.Pagination;
+
 
 namespace LexiconLMS.Models
 {
+    [GridTable(PagingEnabled = true, PageSize = 20)]
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        [GridColumn(Title = "Förnamn", SortEnabled = true, FilterEnabled = true)]
         [Display(Name = "Förnamn")]
         public string FirstName { get; set; }
 
+        [GridColumn(Title = "Efternamn", SortEnabled = true, FilterEnabled = true)]
         [Display(Name = "Efternamn")]
         public string LastName { get; set; }
 
         //[Display(Name = "Namn")]
         //public string Fullname { get; set; }
-        
-        [Display(Name = "Ägare / Medlem")]
+
+        [GridColumn(Title = "Namn", SortEnabled = true, FilterEnabled = true)]
+        [Display(Name = "Namn")]
         public string FullName 
         { 
             get
@@ -34,18 +43,20 @@ namespace LexiconLMS.Models
             set {  }
         }
 
-
+        [GridColumn(Title = "Roll", SortEnabled = true, FilterEnabled = true)]
         [Display(Name = "Roll")]
+        [Required]
         public string Title { get; set; }
         
         //public string UserEmail { get; set; }
         //public string Phone { get; set; }
 
 
-
+        [GridColumn(Title = "Grupp", SortEnabled = true, FilterEnabled = true)]
         [Display(Name = "Grupp")]
         public int? GroupId { get; set; }                         // Foreign key
 
+        [GridColumn(Title = "Grupp", SortEnabled = true, FilterEnabled = true)]
         [Display(Name = "Grupp")]
         public virtual Group Group { get; set; }                // Navigation property
 

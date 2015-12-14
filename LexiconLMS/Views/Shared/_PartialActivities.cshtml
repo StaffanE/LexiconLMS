@@ -1,0 +1,85 @@
+﻿@model LexiconLMS.Models.Activities
+@using GridMvc.Html;
+@using GridMvc.Sorting;
+@using System.Web.Helpers;
+
+@{
+    ViewBag.Title = "Aktiviteter";
+}
+
+<h2>@ViewBag.Title</h2>
+@Html.Grid(Model).AutoGenerateColumns().Columns(columns =>
+   {
+       /* Adding "Course.Name" column: */
+       columns.Add(model => model.Course.Name)
+            .Sortable(true)
+            .Titled("Grupp")
+            .SetWidth(20);
+       /* Adding "Activities.Name" column: */
+       columns.Add(model => model.Name)
+            .Sortable(true)
+            .ThenSortByDescending(model => model.Name)
+            .Titled("Namn")
+            .SetWidth(20);
+
+       /* Adding "Activities.Description" column: */
+       columns.Add(model => model.Description.Substring(0,20))
+            .Sortable(true)
+            .Titled("Beskrivning")
+            .SetWidth(200);
+
+       /* Adding "Activities.Starttime" column: */
+       columns.Add(model => model.StartTime)
+           .Titled("Starttdatum")
+           .Format("{0:yyyy-MM-dd}")
+           .Sortable(true)
+           .SetWidth(12)
+           .SortInitialDirection(GridSortDirection.Descending);
+
+
+       columns.Add(model => model.EndTime)
+            .Sortable(true)
+            .Titled("Slutdatum")
+            .Format("{0:yyyy-MM-dd}")
+            .SetWidth(12)
+            .ThenSortByDescending(model => model.EndTime)
+       ;
+       /* Adding not mapped column, that renders body, using inline Razor html helper */
+       columns.Add()
+               .Encoded(false)
+               .Sanitized(false)
+               .SetWidth(12)
+               .RenderValueAs(
+            @<a href="@Url.Action("Edit", "Groups", new { id = item.Id })" class="btn btn-warning btn-sm">
+                <span class="glyphicon glyphicon-edit"></span>
+                Redigera
+            </a>);
+       columns.Add()
+              .Encoded(false)
+              .Sanitized(false)
+              .SetWidth(12)
+              .RenderValueAs(
+            @<a href="@Url.Action("Details", "Groups", new { id = item.Id })" class=" btn btn-primary btn-sm">
+                <span class="glyphicon glyphicon-exclamation-sign"></span>
+                Detaljer
+            </a>);
+       columns.Add()
+            .Encoded(false)
+            .Sanitized(false)
+            .SetWidth(12)
+            .RenderValueAs(
+            @<a href="@Url.Action("Delete","Groups", new { id = item.Id })" class="btn btn-danger btn-sm">
+                <span class="glyphicon glyphicon-minus-sign"></span>
+                Ta bort
+            </a>);
+   }).WithPaging(5).Sortable().Filterable().WithMultipleFilters();
+
+@*/* Adding "Vip customer" column: */
+    /*columns.Add(o => o.Customer.IsVip)
+    .Titled("Vip customer")
+    .SetWidth(150)
+    .ThenSortByDescending(o => o.OrderID)
+    .RenderValueAs(o => CustomRenderingOfColumn(o));*/*@
+
+
+@*/*        }).SetRowCssClasses(item => item.Customer.IsVip ? "warning" : string.Empty).WithPaging(15).Sortable().Filterable().WithMultipleFilters()*/*@

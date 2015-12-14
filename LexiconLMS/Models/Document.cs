@@ -5,19 +5,26 @@ using System.Web;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using GridMvc;
+using GridMvc.DataAnnotations;
+using GridMvc.Resources;
+using GridMvc.Pagination;
 
 namespace LexiconLMS.Models
 {
+    [GridTable(PagingEnabled = true, PageSize = 20)]
     public class Document
     {
         public int Id { get; set; }
 
+        [GridColumn(Title = "Dokumentnamn", SortEnabled = true, FilterEnabled = true)]
         [Display(Name = "Dokumentnamn")]
         public string Name { get; set; }
 
+        [GridColumn(Title = "Beskrivning", SortEnabled = true, FilterEnabled = true)]
         public string Description { get; set; }
 
+        [GridColumn(Title = "Dokument skapat", SortEnabled = true, FilterEnabled = true)]
         [Display(Name = "Dokument skapat")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime dateCreated
