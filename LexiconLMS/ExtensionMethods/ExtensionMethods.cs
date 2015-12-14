@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Security.Policy;
 using System.ComponentModel.DataAnnotations;
 
 namespace LexiconLMS{
+
+
+
     public static class ExtensionMethods
     {
 
@@ -33,7 +37,22 @@ namespace LexiconLMS{
 
             return outString;
         }
+        //public static Hash GetRowAttributes(this LexiconLMS.Models.Activities model)
+        //{
+        //    return new Hash(@class => (model.StartTime.Value.AddDays(-60) < DateTime.Now) ? "warning" : "");
+        //}
 
+        //---------------------------------------------------------------------------------------------------------
+        // Shorten long texts to fit in a multirow tableview
+        //---------------------------------------------------------------------------------------------------------
+        public static string ShortenString(string textstring, int maxlength)
+        {
+            if (textstring.Length > maxlength) 
+            {
+                return textstring.Substring(0, maxlength);
+            }
+            return textstring;
+        }
         //---------------------------------------------------------------------------------------------------------
         // Compare startdate and enddate against current date to see if this is past/current or future periods
         // return different backgroundcolors depending on period type

@@ -7,122 +7,119 @@
     ViewBag.OddOrEven = 0;
 }
 
-<h2>@ViewBag.Title</h2>
-
-<p>
-    @if (User.IsInRole("Teacher")) {
-        <span>
-            <a href="@Url.Action("Create")" class="btn btn-success btn-sm">
-                <span class="glyphicon glyphicon-plus-sign"></span>
-                Lägg upp ny aktivitet
-            </a>
-        </span>
-    }
-</p>
-<h4>Aktiviteter</h4>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Course.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ActivityType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StartTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EndTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Deadline)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model) {
-        string visibleText = ExtensionMethods.trColorGrayWhite(ViewBag.OddOrEven);
-        string GoToUrl = "../Activities/Details";
-        string GoToUrlForId = @GoToUrl + "/" + item.Id;
-
-        <tr style=@ExtensionMethods.trColorGrayWhite(ViewBag.OddOrEven) onclick="this.children[0].children[0].click();">
-            <td>
-                @Html.ActionLink((item.Course.Name), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
-            </td>
-            <td>
-                @Html.ActionLink((@ExtensionMethods.DisplayFor(item.ActivityType)), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
-            </td>
-            <td>
-                @Html.ActionLink((item.Name), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
-            </td>
-            <td>
-                @Html.ActionLink((item.Description), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
-            </td>
-            <td>
-                @Html.ActionLink(item.StartTime.ToString("yyyy-MM-dd"), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
-            </td>
-            <td>
-                @Html.ActionLink(item.EndTime.ToString("yyyy-MM-dd"), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Deadline)
-            </td>
-            <td>
-
-            <td>
-                @if (User.IsInRole("Teacher")) {
+<div class="container-fluid topMarg">
+    <div class="col-sm-12">
+        <div class="col-sm-6">
+            <div>
+                <h2>@ViewBag.Title </h2>
+            </div>
+            @if (User.IsInRole("Teacher")) {
+                <p>
                     <span>
-                        <a href="@Url.Action("Edit", "Activities", new { id = item.Id })" class="btn btn-warning btn-sm">
-                            <span class="glyphicon glyphicon-edit"></span>
-                            Redigera aktivitet
+                        <a href="@Url.Action("Create")" class="btn btn-success btn-sm">
+                            <span class="glyphicon glyphicon-plus-sign"></span>
+                            Skapa ny
                         </a>
                     </span>
-                }
-            </td>
-            <td>
-                <span>
-                    <a href="@Url.Action("Details", "Activities", new { id = item.Id })" class=" btn btn-primary btn-sm">
-                        <span class="glyphicon glyphicon-exclamation-sign"></span>
-                        Detaljer om aktivitet
-                    </a>
-                </span>
-            </td>
+                </p>
+            }
+            <h4>Aktiviteter</h4>
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Course.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ActivityType)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StartTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EndTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Deadline)
+                    </th>
+                    <th></th>
+                </tr>
 
-            <td>
-                @if (User.IsInRole("Teacher")) {
-                    <span>
-                        <a href="@Url.Action("Delete","Activities", new { id = item.Id })" class="btn btn-danger btn-sm">
-                            <span class="glyphicon glyphicon-minus-sign"></span>
-                            Ta bort aktivitet
-                        </a>
-                    </span>
-                }
-            </td>
-        </tr>
-                ViewBag.OddOrEven = ViewBag.OddOrEven + 1;
+                @foreach (var item in Model) {
+                    string visibleText = ExtensionMethods.trColorGrayWhite(ViewBag.OddOrEven);
+                    string GoToUrl = "../Activities/Details";
+                    string GoToUrlForId = @GoToUrl + "/" + item.Id;
+
+                    <tr style=@ExtensionMethods.trColorGrayWhite(ViewBag.OddOrEven) onclick="this.children[0].children[0].click();">
+                        <td>
+                            @Html.ActionLink((item.Course.Name), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
+                        </td>
+                        <td>
+                            @Html.ActionLink((@ExtensionMethods.DisplayFor(item.ActivityType)), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
+                        </td>
+                        <td>
+                            @Html.ActionLink((item.Name), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
+                        </td>
+                        <td>
+                            @Html.ActionLink((item.Description), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
+                        </td>
+                        <td>
+                            @Html.ActionLink(item.StartTime.ToString("yyyy-MM-dd"), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
+                        </td>
+                        <td>
+                            @Html.ActionLink(item.EndTime.ToString("yyyy-MM-dd"), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Deadline)
+                        </td>
+                        <td>
+
+                        <td>
+                            @if (User.IsInRole("Teacher")) {
+                                <span>
+                                    <a href="@Url.Action("Edit", "Activities", new { id = item.Id })" class="btn btn-warning btn-sm">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                        Redigera
+                                    </a>
+                                </span>
+                            }
+                        </td>
+                        <td>
+                            <span>
+                                <a href="@Url.Action("Details", "Activities", new { id = item.Id })" class=" btn btn-primary btn-sm">
+                                    <span class="glyphicon glyphicon-exclamation-sign"></span>
+                                    Detaljer
+                                </a>
+                            </span>
+                        </td>
+
+                        <td>
+                            @if (User.IsInRole("Teacher"))
+                            {
+                                <span>
+                                    <a href="@Url.Action("Delete","Activities", new { id = item.Id })" class="btn btn-danger btn-sm">
+                                        <span class="glyphicon glyphicon-minus-sign"></span>
+                                        Ta bort
+                                    </a>
+                                </span>
+                                }
+                        </td>
+                    </tr>
+        ViewBag.OddOrEven = ViewBag.OddOrEven + 1;
     }
-</table>
-@using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-<input type="file" name="file" />
-<input type="submit" value="OK" />
-}
-@*@using (Html.BeginForm(
-    ViewContext.RouteData.GetRequiredString("action"),
-    ViewContext.RouteData.GetRequiredString("controller"),
-    FormMethod.Post,
-    new { enctype = "multipart/form-data" })) {
-    <div>@Html.LabelFor(model => model.UserFile)</div>
-    <div>
-        <input type="file" name="userFiles" />
-        @Html.ValidationMessageFor(model => model.UserFile)
-    </div>*@
-
-    <input type="submit" value="Upload and Save File" />
-}
+            </table>
+            <div class="col-sm-6">
+            </div>
+        </div>
+    </div>
+    <div class="container botMarg">
+        <div class="col-sm-12">
+            <p>
+            </p>
+        </div>
+    </div>

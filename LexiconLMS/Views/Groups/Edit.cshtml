@@ -2,18 +2,18 @@
 
 @{
     ViewBag.Title = "grupp/redigera";
+    ViewBag.OddOrEven = 0;
 }
 
 
 
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.AntiForgeryToken()
 
     <div class="col-sm-12">
         <div class="container-fluid topMarg">
-            <div class="col-sm-3">
-            </div>
             <div class="col-sm-6">
                 <h2>@ViewBag.Title</h2>
                 <h2>@ViewBag.Title @Html.DisplayFor(model => model.Name)</h2>
@@ -53,24 +53,121 @@
                             @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <h2> Kurser ingående i @Html.DisplayFor(model => model.Name) </h2>
+                <table id="courses" cellspacing="1">
+                    <tr>
+                        <td width="16">
+                            Startdatum
+                        </td>
+                        <td>
+                            Namn
+                        </td>
+                        <td>
+                            Beskrivning
+                        </td>
+                    </tr>
+                    @foreach (var course in Model.GroupCourses)
+                    {
+                        string visibleText = ExtensionMethods.trTextColor(course.StartDate, course.EndDate);
+                        string GoToUrl = "../Courses/Details";
+                        string contDescr = " ...(Utförlig beskrivning finns)";
+                        //if The text in description is long then shorten it down and display the first 25 characters for more detailed description go to Detail/Edit/Delete-Views
+                        int dispLength = 20;
+                        if (course.Description.Length < dispLength) { dispLength = course.Description.Length; contDescr = ""; };
+                        string dispDescription = course.Description.Substring(0, dispLength) + contDescr;
+                        <tr style=@ExtensionMethods.trColorGrayWhite(ViewBag.OddOrEven) onclick="this.children[0].children[0].click();">
+                            <td width="16">
+                                <a> @Html.ActionLink(course.StartDate.ToString("yyyy-MM-dd"), @GoToUrl, new { id = course.Id })</a>
+                                @*@Html.DisplayFor(model => course.Name)*@
+                            </td>
+                            <td>
+                                <a> @Html.ActionLink(course.Name, @GoToUrl, new { id = course.Id })</a>
+                                @*@Html.DisplayFor(model => course.Name)*@
+                            </td>
+                            <td>
+                                @Html.ActionLink(@dispDescription, @GoToUrl, new { id = course.Id })
+                                @*@Html.ActionLink(course.Description, @GoToUrl, new { id = course.Id })*@
+                                @*@Html.DisplayFor(model => course.Description)*@
+                            </td>
+                        </tr>
+                        ViewBag.OddOrEven = ViewBag.OddOrEven + 1;
+                    }
 
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
+                </table>
+                <dl>
+                    @if (User.IsInRole("Teacher"))
+                    {
+                        <span>
+                            <a href="@Url.Action("Create", "Courses", new { id = Model.Id })" c class="btn btn-success btn-xs">
+                                <span class="glyphicon glyphicon-new-window">
+                                </span>
+                                Ny kurs
+                            </a>
+                        </span>
+                    }
+                </dl>
+                <div class="mini-box">
+                    <table id="users">
+                        <h4> Elever i grupp @Html.DisplayFor(model => model.Name) </h4>
+                        <tr>
+                            <td width="300">
+                                @Html.DisplayNameFor(model => model.GroupStudents.First().FullName)
+                            </td>
+                            <td width="300">
+                                @Html.DisplayNameFor(model => model.GroupStudents.First().Email)
+                            </td>
+                            <td></td>
+                        </tr>
+
+                        @{ViewBag.OddOrEven = 0;}
+                        @foreach (var student in Model.GroupStudents)
+                        {
+                            <tr style=@ExtensionMethods.trColorGrayWhite(ViewBag.OddOrEven) onclick="this.children[0].children[0].click();">
+                                <td>
+                                    @Html.DisplayFor(model => student.FullName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => student.Email)
+                                </td>
+                            </tr>
+                            ViewBag.OddOrEven = ViewBag.OddOrEven + 1;
+                        }
+                    </table>
+                    <dl>
+                        @if (User.IsInRole("Teacher"))
+                        {
+                            <span>
+                                <a href="@Url.Action("Register", "Account", new { id = Model.Id })" class="btn btn-success btn-xs">
+                                    <span class="glyphicon glyphicon-new-window">
+                                    </span>
+                                    Ny elev
+                                </a>
+                            </span>
+                        }
+                    </dl>
+                </div>
+            </div>
+            <div class="form-group">
+                @if (User.IsInRole("Teacher"))
+                {
+                    <div class="col-md-offset-2 col-md-10">
+                        <span>
+                            <input type="submit" value="Spara " class="btn btn-default  btn-sm" />
                             <a href="@Url.Action("Index", "Groups")" type="button" class="btn btn-info btn-sm">
                                 <span class="glyphicon glyphicon-arrow-up">
                                 </span>
-                                Åter till lista
+                                Åter  lista
                             </a>
-                            <input type="submit" value="Spara ändring" class="btn btn-default  btn-sm" />
-                        </div>
+                        </span>
                     </div>
-                </div>
-            </div>
-            <div class="col-sm-3">
+                }
             </div>
         </div>
     </div>
-  }
+}
 <div class="container botMarg">
     <div class="col-sm-12">
         <p>
