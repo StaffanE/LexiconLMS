@@ -101,14 +101,19 @@ namespace LexiconLMS.Models
         [Display(Name = "Telefonnummer")]
         public string PhoneNumber { get; set; }
 
+        // [Required]
         [Display(Name = "Grupp")]
         public int? GroupId { get; set; }
 
-        [Display(Name = "Roll")]
+       
+        [Display(Name = "Roll")]                      // Används inte vid registrering just nu
         public string Title { get; set; }
 
         [Display(Name = "Grupp")]
         public virtual Group Group { get; set; }                // Navigation property
+
+        // [Required]
+        public string Name { get; set; }             // Namnet på rollen. Något förvirrande namnsättning... 
                      
     }
 

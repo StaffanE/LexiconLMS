@@ -149,6 +149,8 @@ namespace LexiconLMS.Controllers
         public ActionResult Register()
         {
             ViewBag.GroupId = new SelectList(db.Group, "Id", "Name", null);      // Tillagd för att hantera dropdownlistan för group-id
+
+            ViewBag.Name = new SelectList(db.Roles.ToList(), "Name", "Name");
             
             return View();
         }
@@ -163,7 +165,7 @@ namespace LexiconLMS.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, PhoneNumber = model.PhoneNumber, GroupId = model.GroupId, Title = model.Title };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, PhoneNumber = model.PhoneNumber, GroupId = model.GroupId };   //  Title = model.Name    // Obs! Name = Rollens namn
                 var result = await UserManager.CreateAsync(user, model.Password);
 
                 // var roleStore = new RoleStore<IdentityRole>(context);
@@ -186,7 +188,17 @@ namespace LexiconLMS.Controllers
                 if (result.Succeeded)
                 {
                     user = UserManager.FindByEmail(user.Email);            // letar upp usern
-                    UserManager.AddToRole(user.Id, model.Title);             // Tilldelar en roll
+                    
+                    if (user.GroupId == null)
+                    {
+                        UserManager.AddToRole(user.Id, "Teacher");             // Tilldelar en roll
+                    }
+                    else
+                    {
+                        UserManager.AddToRole(user.Id, "Student");             // Tilldelar en roll
+                    }
+                    
+                   //  UserManager.AddToRole(user.Id, model.Name);             // Tilldelar en roll
 
                     
                     // await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);   // Koden med från början, och ser till att en nyregistrerad användare automatiskt loggas in. 
@@ -205,7 +217,11 @@ namespace LexiconLMS.Controllers
 
             // If we got this far, something failed, redisplay form
             ViewBag.GroupId = new SelectList(db.Group, "Id", "Name", null);     // Tillagd för att hantera dropdownlistan för group-id. Null-värdet motsvarar applicationUser.GroupId, dvs den inloggade användarens gruppId. Behövs i edit, men inte i register, eftersom ingen specifik användare är förvald då.
+
+            // ViewBag.Title = new SelectList(db.Roles.ToList(), "Name", "Name");
             
+            ViewBag.Name = new SelectList(db.Roles.ToList(), "Name", "Name");
+
             return View(model);
         }
 
