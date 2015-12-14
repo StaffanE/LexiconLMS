@@ -1,84 +1,57 @@
 ﻿@model IEnumerable<LexiconLMS.Models.Group>
-@using GridMvc.Html;
-@using LexiconLMS;
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Grupper";
+    ViewBag.OddOrEven = 0;
 }
-@*@{
-    var className = "";
-    if (ViewBag.sortOrder.Equals("name_desc"))
-    {
-        className = "glyphicon glyphicon-triangle-top";
-    }
-    else
-    {
-        className = "glyphicon glyphicon-triangle-bottom";
-    }
-}*@
 
-
-<h2>Index</h2>
+<h2>Alla @ViewBag.Title</h2>
 
 <p>
-    @if (User.IsInRole("Teacher")) { @Html.ActionLink("Create New", "Create")}
+@if (User.IsInRole("Teacher"))
+{
+    <span>
+        <a href="@Url.Action("Create")" class="btn btn-success btn-sm">
+            <span class="glyphicon glyphicon-plus-sign"></span>
+            Lägg upp ny grupp
+        </a>
+    </span>
+  
+}
 </p>
 <table class="table">
     <tr>
         <th>
-            @*@Html.DisplayNameFor(model => model.Name)*@
-            @Html.ActionLink("Namn", "Index", new { sortOrder = ViewBag.NameSortParm }, new { @class = "my-class1" })
-            @if (ViewBag.sortOrder == "name_desc")
-            {
-                <i class="glyphicon glyphicon-sort-by-alphabet-alt"></i>
-            }
-            else if (ViewBag.sortOrder == "name")
-            {
-                <i class="glyphicon glyphicon-sort-by-alphabet"></i>
-            }
-
+            @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
-        <th>   
-            @*@Html.DisplayNameFor(model => model.StartDate)*@
-            @Html.ActionLink("Startdatum", "Index", new { sortOrder = ViewBag.DateSortParm }, new { @class = "my-class1" })
-            @if (ViewBag.sortOrder == "date_desc")
-            {
-                <i class="glyphicon glyphicon-sort-by-order-alt"></i>
-            }
-            else if (ViewBag.sortOrder == "date")
-            {
-                <i class="glyphicon glyphicon-sort-by-order"></i>
-            }
-             
-            
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
         </th>
         <th>
-            @*@Html.DisplayNameFor(model => model.EndDate)*@
-            @Html.ActionLink("Slutdatum", "Index", new { sortOrder = ViewBag.EndDateSortParm }, new { @class = "my-class1" })
-            @if (ViewBag.sortOrder == "end_date_desc")
-            {
-                <i class="glyphicon glyphicon-sort-by-order-alt"></i>
-            }
-            else if (ViewBag.sortOrder == "end_date")
-            {
-                <i class="glyphicon glyphicon-sort-by-order"></i>
-            }
-
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th>
+            Status
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
-    var visibleText = ExtensionMethods.trTextColor(item.StartDate, item.EndDate);
-    <tr style=@ExtensionMethods.trColor(item.StartDate, item.EndDate)>
+    //If The text in description is to long then shorten it down and display the first dispLength(at this moment 35) characters.
+    //For more detailed description go to Detail/Edit/Delete-Views
+    int dispLength = 35;
+    if (item.Description.Length < dispLength) { dispLength = item.Description.Length;};
+    string dispDescription = item.Description.Substring(0, dispLength);
+    <tr style=@ExtensionMethods.trColorGrayWhite(ViewBag.OddOrEven)>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Description)
+            @dispDescription
+            @*@Html.DisplayFor(modelItem => item.Description)*@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.StartDate)
@@ -87,11 +60,44 @@
             @Html.DisplayFor(modelItem => item.EndDate)
         </td>
         <td>
-            @if (User.IsInRole("Teacher")) { @Html.ActionLink("Ändra", "Edit", new { id=item.Id }) @Html.Display("|")}
-            @Html.ActionLink("Detaljer", "Details", new { id=item.Id }) 
-            @if (User.IsInRole("Teacher")) {@Html.Display("|") @Html.ActionLink("Ta bort", "Delete", new { id=item.Id })}
+            @ExtensionMethods.PeriodStatus(item.StartDate,item.EndDate)
+        </td>
+        <td>
+            @if (User.IsInRole("Teacher")) {
+                <span>
+                    <a href="@Url.Action("Edit", "Groups", new { id = item.Id })" class="btn btn-warning btn-sm">
+                        <span class="glyphicon glyphicon-edit"></span>
+                        Redigera grupp
+                    </a>
+                </span>
+            }
+            @*@Url.Action("Edit", "Group", new { id = item.Id })*@
+            @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |*@
+            <span>
+                <a href="@Url.Action("Details", "Groups", new { id = item.Id })" class=" btn btn-primary btn-sm">
+                    <span class="glyphicon glyphicon-exclamation-sign"></span>
+                    Detaljer om grupp
+                </a>
+            </span>
+            @*@Html.ActionLink("Details", "Details", new { id = item.Id }) |*@
+            @if (User.IsInRole("Teacher")) {
+                <span>
+                    <a href="@Url.Action("Delete","Groups", new { id = item.Id })" class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-minus-sign"></span>
+                        Ta bort grupp
+                    </a>
+                </span>
+            }
+            @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
         </td>
     </tr>
+    ViewBag.OddOrEven = ViewBag.OddOrEven + 1;
 }
 
 </table>
+<div class="container botMarg">
+    <div class="col-sm-12">
+        <p>
+        </p>
+    </div>
+</div>

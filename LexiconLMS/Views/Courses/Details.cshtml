@@ -5,66 +5,89 @@
     ViewBag.GoBackToView = "../Courses/Details/";
     ViewBag.GoBackToUrl = "../Courses/Details/" + Model.Id;
     ViewBag.CourseId = Model.Id;
+    ViewBag.OddOrEven = 0;
 }
 <h2>@Html.DisplayFor(model => model.Group.Name) / @Html.DisplayFor(model => model.Name)/</h2>
 @using GridMvc.Html;
 @using LexiconLMS;
-<div>
-    <h4>Kurs detaljerad beskrivning</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Group.Name)
-        </dt>
+   <div class="col-sm-12">
+        <div class="col-sm-6">
+            <div>
+                <h2>@ViewBag.Title </h2>
+            </div>
+            <div class="mini-box" style="background: #f2f2f2;color:#0000">
+                <dl class="dl-horizontal">
+                    <h2 >Kurs @Html.DisplayFor(model => model.Name)</h2>
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Group.Name)
+                        </dt>
 
-        <dd>
-            @Html.ActionLink(Model.Group.Name, "../Groups/Details", new { id = Model.GroupId })
-            @*@Html.DisplayFor(model => model.Group.Name)*@
-        </dd>
+                        <dd>
+                            @Html.ActionLink(Model.Group.Name, "../Groups/Details", new { id = Model.GroupId })
+                            @*@Html.DisplayFor(model => model.Group.Name)*@
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => Model.Name)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => Model.Name)
+                        </dt>
 
-        <dd>
-            @Html.ActionLink(Model.Name, "../Courses/Details", new { id = Model.Id })
-            @*@Html.DisplayFor(model => model.Name)*@
-        </dd>
+                        <dd>
+                            @Html.ActionLink(Model.Name, "../Courses/Details", new { id = Model.Id })
+                            @*@Html.DisplayFor(model => model.Name)*@
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.Description)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.StartDate)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.StartDate)
-        </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.StartDate)
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.EndDate)
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.EndDate)
-        </dd>
-
-        <dd>
-            <h3 style="background: rgba(0, 137, 208, 0.6);color:#FFFFFF">Aktiviteter ingående i @Html.DisplayFor(model => model.Name) </h3>
-            <table class="table">
-                @for (int i = 0; i < 1; i++) 
-                { 
-                <tr style="background:rgba(0, 137, 208, 0.8);color:#FFFFFF">
-                    <th>
+                        <dd>
+                            @Html.DisplayFor(model => model.EndDate)
+                        </dd>
+                    </dl>
+            </div>
+            @if (User.IsInRole("Teacher"))
+            {
+                <span>
+                    <a href="@Url.Action("Edit", "Courses", new { id = Model.Id })" class="btn btn-warning btn-sm">
+                        <span class="glyphicon glyphicon-edit">
+                        </span>
+                        Redigera kurs
+                    </a>
+                </span>
+            }
+            <a href="@Url.Action("Index", "Courses")" type="button" class="btn btn-info btn-sm">
+                <span class="glyphicon glyphicon-arrow-up">
+                </span>
+                Åter till lista
+            </a>
+        </div>
+        <div class="col-sm-6">
+            <hr />
+            <hr />
+            <table id="activities" cellspacing="1">
+                <h2 >Aktiviteter ingående i @Html.DisplayFor(model => model.Name) </h2>
+                <tr>
+                    <th width="26">
                         @Html.DisplayNameFor(model => model.StartDate)
                     </th>
-                    <th>
+                    <th width="26">
                         @Html.DisplayNameFor(model => model.EndDate)
                     </th>
 
@@ -75,7 +98,7 @@
                         @Html.DisplayNameFor(model => model.Name)
                     </th>
                     <td>
-                        @Html.Display("Aktivitetstyp") 
+                        @Html.Display("Aktivitetstyp")
                     </td>
 
                     <th>
@@ -85,18 +108,20 @@
                         @Html.Display("Deadline")
                     </th>
                 </tr>
-                }
                 @foreach (var item in Model.CourseActivities)
                 {
                     string visibleText = ExtensionMethods.trTextColor(item.StartTime, item.EndTime);
                     string GoToUrl = "../Activities/Details";
-                    string GoToUrlForId = @GoToUrl+"/"+item.Id;
-                    <tr style=@ExtensionMethods.trColor(item.StartTime,item.EndTime) onclick="this.children[0].children[0].click();">
-                        <td>
-                            @Html.ActionLink(item.StartTime.ToString("yyyy-MM-dd hh:mm"), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
+                    string contDescr = " ...";
+                    int dispLength = 10;
+                    if (item.Description.Length < dispLength) {dispLength = item.Description.Length; contDescr = "";};
+                    string dispDescription = item.Description.Substring(0, dispLength) + contDescr;
+                    <tr style=@ExtensionMethods.trColorGrayWhite(ViewBag.OddOrEven) onclick="this.children[0].children[0].click();">
+                        <td width="26">
+                            @Html.ActionLink(item.StartTime.ToString("yyyy-MM-dd"), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
                         </td>
-                        <td>
-                            @Html.ActionLink(item.EndTime.ToString("yyyy-MM-dd hh:mm"), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
+                        <td width="26">
+                            @Html.ActionLink(item.EndTime.ToString("yyyy-MM-dd"), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
                         </td>
                         <td>
                             @Html.ActionLink(item.Id.ToString(), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
@@ -108,20 +133,20 @@
                             @Html.ActionLink(ExtensionMethods.DisplayFor(item.ActivityType), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
                         </td>
                         <td>
-                            @Html.ActionLink(item.Description, @GoToUrl, new { id = item.Id }, new { @class = @visibleText})
+                            @Html.ActionLink(@dispDescription, @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
                         </td>
                         <td>
                             @Html.DisplayFor(model => item.Deadline)
                         </td>
                     </tr>
-                }
-            </table>
-        </dd>
-    </dl>
+                    ViewBag.OddOrEven = ViewBag.OddOrEven + 1;
+              }
+        </table>
+    </div>
 </div>
-@*@Html.Partial("../Activities/_PartialActivities")*@
-<p>
-    @if (User.IsInRole("Teacher")) {@Html.ActionLink("Ändra", "Edit", new { id = Model.Id })}
-    @Html.ActionLink("Åter till lista", "Index")
-</p>
-@*@Html.Partial("_PartialCourseActivites.cshtml", IEnumerable<LexiconLMS.Models.Activities>)*@
+<div class="container botMarg">
+    <div class="col-sm-12">
+        <p>
+        </p>
+    </div>
+</div>
