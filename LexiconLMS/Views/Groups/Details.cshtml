@@ -60,12 +60,12 @@
                     </a>
                     <span>               </span>
                 </span>
+                <a href="@Url.Action("Index", "Groups")" type="button" class="btn btn-info btn-xs">
+                    <span class="glyphicon glyphicon-arrow-up">
+                    </span>
+                    Åter lista
+                </a>
             }
-            <a href="@Url.Action("Index", "Groups")" type="button" class="btn btn-info btn-xs">
-                <span class="glyphicon glyphicon-arrow-up">
-                </span>
-                Åter lista
-            </a>
 
             @*@Html.ActionLink("Åter till lista", "Index")*@
         </div>
@@ -109,62 +109,62 @@
                     </tr>
                     ViewBag.OddOrEven = ViewBag.OddOrEven + 1;
                 }
-                
-            </table>
-            <dl>@if (User.IsInRole("Teacher"))
-            {
-                <span>
-                    <a href="@Url.Action("Create", "Courses", new { id = Model.Id })" c class="btn btn-success btn-xs">
-                        <span class="glyphicon glyphicon-new-window">
-                        </span>
-                        Ny kurs
-                    </a>
-                </span>
-            }</dl>
-            <div class="mini-box">
-                <table id="users">
-                    <h4 > Elever i grupp @Html.DisplayFor(model => model.Name) </h4>
-                    <tr>
-                        <td width="300">
-                            @Html.DisplayNameFor(model => model.GroupStudents.First().FullName)
-                        </td>
-                        <td width="300">
-                            @Html.DisplayNameFor(model => model.GroupStudents.First().Email)
-                        </td>
-                        <td></td>
-                    </tr>
 
-                    @{ViewBag.OddOrEven = 0;}
-                    @foreach (var student in Model.GroupStudents) {
-                        <tr style=@ExtensionMethods.trColorGrayWhite(ViewBag.OddOrEven) onclick="this.children[0].children[0].click();">
-                            <td>
-                                @Html.DisplayFor(model => student.FullName)
-                            </td>
-                             <td>
-                                @Html.DisplayFor(model => student.Email)
-                            </td>
-                        </tr>
-                        ViewBag.OddOrEven = ViewBag.OddOrEven + 1;
-                    }
-                </table>
-                <dl>
-                    @if (User.IsInRole("Teacher"))
-                    {
-                        <span>
-                            <a href="@Url.Action("Register", "Account", new { id = Model.Id })" class="btn btn-success btn-xs">
-                                <span class="glyphicon glyphicon-new-window">
-                                </span>
-                                Ny elev
-                            </a>
-                        </span>
-                    }
-                </dl>
-                </div>
-            </div>
+            </table>
+            <dl>
+                @if (User.IsInRole("Teacher")) {
+                    <span>
+                        <a href="@Url.Action("Create", "Courses", new { id = Model.Id })" c class="btn btn-success btn-xs">
+                            <span class="glyphicon glyphicon-new-window">
+                            </span>
+                            Ny kurs
+                        </a>
+                    </span>
+                }
+        </dl>
+        <div class="mini-box">
+            <table id="users">
+                <h4> Elever i grupp @Html.DisplayFor(model => model.Name) </h4>
+                <tr>
+                    <td width="300">
+                        @Html.DisplayNameFor(model => model.GroupStudents.First().FullName)
+                    </td>
+                    <td width="300">
+                        @Html.DisplayNameFor(model => model.GroupStudents.First().Email)
+                    </td>
+                    <td></td>
+                </tr>
+
+                @{ViewBag.OddOrEven = 0;}
+                @foreach (var student in Model.GroupStudents) {
+                    <tr style=@ExtensionMethods.trColorGrayWhite(ViewBag.OddOrEven) onclick="this.children[0].children[0].click();">
+                        <td>
+                            @Html.DisplayFor(model => student.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => student.Email)
+                        </td>
+                    </tr>
+                    ViewBag.OddOrEven = ViewBag.OddOrEven + 1;
+                }
+            </table>
+            <dl>
+                @if (User.IsInRole("Teacher")) {
+                    <span>
+                        <a href="@Url.Action("Register", "Account", new { id = Model.Id })" class="btn btn-success btn-xs">
+                            <span class="glyphicon glyphicon-new-window">
+                            </span>
+                            Ny elev
+                        </a>
+                    </span>
+                }
+            </dl>
         </div>
     </div>
-    <div class="container botMarg">
-       <div class="col-sm-12">
+</div>
+</div>
+<div class="container botMarg">
+    <div class="col-sm-12">
         <p>
         </p>
     </div>

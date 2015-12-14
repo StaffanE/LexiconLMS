@@ -28,21 +28,19 @@
             .Titled("Grupp")
             .SetWidth(20);
 
-        /* Adding "OrderID" column: */
         columns.Add(model => model.Name)
             .Sortable(true)
             .Titled("Kurs")
             .SetWidth(20);
-
-        /* Adding "Description" column: */
+    
+        /* Using RenderValueAs to shorten longstrings to fit on one row in the table*/
         columns.Add(model => model.Description)
             .Encoded(true)
             .Sanitized(false)
-            .SetWidth(12)
-        ;
-
-        /* Adding "StartDate" column: */
-        columns.Add(model => model.StartDate)
+            .SetWidth(15)
+             .RenderValueAs((model => model.Description.Substring(0, Math.Min(model.Description.Length, 15))));
+      
+            columns.Add(model => model.StartDate)
             .Titled("Starttdatum")
             .Format("{0:yyyy-MM-dd}")
             .Sortable(true)
@@ -54,8 +52,15 @@
             .Titled("Slutdatum")
             .Format("{0:yyyy-MM-dd}")
             .SetWidth(12)
-            .ThenSortByDescending(model => model.EndDate)
-            ;
+            .ThenSortByDescending(model => model.EndDate);
+    /*Work under construction trying to get the text "Avslutad" "pågående" or "Kommande" depending on the relation between period for Course and todays date */    
+    //columns.Add()
+    //        .Encoded(true)
+    //        .Sanitized(false)
+    //        .SetWidth(15)
+    //        .Sortable(true)
+    //        .RenderValueAs(@ExtensionMethods.PeriodStatus((model => model.StartDate),(model => model.EndDate)));
+    
     /* Adding not mapped column, that renders body, using inline Razor html helper */
     columns.Add()
             .Encoded(false)

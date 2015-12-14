@@ -7,6 +7,7 @@
     ViewBag.Title = "Grupper";
     ViewBag.OddOrEven = 0;
 }
+
 <div class="container-fluid topMarg">
     <div class="col-sm-12">
         <div>
@@ -153,15 +154,15 @@
                 Detaljer
             </a>);
        columns.Add()
-.Encoded(false)
-.Sanitized(false)
-.SetWidth(12)
-.RenderValueAs(
+            .Encoded(false)
+            .Sanitized(false)
+            .SetWidth(12)
+            .RenderValueAs(
             @<a href="@Url.Action("Delete","Groups", new { id = item.Id })" class="btn btn-danger btn-sm">
                 <span class="glyphicon glyphicon-minus-sign"></span>
                 Ta bort
             </a>);
-            }).WithPaging(3).Sortable().Filterable().WithMultipleFilters();
+            }).WithPaging(10).Sortable().Filterable().WithMultipleFilters();
 
         @*/* Adding "Vip customer" column: */
             /*columns.Add(o => o.Customer.IsVip)
@@ -173,9 +174,10 @@
 
         @*/*        }).SetRowCssClasses(item => item.Customer.IsVip ? "warning" : string.Empty).WithPaging(15).Sortable().Filterable().WithMultipleFilters()*/*@
     </div>
-    <div class="container botMarg">
-        <div class="col-sm-12">
-            <p>
-            </p>
-        </div>
+</div>
+<div class="container botMarg">
+    <div class="col-sm-12">
+        <p>
+        </p>
     </div>
+</div>
