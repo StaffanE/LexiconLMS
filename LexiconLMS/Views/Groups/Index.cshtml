@@ -18,7 +18,7 @@
                 <span>
                     <a href="@Url.Action("Create")" class="btn btn-success btn-sm">
                         <span class="glyphicon glyphicon-plus-sign"></span>
-                        Lägg upp ny
+                        Lägg till
                     </a>
                 </span>
 
@@ -132,8 +132,7 @@
        .Titled("Slutdatum")
        .Format("{0:yyyy-MM-dd}")
                  .SetWidth(12)
-       .ThenSortByDescending(model => model.EndDate)
-       ;
+       .ThenSortByDescending(model => model.EndDate);
        /* Adding not mapped column, that renders body, using inline Razor html helper */
        columns.Add()
                .Encoded(false)

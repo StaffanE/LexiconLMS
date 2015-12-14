@@ -21,8 +21,8 @@ namespace LexiconLMS.Models
         [Required]
         public string Name { get; set; }
 
-        [GridColumn(Title = "Kursbeskrivning", SortEnabled = true, FilterEnabled = true)]
-        [Display(Name = "Kursbeskrivning")]
+        [GridColumn(Title = "Beskrivning", SortEnabled = true, FilterEnabled = true)]
+        [Display(Name = "Beskrivning")]
         public string Description { get; set; }
 
         [GridColumn(Title = "Startdatum", SortEnabled = true, FilterEnabled = true)]

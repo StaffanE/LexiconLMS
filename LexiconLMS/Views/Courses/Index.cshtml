@@ -13,9 +13,9 @@
 <p>
     @if (User.IsInRole("Teacher")) {
         <span>
-            <a href="@Url.Action("Create")" class="btn btn-success btn-xs">
+            <a href="@Url.Action("Create")" class="btn btn-success btn-sm">
                 <span class="glyphicon glyphicon-plus-sign"></span>
-                Lägg upp
+                Lägg till
             </a>
         </span>
     }
@@ -35,6 +35,7 @@
     
         /* Using RenderValueAs to shorten longstrings to fit on one row in the table*/
         columns.Add(model => model.Description)
+            .Titled("Beskrivning")
             .Encoded(true)
             .Sanitized(false)
             .SetWidth(15)
