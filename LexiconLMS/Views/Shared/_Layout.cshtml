@@ -6,10 +6,9 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+   
     <link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" type="text/css" />
     <script src="@Url.Content("~/Scripts/gridmvc.min.js")" type="text/javascript"> </script>
-    <script src="@Url.Content("~/Scripts/jquery.min.js")" type="text/javascript"></script>
 
     @*Skit som jag lagt till*@
     <link rel="stylesheet" href="//cloud.typography.com/6985672/704742/css/fonts.css" />
@@ -22,114 +21,115 @@
     <header class="banner-top">
         <div class="topbar">
             <div class="group">
-                <a href="@Url.Content("~/Home/Index/")"><img src="@Url.Content("~/Images/logo-lexicon@2x.gif")" id="lexicon-logo" alt="" /></a>
+                <a href="@Url.Content("~/Home/Index/")"><img src="@Url.Content("~/Images/logo-lexicon@2x.gif")"  id="lexicon-logo" alt="" /></a>
                 @Html.Partial("_LoginPartial")
 
             </div>
             <div class="group">
             </div>
         </div>
-        <div class="col-sm-12">
-            <div class="container-fluid topMarg">
-                <div class="col-sm-2">
-                </div>
-                <div class="col-sm-10">
-                    <div class="navigation-bar">
-                        <nav role="navigation" id="nav">
-                            <ul class="bg-col8">
-                                <!-- 8 13 10 2 -->
-                                @*<li class="sub subopen current">*@
-                                <li class="sub @ViewBag.HomeCurrent">
-                                    <a href="@Url.Content("~/Home/Index/")"><strong>HEM</strong></a>
-                                    <span></span>@*<ul>
-                                        <li class="current"><a href="/"><strong>&#214;versikt</strong><em></em></a></li>
-                                        <li><a href="/Lexicon/Lexicon/Om-Lexicon/">Om Lexicon</a></li>
-                                        <li><a href="/Lexicon/Lexicon/Historik/">Historik</a></li>
-                                        <li><a href="/Lexicon/Lexicon/Referenser/">Referenser</a></li>
-                                        <li><a href="/Lexicon/Lexicon/CSR/">CSR</a></li>
-                                        <li><a href="/Lexicon/Lexicon/Lediga-tjanster/">Lediga tj&#228;nster</a></li>
-                                        <li><a href="/Lexicon/Lexicon/Press-Center/">Presscenter</a></li>
-                                    </ul>*@
-                                </li>
+        <div class="navigation-bar">
+            <nav role="navigation" id="nav">
+                <ul class="bg-col8">
+                    <!-- 8 13 10 2 -->
+
+                    @*<li class="sub subopen current">*@
+                    <li class="sub @ViewBag.HomeCurrent">
+                        <a href="@Url.Content("~/Home/Index/")"><strong><strong>HEM</strong></a>
+                        <span></span>@*<ul>
+                <li class="current"><a href="/"><strong>&#214;versikt</strong><em></em></a></li>
+                <li><a href="/Lexicon/Lexicon/Om-Lexicon/">Om Lexicon</a></li>
+                <li><a href="/Lexicon/Lexicon/Historik/">Historik</a></li>
+                <li><a href="/Lexicon/Lexicon/Referenser/">Referenser</a></li>
+                <li><a href="/Lexicon/Lexicon/CSR/">CSR</a></li>
+                <li><a href="/Lexicon/Lexicon/Lediga-tjanster/">Lediga tj&#228;nster</a></li>
+                <li><a href="/Lexicon/Lexicon/Press-Center/">Presscenter</a></li>
+            </ul>*@
+                    </li>
 
 
-                                @*<ul class="nav navbar-nav">
-                                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                                    <li>@Html.ActionLink("Om Lexicon LMS", "About", "Home")</li>
-                                    @if (User.IsInRole("Teacher") || User.IsInRole("Student"))
-                                    {
-                                        <li>@Html.ActionLink("Grupper", "Index", "Groups")</li>
-                                        <li>@Html.ActionLink("Kurser", "Index", "Courses")</li>
-                                        <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
-                                        <li>@Html.ActionLink("Användare", "Index", "Users")</li>
-                                        <li>@Html.ActionLink("Aktiviteter", "Index", "Activities")</li>
-                                        <li>@Html.ActionLink("Dok.", "Index", "Documents")</li>
-                                    }
-                                </ul>*@
+                    @*<ul class="nav navbar-nav">
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Om Lexicon LMS", "About", "Home")</li>
+                            @if (User.IsInRole("Teacher") || User.IsInRole("Student"))
+                            {
+                                <li>@Html.ActionLink("Grupper", "Index", "Groups")</li>
+                                <li>@Html.ActionLink("Kurser", "Index", "Courses")</li>
+                                <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
+                                <li>@Html.ActionLink("Användare", "Index", "Users")</li>
+                                <li>@Html.ActionLink("Aktiviteter", "Index", "Activities")</li>
+                                <li>@Html.ActionLink("Dok.", "Index", "Documents")</li>
+                            }
+                        </ul>*@
 
-                                <li class="sub @ViewBag.GroupsCurrent">
-                                    @*@Html.ActionLink("<strong>Grupper</strong>", "Index", "Groups")*@
-                                    <a href="@Url.Content("~/Groups/Index/")"><strong>GRUPPER</strong></a>
-                                    <span></span>@*<ul>
-                                        <li><a href="/Utbildningar/IT/IT-anvandare/">IT-utbildning</a></li>
-                                        <li><a href="/Utbildningar/AFFAR/Affarsutbildning/">Aff&#228;rsutbildning</a></li>
-                                        <li><a href="/Utbildningar/IT/IT-grafik/">Grafisk utbildning</a></li>
-                                        <li><a href="/Utbildningar/IT/IT-proffs-utbildning/">IT-proffsutbildning</a></li>
-                                        <li><a href="/elearning/IT/IT-Anvandare/">E-learning</a></li>
-                                        <li><a href="/Webinars/IT/IT-anvandare/Office/">Webinarier</a></li>
-                                        <li><a href="/Play/Playutbildningar/Play1/">Play</a></li>
-                                        <li><a href="http://www.lexicon.se/Utbildningar/IT/IT-anvandare/Schema/">V&#228;lj schema</a></li>
-                                    </ul>*@
-                                </li>
-                                <li class="sub @ViewBag.CourseCurrent">
-                                    <a href="@Url.Content("~/Courses/Index/")"><strong>KURSER</strong></a>
-                                    <span></span>@*<ul>
-                                        <li><a href="/Lexicon/Affarsomraden/Vara-Affarsomraden/">Aff&#228;rsomr&#229;den</a></li>
-                                    </ul>*@
-                                </li>
-                                <li class="sub @ViewBag.ContactCurrent">
-                                    <a href="@Url.Content("~/Home/Contact/")"><strong>KONTAKT</strong></a>
-                                    <span></span>@*<ul>
-                                        <li><a href="/Lexicon/Tjanster/tjanster/">V&#229;ra tj&#228;nster</a></li>
-                                        <li><a href="/Lexicon/Tjanster/oppna-utbildningar/">&#214;ppen utbildning</a></li>
-                                        <li><a href="/Lexicon/Tjanster/anpassad-utbildning/">Anpassad utbildning</a></li>
-                                        <li><a href="/Lexicon/Tjanster/konsulttjanster/">Konsulttj&#228;nster</a></li>
-                                        <li><a href="/Lexicon/Tjanster/e-learning/">E-learning</a></li>
-                                        <li><a href="/Lexicon/Tjanster/utbildning-i-egna-system/">Kundens egna system</a></li>
-                                        <li><a href="/Lexicon/Tjanster/hyr-datasal/">Hyr datasal</a></li>
-                                        <li><a href="/Lexicon/Tjanster/tester/">Tester</a></li>
-                                    </ul>*@
-                                </li>
-                                <li class="sub @ViewBag.ActivitiesCurrent">
-                                    <a href="@Url.Content("~/Activities/Index/")"><strong>AKTIVITETER</strong></a>
-                                    <span></span>@*<ul>
-                                        <li><a href="/Lexicon/Verktyg/SOL/">SOL</a></li>
-                                        <li><a href="/Lexicon/Verktyg/MiniSOL/">MiniSOL</a></li>
-                                        <li><a href="/Lexicon/Verktyg/Effekt/">Effekt</a></li>
-                                    </ul>*@
-                                </li>
-                                <li class="sub  @ViewBag.DocumentCurrent">
-                                    <a href="@Url.Content("~/Documents/Index/")"><strong>DOKUMENT</strong></a>
-                                </li>
-                                @*<li class="sub ">
-                                    <a href="/Lexicon/Kontakt/har-finns-vi/"><strong>Kontakt</strong></a>
-                                    <span></span><ul>
-                                        <li><a href="/Lexicon/Kontakt/har-finns-vi/">H&#228;r finns vi</a></li>
-                                        <li><a href="/Lexicon/Kontakt/Kontakta-oss/">Kontakta oss</a></li>
-                                    </ul>
-                                </li>*@
-
-                            </ul>
-                            @*<ul class="line">
-                                <li>fsdgdsg</li>
+                    <li class="sub @ViewBag.GroupsCurrent">
+                        @*@Html.ActionLink("<strong>Grupper</strong>", "Index", "Groups")*@
+                        <a href="@Url.Content("~/Groups/Index/")"><strong>GRUPPER</strong></a>
+                        <span></span>@*<ul>
+                                <li><a href="/Utbildningar/IT/IT-anvandare/">IT-utbildning</a></li>
+                                <li><a href="/Utbildningar/AFFAR/Affarsutbildning/">Aff&#228;rsutbildning</a></li>
+                                <li><a href="/Utbildningar/IT/IT-grafik/">Grafisk utbildning</a></li>
+                                <li><a href="/Utbildningar/IT/IT-proffs-utbildning/">IT-proffsutbildning</a></li>
+                                <li><a href="/elearning/IT/IT-Anvandare/">E-learning</a></li>
+                                <li><a href="/Webinars/IT/IT-anvandare/Office/">Webinarier</a></li>
+                                <li><a href="/Play/Playutbildningar/Play1/">Play</a></li>
+                                <li><a href="http://www.lexicon.se/Utbildningar/IT/IT-anvandare/Schema/">V&#228;lj schema</a></li>
                             </ul>*@
-
-                        </nav>
-                    </div>
-                </div>
-            </div>
-            <div class="line-separator"></div>
+                    </li>
+                    <li class="sub @ViewBag.CourseCurrent">
+                        <a href="@Url.Content("~/Courses/Index/")"><strong>KURSER</strong></a>
+                        <span></span>@*<ul>
+                <li><a href="/Lexicon/Affarsomraden/Vara-Affarsomraden/">Aff&#228;rsomr&#229;den</a></li>
+            </ul>*@
+                    </li>
+                    <li class="sub @ViewBag.ContactCurrent">
+                        <a href="@Url.Content("~/Home/Contact/")"><strong>KONTAKT</strong></a>
+                        <span></span>@*<ul>
+                <li><a href="/Lexicon/Tjanster/tjanster/">V&#229;ra tj&#228;nster</a></li>
+                <li><a href="/Lexicon/Tjanster/oppna-utbildningar/">&#214;ppen utbildning</a></li>
+                <li><a href="/Lexicon/Tjanster/anpassad-utbildning/">Anpassad utbildning</a></li>
+                <li><a href="/Lexicon/Tjanster/konsulttjanster/">Konsulttj&#228;nster</a></li>
+                <li><a href="/Lexicon/Tjanster/e-learning/">E-learning</a></li>
+                <li><a href="/Lexicon/Tjanster/utbildning-i-egna-system/">Kundens egna system</a></li>
+                <li><a href="/Lexicon/Tjanster/hyr-datasal/">Hyr datasal</a></li>
+                <li><a href="/Lexicon/Tjanster/tester/">Tester</a></li>
+            </ul>*@
+                    </li>
+                    <li class="sub @ViewBag.UserCurrent">
+                        <a href="@Url.Content("~/Users/Index/")"><strong>ANVÄNDARE</strong></a>
+                        <span></span>@*<ul>
+                <li><a href="/Lexicon/Verktyg/SOL/">SOL</a></li>
+                <li><a href="/Lexicon/Verktyg/MiniSOL/">MiniSOL</a></li>
+                <li><a href="/Lexicon/Verktyg/Effekt/">Effekt</a></li>
+            </ul>*@
+                    </li>
+                    <li class="sub @ViewBag.ActivitiesCurrent">
+                        <a href="@Url.Content("~/Activities/Index/")"><strong>AKTIVITETER</strong></a>
+                        <span></span>@*<ul>
+                <li><a href="/Lexicon/Verktyg/SOL/">SOL</a></li>
+                <li><a href="/Lexicon/Verktyg/MiniSOL/">MiniSOL</a></li>
+                <li><a href="/Lexicon/Verktyg/Effekt/">Effekt</a></li>
+            </ul>*@
+                    </li>
+                    <li class="sub  @ViewBag.DocumentCurrent">
+                        <a href="@Url.Content("~/Documents/Index/")"><strong>DOKUMENT</strong></a>
+                    </li>
+                    @*<li class="sub ">
+                            <a href="/Lexicon/Kontakt/har-finns-vi/"><strong>Kontakt</strong></a>
+                            <span></span><ul>
+                                <li><a href="/Lexicon/Kontakt/har-finns-vi/">H&#228;r finns vi</a></li>
+                                <li><a href="/Lexicon/Kontakt/Kontakta-oss/">Kontakta oss</a></li>
+                            </ul>
+                        </li>*@
+                    
+                </ul>
+                @*<ul class="line">
+                    <li>fsdgdsg</li>
+                </ul>*@
+                
+            </nav>
         </div>
+        <div class="line-separator"></div>
     </header>
 
 
@@ -150,16 +150,16 @@
 
 
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Lexicon LMS</p>
-        </footer>
-    </div>
+                <div class="container body-content">
+                    @RenderBody()
+                    <hr />
+                    <footer>
+                        <p>&copy; @DateTime.Now.Year - Lexicon LMS</p>
+                    </footer>
+                </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+                @Scripts.Render("~/bundles/jquery")
+                @Scripts.Render("~/bundles/bootstrap")
+                @RenderSection("scripts", required: false)
 </body>
 </html>

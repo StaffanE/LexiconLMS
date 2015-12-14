@@ -29,6 +29,7 @@ namespace LexiconLMS.Controllers
         {
             // var Users = db.Users.Include(a => a.Group);
             // return View(Users.ToList());
+            ViewBag.UserCurrent = "subopen current";
 
             var users = db.Users.Include(u => u.Group);                                            //  Users utbytt mot users...
 
@@ -98,12 +99,16 @@ namespace LexiconLMS.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.UserCurrent = "subopen current";
             return View(applicationUser);
         }
 
         // GET: Users/Create
         public ActionResult Create()
         {
+            ViewBag.UserCurrent = "subopen current";
+
             ViewBag.GroupId = new SelectList(db.Group, "Id", "Name");
             return View();
         }
@@ -115,6 +120,8 @@ namespace LexiconLMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,FirstName,LastName,Fullname,Title,GroupId,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
         {
+            ViewBag.UserCurrent = "subopen current";
+
             if (ModelState.IsValid)
             {
                 db.Users.Add(applicationUser);
@@ -129,6 +136,8 @@ namespace LexiconLMS.Controllers
         // GET: Users/Edit/5
         public ActionResult Edit(string id)
         {
+            ViewBag.UserCurrent = "subopen current";
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -166,6 +175,8 @@ namespace LexiconLMS.Controllers
         public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Fullname,Title,GroupId,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
      //    public ActionResult Edit([Bind(Include = "FirstName,LastName,Title,GroupId,Email,PhoneNumber")] ApplicationUser applicationUser)
         {
+            ViewBag.UserCurrent = "subopen current";
+
             if (ModelState.IsValid)
             {
                 db.Entry(applicationUser).State = EntityState.Modified;
@@ -179,6 +190,8 @@ namespace LexiconLMS.Controllers
         // GET: Users/Delete/5
         public ActionResult Delete(string id)
         {
+            ViewBag.UserCurrent = "subopen current";
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -199,6 +212,8 @@ namespace LexiconLMS.Controllers
             ApplicationUser applicationUser = db.Users.Find(id);
             db.Users.Remove(applicationUser);
             db.SaveChanges();
+            ViewBag.UserCurrent = "subopen current";
+
             return RedirectToAction("Index");
         }
 
