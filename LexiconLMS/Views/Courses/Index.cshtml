@@ -13,7 +13,7 @@
 <p>
     @if (User.IsInRole("Teacher")) {
         <span>
-            <a href="@Url.Action("Create")" class="btn btn-success btn-sm">
+            <a href="@Url.Action("Create")" class="btn btn-success btn">
                 <span class="glyphicon glyphicon-plus-sign"></span>
                 Lägg till
             </a>
@@ -90,7 +90,7 @@
                 <span class="glyphicon glyphicon-minus-sign"></span>
                 Ta bort
             </a>);
-        }).WithPaging(5).Sortable().Filterable().WithMultipleFilters();
+        }).WithPaging(5).Sortable().Filterable().WithMultipleFilters()
 
 <div class="container botMarg">
     <div class="col-sm-12">
