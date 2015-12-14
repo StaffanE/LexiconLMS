@@ -7,13 +7,16 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LexiconLMS.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace LexiconLMS.Controllers
 {
     public class GroupsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
 
         // GET: Groups                               //   Ursprungliga Index-versionen
         //public ActionResult Index()
@@ -24,7 +27,15 @@ namespace LexiconLMS.Controllers
 
         // GET: Groups
         public ActionResult Index(string sortOrder)                                         //  sortOrder sätts som en inparameter. Den används inte när man kör Index-actionresult första gången, utan bara om man väljer att sortera via någon av kolumnrubriks-länkarna. 
-        {                                                                                   //  sortOrder får sitt in-värde beroende på vilken kolumnrubrik man trycker på i Viewen.               
+        {
+            var userStore = new UserStore<ApplicationUser>(db);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+            var user = userManager.FindById(User.Identity.GetUserId());
+            if (User.IsInRole("Student")) {
+                ViewBag.Role = user.Roles;
+                ViewBag.BaseUrl = "~/Groups/Details/" + user.GroupId;
+                return Redirect(ViewBag.BaseUrl);
+            }
 
             sortOrder = String.IsNullOrEmpty(sortOrder) ? "name" : sortOrder;                      //   Om sortOrder-parametern är null eller tom, som den är första gången, så sätts den istället till "name". Är den inte tom när den kommer in så behålls den som den är. 
             ViewBag.NameSortParm = sortOrder == "name" ? "name_desc" : "name";                     //    ViewBag.NameSortParm sätts till sortOrder. Om sortOrder har värdet "name" så ändras det till name_desc istället, har den något annat värde så sätts den till "name".

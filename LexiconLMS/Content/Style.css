@@ -1,23 +1,23 @@
-﻿body {
-    padding-top: 0%;
-    align-content: center;
+﻿/*body {
+    /*padding-top: 0%;
+    align-content: center;*/
     
 }
 
 
-.banner-top {
+/*.banner-top {
     padding-top:0%;
         
      background-color: #f5f5f5;
-}
+}*/
 
-.topbar {
+/*.topbar {
     height: 110px;
     background-color: #0a0a0a;
 
-}
+}*/
 
-.navigation-bar {
+/*.navigation-bar {
     
     height:52px;
     background-color: #f5f5f5;
@@ -26,48 +26,25 @@
     border-bottom-left-radius:20px;
     width: 980px;
    
+}*/
+
+
+.navigation-bar {
+
+    height:52px;
 }
 
 #lexicon-logo {
-    padding-left: 10%;
-    width: 280px;
-    padding-top: 15px;
-    padding-left: 40px;
-
-}
-
-ul {
-    padding-left: 5%;
-   
-}
-
-ul li {
-    margin: 10px;
-}
-
-.sub {
-    padding-top: 2px;
-    padding-left: 18px;
-    padding-right:18px;
-    padding-bottom: 2px;
-    display:block;
-    float:left;
-    right:0;
-    top:0;
-    border: 1px solid #f5f5f5;
-
-    
-}
-
-.sub:hover {
-    background-color: #e6ebe9;
-    border: 1px solid #dedede;
-    position: relative;
+    height: 80px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
 }
 
 
 
-.line-separator {
+
+/*.line-separator {
 
 
 margin: 0 0 15px 0;
@@ -77,15 +54,46 @@ padding: 20px 0 20px 0;
 padding: 10px 0 10px 0;
 
 
+}*/
+
+
+
+
+.sub {
+    /*padding-top: 2px;
+    padding-left: 18px;
+    padding-right:18px;
+    padding-bottom: 2px;*/
+    display:block;
+    float:none;
+    right:0;
+    top:0;
+    height: 30px;
+    width: 150px;
+    border: 1px solid #f5f5f5;
+    text-align: center; 
+
+    
 }
+
+.sub a {
+    color: #000;
+    font-weight: bold;
+}
+
+.sub:hover {
+    background-color: #e6ebe9;
+    border: 1px solid #dedede;
+}
+
 
 .current {
     background-color: #d60000;
 }
 
 .current a {
-
     color: #fff;
+    font-weight: bold;
 }
 
 .current:hover {
@@ -98,15 +106,15 @@ padding: 10px 0 10px 0;
 }
 
 
-.group {
 
- 
-    vertical-align: top; 
 
+ul {
+    padding-left: 5%;
+   
 }
 
-.group a {
-        color: #fff;
+ul li {
+    margin: 10px;
 }
 
 
@@ -114,7 +122,6 @@ ul li a {
     color: #000;
     font-family:"Whitney SSm A","Whitney SSm B",arial,sans-serif;
     font-size:15px;
-    font-weight:400;
     line-height:26px;
     outline: 0;
     -webkit-font-smoothing: antialiased;
@@ -138,18 +145,26 @@ ul.line li {
   line-height:26px;
 }
 
-#test a:hover {
-    color: #fff;
-    background-color: #0a0a0a;
+
+.breadcrumb {
+    padding: 8px 0px;
+    margin-top: 35px;
+    height: 5em;
+    border-radius: 0px;
+    border-bottom: 5px solid;
+    border-bottom-color: #d60000;
+    
 }
 
-.nav {
-     
+/*.breadcrumb > li {
+    display: 0;
+}*/
 
+.breadcrumb > li + li:before {
+    /*content: "\00a0";*/
+        content: "";
 }
 
-
-.p {
-    font-style: italic;
-
+.subbar {
+    background-color: #f5f5f5;
 }
