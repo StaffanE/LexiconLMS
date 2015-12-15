@@ -9,11 +9,9 @@ using System.Web.Mvc;
 using LexiconLMS.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using System.Threading.Tasks;
-using System.Security.Claims;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using System.IO;
+
+
+
 
 
 namespace LexiconLMS.Controllers
@@ -148,19 +146,59 @@ namespace LexiconLMS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ApplicationUser applicationUser = db.Users.Find(id);
+
+        //     var model = db.Users.Where(u => u.Id == id).Select(t => new UserListingViewModel
+        //       {
+        //            Id = t.Id,
+        //            FirstName = t.FirstName,
+        //            LastName = t.LastName,
+        //            Email = t.Email,
+        //            Role = db.Roles.Where(r => r.Id == t.Roles.FirstOrDefault().RoleId).FirstOrDefault().Name,
+        //            Group = db.Group.Where(g => g.Id == t.GroupId).FirstOrDefault().Name,
+        //            GroupId = db.Group.Where(g => g.Id == t.GroupId).FirstOrDefault().Id,
+        //            PhoneNumber = t.PhoneNumber,
+        //            UserName = t.UserName
+
+        //        }).FirstOrDefault();
+
+
+
+        //                if (model == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+
+
+        //    List<Group> group = db.Group.ToList();
+        //    group.Insert(0, null);
+
+
+                    
+        //    // ViewBag.Role = new SelectList(db.Roles, "Name", "Name");
+           
+        //    ViewBag.GroupId = new SelectList(group, "Id", "Name", model.GroupId);//
+                        
+        //    return View(model);
+        //}
+
+
+
+
+                     
+
+
+
+
+
+
+
+            ApplicationUser applicationUser = db.Users.Find(id);  // orginal
             if (applicationUser == null)
             {
                 return HttpNotFound();
             }
 
            
-
-
-
-
-
-
             // Get list of roles that user is a member of
             //var userRoles = UserManager.GetRoles(AspNetUsers.Id);
 
@@ -175,9 +213,12 @@ namespace LexiconLMS.Controllers
             //};
 
 
-            ViewBag.GroupId = new SelectList(db.Group, "Id", "Name", applicationUser.GroupId);
+
+            ViewBag.GroupId = new SelectList(db.Group, "Id", "Name", applicationUser.GroupId);    // Eget, resten orginal
             return View(applicationUser);
         }
+
+
 
         // POST: Users/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
