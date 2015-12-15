@@ -1,104 +1,181 @@
 ﻿@model IEnumerable<LexiconLMS.Models.Document>
-
+@using GridMvc.Html;
 @{
     ViewBag.Title = "Alla dokument";
     ViewBag.OddOrEven = 0;
 }
 <div class="container-fluid topMarg">
     <div class="col-sm-12">
+        <div class="col-sm3">
+        </div>
         <div class="col-sm-6">
             <div>
                 <h2>@ViewBag.Title </h2>
             </div>
-            <p>
-                <span>
-                    <a href="@Url.Action("Create")" class="btn btn-success btn-sm">
-                        <span class="glyphicon glyphicon-plus-sign"></span>
-                        Skapa nytt
-                    </a>
-                </span>
-            </p>
-            <table class="table">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Activities.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Course.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Group.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Description)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.dateCreated)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ApplicationUser.FullName)
-                    </th>
-                    <th></th>
-                </tr>
 
-                @foreach (var item in Model)
-                {
-                    <tr style=@ExtensionMethods.trColorGrayWhite(ViewBag.OddOrEven) onclick="this.children[0].children[0].click();">
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Activities.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Course.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Group.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.dateCreated)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ApplicationUser.FullName)
-                        </td>
-                        <td>
-                            <span>
-                                <a href="@Url.Action("Edit", "Documents", new { id = item.Id })" class="btn btn-warning btn-sm">
-                                    <span class="glyphicon glyphicon-edit"></span>
-                                    Redigera
-                                </a>
-                            </span>
-                        </td>
-                        <td>
-                            <span>
-                                <a href="@Url.Action("Details", "Documents", new { id = item.Id })" class=" btn btn-primary btn-sm">
-                                    <span class="glyphicon glyphicon-exclamation-sign"></span>
-                                    Detaljer
-                                </a>
-                            </span>
-                        </td>
-                        <td>
-                            <span>
-                                <a href="@Url.Action("Delete", "Documents", new { id = item.Id })" class="btn btn-danger btn-sm">
-                                    <span class="glyphicon glyphicon-minus-sign"></span>
-                                    Ta bort
-                                </a>
-                            </span>
-                        </td>
-                    </tr>
-                    ViewBag.OddOrEven = ViewBag.OddOrEven + 1;
-                }
+            @Html.Grid(Model).Columns(columns => {
 
-            </table>
-        </div>
-        <div class="col-sm-6">
+           columns.Add(model => model.Name)
+                       .Sortable(true)
+                   .Titled("Aktivitet")
+                   //.RenderValueAs(model => model.Name == null ? " " : model.Name)
+                   .SetWidth(20);
+           columns.Add(model => model.Course.Name)
+                       .Sortable(true)
+                   .Titled("Kurs")
+                    //.RenderValueAs(model => model.Course.Name == null ? " " : model.Course.Name)
+                   .SetWidth(20)
+                   .ToString();
+           columns.Add(model => model.Group.Name)
+                       .Sortable(true)
+                   .Titled("Grupp")
+                    //.RenderValueAs(model => model.Group.Name == null ? " " : model.Group.Name)
+                   .SetWidth(20)
+                   .ToString();
+           columns.Add(model => model.Description)
+                       .Sortable(true)
+                   .Titled("Beskrivning")
+                   .SetWidth(30)
+                   .RenderValueAs(
+                   (model => model.Description.Substring(0, Math.Min(model.Description.Length, 30))));
+
+           /* Adding "CompanyName" column: */
+           columns.Add(model => model.dateCreated)
+           .Titled("Skapad datum")
+           .Format("{0:yyyy-MM-dd}")
+            .Sortable(true)
+             .SetWidth(20)
+           .ThenSortByDescending(model => model.dateCreated);
+
+           columns.Add(model => model.ApplicationUser.FullName)
+                .Sortable(true)
+                .Titled("Skapad av")
+                 .SetWidth(12)
+                .ThenSortByDescending(model => model.ApplicationUser.FullName)
+           ;
+           /* Adding not mapped column, that renders body, using inline Razor html helper */
+           columns.Add()
+                   .Encoded(false)
+                   .Sanitized(false)
+                   .SetWidth(12)
+                   .RenderValueAs(
+                @<a href="@Url.Action("Edit", "Documents", new { id = item.Id })" class="btn btn-warning btn-sm">
+                    <span class="glyphicon glyphicon-edit"></span>
+                    Redigera
+                </a>);
+           columns.Add()
+                  .Encoded(false)
+                  .Sanitized(false)
+                  .SetWidth(12)
+                  .RenderValueAs(
+                @<a href="@Url.Action("Details", "Documents", new { id = item.Id })" class=" btn btn-primary btn-sm">
+                    <span class="glyphicon glyphicon-exclamation-sign"></span>
+                    Detaljer
+                </a>);
+           columns.Add()
+                .Encoded(false)
+                .Sanitized(false)
+                .SetWidth(12)
+                .RenderValueAs(
+                @<a href="@Url.Action("Delete", "Documents", new { id = item.Id })" class="btn btn-danger btn-sm">
+                    <span class="glyphicon glyphicon-minus-sign"></span>
+                    Ta bort
+                </a>);
+                }).WithPaging(10).Sortable().Filterable().WithMultipleFilters();
+            <div class="col-sm-6">
+                <div>
+                    <h2>@ViewBag.Title </h2>
+                </div>
+                <p>
+                    <span>
+                        <a href="@Url.Action("Create")" class="btn btn-success btn-sm">
+                            <span class="glyphicon glyphicon-plus-sign"></span>
+                            Skapa nytt
+                        </a>
+                    </span>
+                </p>
+            </div>
+            @*<table class="table">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Activities.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Course.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Group.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Description)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.dateCreated)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ApplicationUser.FullName)
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model) {
+                            <tr style=@ExtensionMethods.trColorGrayWhite(ViewBag.OddOrEven) onclick="this.children[0].children[0].click();">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Activities.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Course.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Group.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.dateCreated)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ApplicationUser.FullName)
+                                </td>
+                                <td>
+                                    <span>
+                                        <a href="@Url.Action("Edit", "Documents", new { id = item.Id })" class="btn btn-warning btn-sm">
+                                            <span class="glyphicon glyphicon-edit"></span>
+                                            Redigera
+                                        </a>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span>
+                                        <a href="@Url.Action("Details", "Documents", new { id = item.Id })" class=" btn btn-primary btn-sm">
+                                            <span class="glyphicon glyphicon-exclamation-sign"></span>
+                                            Detaljer
+                                        </a>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span>
+                                        <a href="@Url.Action("Delete", "Documents", new { id = item.Id })" class="btn btn-danger btn-sm">
+                                            <span class="glyphicon glyphicon-minus-sign"></span>
+                                            Ta bort
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+                            ViewBag.OddOrEven = ViewBag.OddOrEven + 1;
+                        }
+
+                    </table>
+                </div>*@
+            <div class="col-sm-3">
+            </div>
         </div>
     </div>
 </div>
