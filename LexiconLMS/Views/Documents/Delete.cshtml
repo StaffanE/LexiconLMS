@@ -73,8 +73,11 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <a href="@Url.Action("Index", "Documents")" class="btn btn-info btn-sm">
+                <span class="glyphicon glyphicon-info-sign"></span>
+                Åter lista
+            </a>
+            <input type="submit" value="Ta bort" class="btn btn-danger" /> 
         </div>
     }
 </div>

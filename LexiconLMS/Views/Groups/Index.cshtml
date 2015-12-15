@@ -109,15 +109,13 @@
        .Titled("Namn")
        .SetWidth(20);
 
-       /* Adding "OrderDate" column: */
-       columns.Add(model => model.Description)
+       columns.Add(model => (model.Description))
            .Sortable(true)
        .Titled("Beskrivning")
        .SetWidth(30)
        .RenderValueAs(
        (model => model.Description.Substring(0, Math.Min(model.Description.Length, 30))));
 
-       /* Adding "CompanyName" column: */
        columns.Add(model => model.StartDate)
        .Titled("Starttdatum")
        .Format("{0:yyyy-MM-dd}")
@@ -125,7 +123,7 @@
          .SetWidth(12)
        .ThenSortByDescending(model => model.StartDate);
        /*         .SortInitialDirection(GridSortDirection.Descending);
-               .SetFilterWidgetType("CustomCompanyNameFilterWidget"); */
+               .SetFilterWidgetType("DateTimeFilterWidget"); */
 
        columns.Add(model => model.EndDate)
            .Sortable(true)

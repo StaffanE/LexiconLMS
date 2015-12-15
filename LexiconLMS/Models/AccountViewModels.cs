@@ -8,6 +8,7 @@ namespace LexiconLMS.Models
     {
         [Required]
         [Display(Name = "Email")]
+        [DisplayFormat(NullDisplayText = "")]
         public string Email { get; set; }
     }
 
@@ -52,11 +53,13 @@ namespace LexiconLMS.Models
         [Required]
         [Display(Name = "Email")]
         [EmailAddress]
+        [DisplayFormat(NullDisplayText = "")]
         public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
+        [DisplayFormat(NullDisplayText = "")]
         public string Password { get; set; }
 
         [Display(Name = "Remember me?")]
@@ -68,6 +71,7 @@ namespace LexiconLMS.Models
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
+        [DisplayFormat(NullDisplayText = "")]
         public string Email { get; set; }
 
         [Required]
@@ -87,10 +91,12 @@ namespace LexiconLMS.Models
 
         [Required]
         [Display(Name = "Förnamn")]
+        [DisplayFormat(NullDisplayText = "")]
         public string FirstName { get; set; } 
  
         [Required]
         [Display(Name = "Efternamn")]
+        [DisplayFormat(NullDisplayText = "")]
         public string LastName { get; set; }
 
         //[Required]
@@ -99,15 +105,19 @@ namespace LexiconLMS.Models
 
         [Required]
         [Display(Name = "Telefonnummer")]
+        [DisplayFormat(NullDisplayText = "")]
         public string PhoneNumber { get; set; }
 
         [Display(Name = "Grupp")]
+        [DisplayFormat(NullDisplayText = "")]
         public int? GroupId { get; set; }
 
         [Display(Name = "Roll")]
+        [DisplayFormat(NullDisplayText = "")]
         public string Title { get; set; }
 
         [Display(Name = "Grupp")]
+        [DisplayFormat(NullDisplayText = "")]
         public virtual Group Group { get; set; }                // Navigation property
                      
     }

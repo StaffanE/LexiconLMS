@@ -15,26 +15,29 @@ namespace LexiconLMS.Models
     public class Group
     {
         [GridColumn(Title = "GruppId", SortEnabled = true, FilterEnabled = true)]
-        [Display(Name = "Grupp ID")]
+        [Display(Name = "GruppID")]
+        [DisplayFormat(NullDisplayText = "")]
         public int Id { get; set; }
 
         [GridColumn(Title = "Gruppnamn", SortEnabled = true, FilterEnabled = true)]
         [Display(Name = "Gruppnamn")]
+        [DisplayFormat(NullDisplayText = "")]
         [Required]
         public string Name { get; set; }
 
         [GridColumn(Title = "Beskrivning", SortEnabled = true, FilterEnabled = true)]
         [Display(Name = "Beskrivning")]
+        [DisplayFormat(NullDisplayText = "")]
         public string Description { get; set; }
 
         [GridColumn(Title = "Startdatum", SortEnabled = true, FilterEnabled = true)]
-        [Display(Name = "Start Datum")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Startdatum")]
+        [DisplayFormat(NullDisplayText = "", DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? StartDate { get; set; }
 
         [GridColumn(Title = "Slutdatum", SortEnabled = true, FilterEnabled = true)]
-        [Display(Name = "Slut Datum")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Slutdatum")]
+        [DisplayFormat(NullDisplayText = "",DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? EndDate { get; set; }
 
         public virtual ICollection<ApplicationUser> GroupStudents { get; set; }

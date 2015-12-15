@@ -21,10 +21,12 @@ namespace LexiconLMS.Models
     {
         [GridColumn(Title = "Förnamn", SortEnabled = true, FilterEnabled = true)]
         [Display(Name = "Förnamn")]
+        [DisplayFormat(NullDisplayText = "")]
         public string FirstName { get; set; }
 
         [GridColumn(Title = "Efternamn", SortEnabled = true, FilterEnabled = true)]
         [Display(Name = "Efternamn")]
+        [DisplayFormat(NullDisplayText = "")]
         public string LastName { get; set; }
 
         //[Display(Name = "Namn")]
@@ -32,6 +34,7 @@ namespace LexiconLMS.Models
 
         [GridColumn(Title = "Namn", SortEnabled = true, FilterEnabled = true)]
         [Display(Name = "Namn")]
+        [DisplayFormat(NullDisplayText = "")]
         public string FullName 
         { 
             get
@@ -46,6 +49,7 @@ namespace LexiconLMS.Models
         [GridColumn(Title = "Roll", SortEnabled = true, FilterEnabled = true)]
         [Display(Name = "Roll")]
         [Required]
+        [DisplayFormat(NullDisplayText = "")]
         public string Title { get; set; }
         
         //public string UserEmail { get; set; }
@@ -54,10 +58,12 @@ namespace LexiconLMS.Models
 
         [GridColumn(Title = "Grupp", SortEnabled = true, FilterEnabled = true)]
         [Display(Name = "Grupp")]
+        [DisplayFormat(NullDisplayText = "")]
         public int? GroupId { get; set; }                         // Foreign key
 
         [GridColumn(Title = "Grupp", SortEnabled = true, FilterEnabled = true)]
         [Display(Name = "Grupp")]
+        [DisplayFormat(NullDisplayText = "")]
         public virtual Group Group { get; set; }                // Navigation property
 
         public virtual ICollection<Document> Documents { get; set; }

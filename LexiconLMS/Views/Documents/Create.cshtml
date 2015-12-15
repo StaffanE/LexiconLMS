@@ -70,18 +70,17 @@
                         @Html.ValidationMessageFor(model => model.ApplicationUserId, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-default" />
-                    </div>
+                <div class="form-actions no-color">
+                    <a href="@Url.Action("Index", "Documents")" class="btn btn-info btn-sm" style="margin-right:20em">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        Åter lista
+                    </a>
+                    <input type="submit" value="Spara" class="btn btn-default" />
                 </div>
             </div>
         }
 
-        <div>
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+     
         <div class="col-sm-3">
         </div>
     </div>
@@ -89,6 +88,6 @@
         <div class="col-sm-12">
         </div>
     </div>
-        @section Scripts {
-            @Scripts.Render("~/bundles/jqueryval")
-        }
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

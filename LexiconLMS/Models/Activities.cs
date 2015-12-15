@@ -32,27 +32,33 @@ namespace LexiconLMS.Models
         public int Id { get; set; }
         [GridColumn(Title = "Aktivitetstyp", SortEnabled = true, FilterEnabled = true)]
         [Display(Name = "Typ")]
+        [DisplayFormat(NullDisplayText = "")]
         public ActivityTypeEnum ActivityType { get; set; }
   
         [GridColumn(Title = "Aktivitetsnamn", SortEnabled = true, FilterEnabled = true)]
         [Display(Name = "Aktivitet")]
+        [DisplayFormat(NullDisplayText = "")]
         public string Name { get; set; }
 
         [GridColumn(Title = "Aktivitetsbeskrivning", SortEnabled = true, FilterEnabled = true)]
         [Display(Name = "Beskrivning")]
+        [DisplayFormat(NullDisplayText = "")]
         public string Description { get; set; }
 
         [GridColumn(Title = "Startdatum/tid", SortEnabled = true, FilterEnabled = true)]
-        [Display(Name = "Start datum/tid")]
+        [Display(Name = "Startdatum/tid")]
+        [DisplayFormat(NullDisplayText = "")]
         public DateTime StartTime { get; set; }
 
         [GridColumn(Title = "Slutdatum/tid", SortEnabled = true, FilterEnabled = true)]
-        [Display(Name = "Slut datum/tid")]
+        [Display(Name = "Slutdatum/tid")]
+        [DisplayFormat(NullDisplayText = "")]
         public DateTime EndTime { get; set; }
         //public DateTime Deadline  { get; set; }
 
         [GridColumn(Title = "Inlämningsuppgift", SortEnabled = true, FilterEnabled = true)]
         [Display(Name = "Inlämningsuppgift")]
+        [DisplayFormat(NullDisplayText = "")]
         public bool Deadline { get; set; }
 
         //[Display(Name = "Kurs")]
