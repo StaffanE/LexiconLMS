@@ -16,7 +16,7 @@
         <p>
             @if (User.IsInRole("Teacher")) {
                 <span>
-                    <a href="@Url.Action("Create")" class="btn btn-success btn-sm">
+                    <a href="@Url.Action("Create")" class="btn btn-success btn-xs">
                         <span class="glyphicon glyphicon-plus-sign"></span>
                         Lägg till
                     </a>
@@ -137,7 +137,7 @@
                .Sanitized(false)
                .SetWidth(12)
                .RenderValueAs(
-            @<a href="@Url.Action("Edit", "Groups", new { id = item.Id })" class="btn btn-warning btn-sm">
+            @<a href="@Url.Action("Edit", "Groups", new { id = item.Id })" class="btn btn-warning btn-xs">
                 <span class="glyphicon glyphicon-edit"></span>
                 Redigera
             </a>);
@@ -146,7 +146,7 @@
               .Sanitized(false)
               .SetWidth(12)
               .RenderValueAs(
-            @<a href="@Url.Action("Details", "Groups", new { id = item.Id })" class=" btn btn-primary btn-sm">
+            @<a href="@Url.Action("Details", "Groups", new { id = item.Id })" class=" btn btn-primary btn-xs">
                 <span class="glyphicon glyphicon-exclamation-sign"></span>
                 Detaljer
             </a>);
@@ -155,7 +155,7 @@
             .Sanitized(false)
             .SetWidth(12)
             .RenderValueAs(
-            @<a href="@Url.Action("Delete","Groups", new { id = item.Id })" class="btn btn-danger btn-sm">
+            @<a href="@Url.Action("Delete","Groups", new { id = item.Id })" class="btn btn-danger btn-xs">
                 <span class="glyphicon glyphicon-minus-sign"></span>
                 Ta bort
             </a>);
