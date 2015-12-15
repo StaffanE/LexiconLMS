@@ -48,7 +48,7 @@ namespace LexiconLMS.Models
 
         [GridColumn(Title = "Roll", SortEnabled = true, FilterEnabled = true)]
         [Display(Name = "Roll")]
-        [Required]
+        //[Required]
         [DisplayFormat(NullDisplayText = "")]
         public string Title { get; set; }
         
