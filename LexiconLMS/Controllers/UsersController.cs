@@ -9,15 +9,14 @@ using System.Web.Mvc;
 using LexiconLMS.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Threading.Tasks;
 
 
 
 
 
-namespace LexiconLMS.Controllers
-{
-    public class UsersController : Controller
-    {
+namespace LexiconLMS.Controllers {
+    public class UsersController : Controller {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Users                                  //  Original-index
@@ -29,8 +28,7 @@ namespace LexiconLMS.Controllers
 
 
         // GET: Users
-        public ActionResult Index(string sortOrder)
-        {
+        public ActionResult Index(string sortOrder) {
             // var Users = db.Users.Include(a => a.Group);
             // return View(Users.ToList());
             ViewBag.UserCurrent = "subopen current";
@@ -46,31 +44,28 @@ namespace LexiconLMS.Controllers
             string currentUserId = User.Identity.GetUserId();                                      //   Hämtar inloggade användarens Id
             var currentUser = db.Users.Where(u => u.Id == currentUserId).FirstOrDefault();         //   CurrentUser sätts till den användaren från dbUsers som har samma ID som  inloggade användaren. FirstOrDeafault används istället för First som inte riktigt funkar. Returnerar första hittade värdet.
             // var users = db.Users.Where(u => u.GroupId == (int)currentUser.GroupId); 
-            
-            if (Request.IsAuthenticated)
-            {
-                if (User.IsInRole("Student"))
-                {
-                   users = db.Users.Where(u => u.GroupId == (int)currentUser.GroupId);              //   users tilldelas användarna med samma grupp.id som currentUser
-                   ViewBag.groupName = currentUser.Group.Name;
-                   ViewBag.groupDescription = currentUser.Group.Description;
-                   ViewBag.groupStartDate = currentUser.Group.StartDate;
-                   ViewBag.groupEndDate = currentUser.Group.EndDate;
+
+            if (Request.IsAuthenticated) {
+                if (User.IsInRole("Student")) {
+                    users = db.Users.Where(u => u.GroupId == (int)currentUser.GroupId);              //   users tilldelas användarna med samma grupp.id som currentUser
+                    ViewBag.groupName = currentUser.Group.Name;
+                    ViewBag.groupDescription = currentUser.Group.Description;
+                    ViewBag.groupStartDate = currentUser.Group.StartDate;
+                    ViewBag.groupEndDate = currentUser.Group.EndDate;
                 }
             }
-            
+
             //var users = from u in db.Users
-                  
+
             //join g in db.Group on u.GroupId equals g.Id
             //select u;      
-                        
-            switch (sortOrder)                                                                             
-            {
+
+            switch (sortOrder) {
                 case "name_desc":                                                                  //  Om sortOrder == "name_desc" sorterar man fallande på Fullname, annars kollar man vidare i switchen, osv...                 
                     users = users.OrderByDescending(u => u.LastName);
                     break;
                 case "group":
-                    users = users.OrderBy(u => u.Group.Name);                    
+                    users = users.OrderBy(u => u.Group.Name);
                     break;
                 case "group_desc":
                     users = users.OrderByDescending(u => u.Group.Name);
@@ -80,27 +75,24 @@ namespace LexiconLMS.Controllers
                     break;
                 case "mail_desc":
                     users = users.OrderByDescending(u => u.Email);
-                    break;                
+                    break;
                 default:
                     users = users.OrderBy(u => u.LastName);
-                break;
+                    break;
             }
             return View(users.ToList());
         }
 
-        
+
 
 
         // GET: Users/Details/5
-        public ActionResult Details(string id)
-        {
-            if (id == null)
-            {
+        public ActionResult Details(string id) {
+            if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ApplicationUser applicationUser = db.Users.Find(id);
-            if (applicationUser == null)
-            {
+            if (applicationUser == null) {
                 return HttpNotFound();
             }
 
@@ -109,8 +101,7 @@ namespace LexiconLMS.Controllers
         }
 
         // GET: Users/Create
-        public ActionResult Create()
-        {
+        public ActionResult Create() {
             ViewBag.UserCurrent = "subopen current";
 
             ViewBag.GroupId = new SelectList(db.Group, "Id", "Name");
@@ -122,12 +113,10 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,Fullname,Title,GroupId,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
-        {
+        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,Fullname,Title,GroupId,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser) {
             ViewBag.UserCurrent = "subopen current";
 
-            if (ModelState.IsValid)
-            {
+            if (ModelState.IsValid) {
                 db.Users.Add(applicationUser);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -138,53 +127,51 @@ namespace LexiconLMS.Controllers
         }
 
         // GET: Users/Edit/5
-        public ActionResult Edit(string id)
-        {
+        public ActionResult Edit(string id) {
             ViewBag.UserCurrent = "subopen current";
 
-            if (id == null)
-            {
+            if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-        //     var model = db.Users.Where(u => u.Id == id).Select(t => new UserListingViewModel
-        //       {
-        //            Id = t.Id,
-        //            FirstName = t.FirstName,
-        //            LastName = t.LastName,
-        //            Email = t.Email,
-        //            Role = db.Roles.Where(r => r.Id == t.Roles.FirstOrDefault().RoleId).FirstOrDefault().Name,
-        //            Group = db.Group.Where(g => g.Id == t.GroupId).FirstOrDefault().Name,
-        //            GroupId = db.Group.Where(g => g.Id == t.GroupId).FirstOrDefault().Id,
-        //            PhoneNumber = t.PhoneNumber,
-        //            UserName = t.UserName
+            //     var model = db.Users.Where(u => u.Id == id).Select(t => new UserListingViewModel
+            //       {
+            //            Id = t.Id,
+            //            FirstName = t.FirstName,
+            //            LastName = t.LastName,
+            //            Email = t.Email,
+            //            Role = db.Roles.Where(r => r.Id == t.Roles.FirstOrDefault().RoleId).FirstOrDefault().Name,
+            //            Group = db.Group.Where(g => g.Id == t.GroupId).FirstOrDefault().Name,
+            //            GroupId = db.Group.Where(g => g.Id == t.GroupId).FirstOrDefault().Id,
+            //            PhoneNumber = t.PhoneNumber,
+            //            UserName = t.UserName
 
-        //        }).FirstOrDefault();
-
-
-
-        //                if (model == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-
-
-        //    List<Group> group = db.Group.ToList();
-        //    group.Insert(0, null);
-
-
-                    
-        //    // ViewBag.Role = new SelectList(db.Roles, "Name", "Name");
-           
-        //    ViewBag.GroupId = new SelectList(group, "Id", "Name", model.GroupId);//
-                        
-        //    return View(model);
-        //}
+            //        }).FirstOrDefault();
 
 
 
+            //                if (model == null)
+            //    {
+            //        return HttpNotFound();
+            //    }
 
-                     
+
+            //    List<Group> group = db.Group.ToList();
+            //    group.Insert(0, null);
+
+
+
+            //    // ViewBag.Role = new SelectList(db.Roles, "Name", "Name");
+
+            //    ViewBag.GroupId = new SelectList(group, "Id", "Name", model.GroupId);//
+
+            //    return View(model);
+            //}
+
+
+
+
+
 
 
 
@@ -193,12 +180,11 @@ namespace LexiconLMS.Controllers
 
 
             ApplicationUser applicationUser = db.Users.Find(id);  // orginal
-            if (applicationUser == null)
-            {
+            if (applicationUser == null) {
                 return HttpNotFound();
             }
 
-           
+
             // Get list of roles that user is a member of
             //var userRoles = UserManager.GetRoles(AspNetUsers.Id);
 
@@ -226,12 +212,11 @@ namespace LexiconLMS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Fullname,Title,GroupId,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
-     //    public ActionResult Edit([Bind(Include = "FirstName,LastName,Title,GroupId,Email,PhoneNumber")] ApplicationUser applicationUser)
+            //    public ActionResult Edit([Bind(Include = "FirstName,LastName,Title,GroupId,Email,PhoneNumber")] ApplicationUser applicationUser)
         {
             ViewBag.UserCurrent = "subopen current";
 
-            if (ModelState.IsValid)
-            {
+            if (ModelState.IsValid) {
                 db.Entry(applicationUser).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -241,39 +226,83 @@ namespace LexiconLMS.Controllers
         }
 
         // GET: Users/Delete/5
-        public ActionResult Delete(string id)
-        {
+        public ActionResult Delete(string id) {
             ViewBag.UserCurrent = "subopen current";
 
-            if (id == null)
-            {
+            if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ApplicationUser applicationUser = db.Users.Find(id);
-            if (applicationUser == null)
-            {
+            if (applicationUser == null) {
                 return HttpNotFound();
             }
             return View(applicationUser);
         }
 
         // POST: Users/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(string id)
+        //{
+        //    ApplicationUser applicationUser = db.Users.Find(id);
+        //    db.Users.Remove(applicationUser);
+        //    db.SaveChanges();
+        //    ViewBag.UserCurrent = "subopen current";
+
+        //    return RedirectToAction("Index");
+        //}
+
+
+        // POST: /Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
-        {
-            ApplicationUser applicationUser = db.Users.Find(id);
-            db.Users.Remove(applicationUser);
-            db.SaveChanges();
-            ViewBag.UserCurrent = "subopen current";
+        public async Task<ActionResult> DeleteConfirmed(string id) {
 
-            return RedirectToAction("Index");
+            var roleStore = new RoleStore<IdentityRole>(db);
+            var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+            var userStore = new UserStore<ApplicationUser>(db);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+
+            if (ModelState.IsValid) {
+                if (id == null) {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                var user = await userManager.FindByIdAsync(id);
+                
+                // ev. 3parts inloggningar
+                var logins = user.Logins;
+                foreach (var login in logins.ToList()) {
+                    await userManager.RemoveLoginAsync(login.UserId, new UserLoginInfo(login.LoginProvider, login.ProviderKey));
+                }
+
+                var rolesForUser = await userManager.GetRolesAsync(id);
+
+                if (rolesForUser.Count() > 0) {
+                    foreach (var item in rolesForUser.ToList()) {
+                        // item should be the name of the role
+                        var result = await userManager.RemoveFromRoleAsync(user.Id, item);
+                    }
+                }
+
+                if (user.Documents.Count() > 0) {
+                    foreach (var doc in user.Documents.ToList()) {
+                        db.Documents.Remove(doc);
+                    }
+                }
+
+                await userManager.DeleteAsync(user);
+
+                return RedirectToAction("Index");
+            }
+            else {
+                return View();
+            }
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing) {
                 db.Dispose();
             }
             base.Dispose(disposing);

@@ -13,12 +13,10 @@ using GridMvc.Resources;
 using GridMvc.Pagination;
 
 
-namespace LexiconLMS.Models
-{
+namespace LexiconLMS.Models {
     [GridTable(PagingEnabled = true, PageSize = 20)]
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
-    public class ApplicationUser : IdentityUser
-    {
+    public class ApplicationUser : IdentityUser {
         [GridColumn(Title = "Förnamn", SortEnabled = true, FilterEnabled = true)]
         [Display(Name = "Förnamn")]
         [DisplayFormat(NullDisplayText = "")]
@@ -35,15 +33,13 @@ namespace LexiconLMS.Models
         [GridColumn(Title = "Namn", SortEnabled = true, FilterEnabled = true)]
         [Display(Name = "Namn")]
         [DisplayFormat(NullDisplayText = "")]
-        public string FullName 
-        { 
-            get
-            {
+        public string FullName {
+            get {
                 var fullName = FirstName + " " + LastName;
                 fullName.Trim();
                 return fullName;
             }
-            set {  }
+            set { }
         }
 
         [GridColumn(Title = "Roll", SortEnabled = true, FilterEnabled = true)]
@@ -51,7 +47,7 @@ namespace LexiconLMS.Models
         //[Required]
         [DisplayFormat(NullDisplayText = "")]
         public string Title { get; set; }
-        
+
         //public string UserEmail { get; set; }
         //public string Phone { get; set; }
 
@@ -72,8 +68,7 @@ namespace LexiconLMS.Models
         //public string RolesListId { get; set; }
 
 
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
-        {
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager) {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
@@ -81,28 +76,30 @@ namespace LexiconLMS.Models
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
-    {
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser> {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
-        {
+            : base("DefaultConnection", throwIfV1Schema: false) {
         }
 
 
-        public DbSet<Models.Group> Group { get; set; }
-       // public DbSet<Models.Course> Course { get; set; }
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder) {
+        //    modelBuilder.Entity<ApplicationUser>()
+        //                .HasOptional(s => s.Documents)
+        //                .WillCascadeOnDelete();
+        //}
 
-        public static ApplicationDbContext Create()
-        {
+        public static ApplicationDbContext Create() {
             return new ApplicationDbContext();
         }
 
-         public System.Data.Entity.DbSet<LexiconLMS.Models.Course> Courses { get; set; }
+        public DbSet<Models.Group> Group { get; set; }
 
-         public System.Data.Entity.DbSet<LexiconLMS.Models.Activities> Activities { get; set; }
+        public DbSet<LexiconLMS.Models.Course> Courses { get; set; }
 
-         public System.Data.Entity.DbSet<LexiconLMS.Models.Document> Documents { get; set; }
+        public DbSet<LexiconLMS.Models.Activities> Activities { get; set; }
 
-       //  public System.Data.Entity.DbSet<LexiconLMS.Models.ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<LexiconLMS.Models.Document> Documents { get; set; }
+
+        //  public System.Data.Entity.DbSet<LexiconLMS.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }
