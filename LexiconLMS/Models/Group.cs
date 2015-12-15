@@ -20,7 +20,7 @@ namespace LexiconLMS.Models
         public int Id { get; set; }
 
         [GridColumn(Title = "Gruppnamn", SortEnabled = true, FilterEnabled = true)]
-        [Display(Name = "Gruppnamn")]
+        [Display(Name = "Klass")]
         [DisplayFormat(NullDisplayText = "")]
         [Required]
         public string Name { get; set; }
