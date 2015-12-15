@@ -9,6 +9,12 @@ using System.Web.Mvc;
 using LexiconLMS.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Threading.Tasks;
+using System.Security.Claims;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using System.IO;
+
 
 namespace LexiconLMS.Controllers
 {
@@ -147,6 +153,12 @@ namespace LexiconLMS.Controllers
             {
                 return HttpNotFound();
             }
+
+           
+
+
+
+
 
 
             // Get list of roles that user is a member of

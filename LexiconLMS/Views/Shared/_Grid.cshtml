@@ -57,13 +57,13 @@ else
 @helper RenderGridFooter()
 {
     <div class="grid-footer">
-        @if (Model.RenderOptions.ShowGridItemsCount)
+        @*@if (Model.RenderOptions.ShowGridItemsCount)
         {
             <div class="grid-itemscount">
                 <span class="grid-itemscount-label">@Model.RenderOptions.GridCountDisplayName:</span>
                 <span class="grid-itemscount-caption">@Model.ItemsCount</span>
             </div>
-        }
+        }*@
         @if (Model.EnablePaging && Model.Pager != null)
         {
             @Html.Partial(Model.Pager.TemplateName, Model.Pager)
