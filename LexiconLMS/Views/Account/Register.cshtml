@@ -1,6 +1,6 @@
 ﻿@model LexiconLMS.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Registrera";
+    ViewBag.Title = "Lägg till";
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -97,7 +97,12 @@ My thought was that a techer should rgister a number of studens to a course and 
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-success" value="Registrera">
+            <input type="submit" class="btn btn-default btn-a btn-sm" value="Spara">
+            <a href="@Url.Action("Index", "Users")" type="button" class="btn btn-default">
+                @*<span class="glyphicon glyphicon-arrow-up">
+            </span>*@
+                Tillbaka
+            </a>
         </div>
     </div>
 }
