@@ -15,7 +15,7 @@
 
                     <h3 style="background:#FFFFFF;color:rgb(255, 0, 0);">Är du säker på att du vill ta bort @Html.DisplayFor(model => model.Name) som ingår i @Html.DisplayFor(model => model.Group.Name) ?</h3>
 
-                    <h4>Kurs</h4>
+                    @*<h4>Kurs</h4>*@
                     <hr />
                     <dt>
                         @Html.DisplayNameFor(model => model.Group.Name)
@@ -63,11 +63,11 @@
             @Html.AntiForgeryToken()
 
             <div class="form-actions no-color">
-                <input type="submit" value="Ta bort kurs" class="btn btn-danger btn-sm" />
-                <a href="@Url.Action("Index", "Courses")" type="button" class="btn btn-info btn-sm">
-                    <span class="glyphicon glyphicon-arrow-up">
-                    </span>
-                    Åter lista alla kurser
+                <input type="submit" value="Ta bort" class="btn btn-default btn-sm" />
+                <a href="@Url.Action("Index", "Courses")" type="button" class="btn btn-default btn-sm">
+                    @*<span class="glyphicon glyphicon-arrow-up">
+            </span>*@
+                    Tillbaka
                 </a>
             </div>
         }

@@ -1,7 +1,7 @@
 ﻿@model LexiconLMS.Models.Group
 
 @{
-    ViewBag.Title = "grupp/redigera";
+    ViewBag.Title = "Ändra i ";
     ViewBag.OddOrEven = 0;
 }
 
@@ -15,7 +15,7 @@
     <div class="col-sm-12">
         <div class="container-fluid topMarg">
             <div class="col-sm-6">
-                <h2>@ViewBag.Title</h2>
+                @*<h2>@ViewBag.Title</h2>*@
                 <h2>@ViewBag.Title @Html.DisplayFor(model => model.Name)</h2>
                 <div class="form-horizontal">
                     <hr />
@@ -54,9 +54,24 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group">
+                    @if (User.IsInRole("Teacher"))
+                    {
+                        <div class="col-md-offset-2 col-md-10">
+                            <span>
+                                <input type="submit" value="Spara " class="btn btn-default" />
+                                <a href="@Url.Action("Index", "Groups")" type="button" class="btn btn-default">
+                                    @*<span class="glyphicon glyphicon-arrow-up">
+                            </span>*@
+                                    Tillbaka
+                                </a>
+                            </span>
+                        </div>
+                    }
+                </div>
             </div>
             <div class="col-sm-6">
-                <h2> Kurser ingående i @Html.DisplayFor(model => model.Name) </h2>
+                <h2> Kurser som ingår i @Html.DisplayFor(model => model.Name) </h2>
                 <table id="courses" cellspacing="1">
                     <tr>
                         <td width="16">
@@ -101,17 +116,17 @@
                     @if (User.IsInRole("Teacher"))
                     {
                         <span>
-                            <a href="@Url.Action("Create", "Courses", new { id = Model.Id })" c class="btn btn-success btn-xs">
+                            <a href="@Url.Action("Create", "Courses", new { id = Model.Id })" c class="btn btn-success btn-sm">
                                 <span class="glyphicon glyphicon-new-window">
                                 </span>
-                                Ny kurs
+                                Lägg till
                             </a>
                         </span>
                     }
                 </dl>
                 <div class="mini-box">
                     <table id="users">
-                        <h4> Elever i grupp @Html.DisplayFor(model => model.Name) </h4>
+                        <h2> Elever i grupp @Html.DisplayFor(model => model.Name) </h2>
                         <tr>
                             <td width="300">
                                 @Html.DisplayNameFor(model => model.GroupStudents.First().FullName)
@@ -140,31 +155,31 @@
                         @if (User.IsInRole("Teacher"))
                         {
                             <span>
-                                <a href="@Url.Action("Register", "Account", new { id = Model.Id })" class="btn btn-success btn-xs">
+                                <a href="@Url.Action("Register", "Account", new { id = Model.Id })" class="btn btn-success btn-sm">
                                     <span class="glyphicon glyphicon-new-window">
                                     </span>
-                                    Ny elev
+                                    Lägg till
                                 </a>
                             </span>
                         }
                     </dl>
                 </div>
             </div>
-            <div class="form-group">
+            @*<div class="form-group">
                 @if (User.IsInRole("Teacher"))
                 {
                     <div class="col-md-offset-2 col-md-10">
                         <span>
-                            <input type="submit" value="Spara " class="btn btn-default  btn-sm" />
-                            <a href="@Url.Action("Index", "Groups")" type="button" class="btn btn-info btn-sm">
+                            <input type="submit" value="Spara " class="btn btn-default" />
+                            <a href="@Url.Action("Index", "Groups")" type="button" class="btn btn-default">
                                 <span class="glyphicon glyphicon-arrow-up">
-                                </span>
-                                Åter  lista
+            </span>
+                                Tillbaka
                             </a>
                         </span>
                     </div>
                 }
-            </div>
+            </div>*@
         </div>
     </div>
 }

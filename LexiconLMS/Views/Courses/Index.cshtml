@@ -70,7 +70,7 @@
             .RenderValueAs(
             @<a href="@Url.Action("Edit", "Courses", new { id = item.Id })" class="btn btn-warning btn-xs">
                 <span class="glyphicon glyphicon-edit"></span>
-                Redigera
+                Ändra
             </a>);
      columns.Add()
             .Encoded(false)
@@ -90,7 +90,7 @@
                 <span class="glyphicon glyphicon-minus-sign"></span>
                 Ta bort
             </a>);
-        }).WithPaging(5).Sortable().Filterable().WithMultipleFilters()
+        }).WithPaging(10).Sortable().Filterable().WithMultipleFilters()
 
 <div class="container botMarg">
     <div class="col-sm-12">

@@ -112,7 +112,6 @@ namespace LexiconLMS.Migrations {
                     {
                         {
                            {
-                        //  {"FirstName", "LastName","Email","Role","Phone"},
                             {"Oscar", "Jakobsson","user1@gmail.com","Teacher","070909090",""},
    	                        {"Jonas", "Jakobsson","user2@gmail.com","Student","0733765334","1"},
 	                        {"Matti", "Boustedt","matti.boustedt@hotmail.com","Student","0764563234","2"},

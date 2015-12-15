@@ -53,25 +53,25 @@
             </div>
             @if (User.IsInRole("Teacher")) {
                 <span>
-                    <a href="@Url.Action("Edit", "Groups", new { id = Model.Id })" class="btn btn-warning btn-xs">
-                        <span class="glyphicon glyphicon-edit">
-                        </span>
-                        Redigera
+                    <a href="@Url.Action("Edit", "Groups", new { id = Model.Id })" class="btn btn-default">
+                        @*<span class="glyphicon glyphicon-edit">
+                        </span>*@
+                        Ändra
                     </a>
                     <span>               </span>
                 </span>
-                <a href="@Url.Action("Index", "Groups")" type="button" class="btn btn-info btn-xs">
-                    <span class="glyphicon glyphicon-arrow-up">
-                    </span>
-                    Åter lista
-                </a>
+            <a href="@Url.Action("Index", "Groups")" type="button" class="btn btn-default">
+                @*<span class="glyphicon glyphicon-arrow-up">
+                    </span>*@
+                Tillbaka
+            </a>
             }
 
             @*@Html.ActionLink("Åter till lista", "Index")*@
         </div>
 
         <div class="col-sm-6">
-            <h2> Kurser ingående i @Html.DisplayFor(model => model.Name) </h2>
+            <h2> Kurser som ingår i @Html.DisplayFor(model => model.Name) </h2>
             <table id="courses" cellspacing="1">
                 <tr>
                     <td width="16">
@@ -114,17 +114,17 @@
             <dl>
                 @if (User.IsInRole("Teacher")) {
                     <span>
-                        <a href="@Url.Action("Create", "Courses", new { id = Model.Id })" c class="btn btn-success btn-xs">
+                        <a href="@Url.Action("Create", "Courses", new { id = Model.Id })" c class="btn btn-success btn-sm">
                             <span class="glyphicon glyphicon-new-window">
                             </span>
-                            Ny kurs
+                            Lägg till
                         </a>
                     </span>
                 }
         </dl>
         <div class="mini-box">
             <table id="users">
-                <h4> Elever i grupp @Html.DisplayFor(model => model.Name) </h4>
+                <h2> Elever i grupp @Html.DisplayFor(model => model.Name) </h2>
                 <tr>
                     <td width="300">
                         @Html.DisplayNameFor(model => model.GroupStudents.First().FullName)
@@ -151,10 +151,10 @@
             <dl>
                 @if (User.IsInRole("Teacher")) {
                     <span>
-                        <a href="@Url.Action("Register", "Account", new { id = Model.Id })" class="btn btn-success btn-xs">
+                        <a href="@Url.Action("Register", "Account", new { id = Model.Id })" class="btn btn-success btn-sm">
                             <span class="glyphicon glyphicon-new-window">
                             </span>
-                            Ny elev
+                            Lägg till
                         </a>
                     </span>
                 }

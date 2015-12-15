@@ -12,12 +12,12 @@
 @using LexiconLMS;
    <div class="col-sm-12">
         <div class="col-sm-6">
-            <div>
+            @*<div>
                 <h2>@ViewBag.Title </h2>
-            </div>
+            </div>*@
             <div class="mini-box" style="background: #f2f2f2;color:#0000">
                 <dl class="dl-horizontal">
-                    <h2 >Kurs @Html.DisplayFor(model => model.Name)</h2>
+                    @*<h2 >Kurs @Html.DisplayFor(model => model.Name)</h2>*@
                     <dl class="dl-horizontal">
                         <dt>
                             @Html.DisplayNameFor(model => model.Group.Name)
@@ -65,24 +65,22 @@
             @if (User.IsInRole("Teacher"))
             {
                 <span>
-                    <a href="@Url.Action("Edit", "Courses", new { id = Model.Id })" class="btn btn-warning btn-sm">
-                        <span class="glyphicon glyphicon-edit">
-                        </span>
-                        Redigera kurs
+                    <a href="@Url.Action("Edit", "Courses", new { id = Model.Id })" class="btn btn-default btn-sm">
+                        @*<span class="glyphicon glyphicon-edit">
+                        </span>*@
+                        Ändra
                     </a>
                 </span>
             }
-            <a href="@Url.Action("Index", "Courses")" type="button" class="btn btn-info btn-sm">
-                <span class="glyphicon glyphicon-arrow-up">
-                </span>
-                Åter till lista
+            <a href="@Url.Action("Index", "Courses")" type="button" class="btn btn-default btn-sm">
+                @*<span class="glyphicon glyphicon-arrow-up">
+                </span>*@
+                Tillbaka
             </a>
         </div>
         <div class="col-sm-6">
-            <hr />
-            <hr />
             <table id="activities" cellspacing="1">
-                <h2 >Aktiviteter ingående i @Html.DisplayFor(model => model.Name) </h2>
+                <h2 >Aktiviteter som ingår i kursen @*@Html.DisplayFor(model => model.Name)*@ </h2>
                 <tr>
                     <th width="26">
                         @Html.DisplayNameFor(model => model.StartDate)
@@ -142,6 +140,17 @@
                     ViewBag.OddOrEven = ViewBag.OddOrEven + 1;
               }
         </table>
+            <br />
+            @if (User.IsInRole("Teacher"))
+            {
+                <span>
+                    <a href="@Url.Action("Create", "Activities", new { id = Model.Id })" c class="btn btn-success btn-sm">
+                        <span class="glyphicon glyphicon-new-window">
+                        </span>
+                        Lägg till
+                    </a>
+                </span>
+            }
     </div>
 </div>
 <div class="container botMarg">

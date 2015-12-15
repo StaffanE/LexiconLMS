@@ -1,10 +1,10 @@
 ﻿@model LexiconLMS.Models.Course
 
 @{
-    ViewBag.Title = "Ändra kurs";
+    ViewBag.Title = "Ändra i ";
 }
 
-<h2>@ViewBag.Title @Html.DisplayFor(Model => Model.Name) ingående i @Html.DisplayFor(Model => Model.Group.Name) </h2>
+<h2>@ViewBag.Title @Html.DisplayFor(Model => Model.Name) @*ingående i @Html.DisplayFor(Model => Model.Group.Name)*@ </h2>
 
 
 @using (Html.BeginForm())
@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>@ViewBag.Title @Html.DisplayFor(Model => Model.Name)</h4>
+        @*<h4>@ViewBag.Title @Html.DisplayFor(Model => Model.Name)</h4>*@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
@@ -59,12 +59,12 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <a href="@Url.Action("Index", "Courses")" type="button" class="btn btn-info btn-sm">
-                    <span class="glyphicon glyphicon-arrow-up">
-                    </span>
-                    Åter till lista
+                <input type="submit" value="Spara" class="btn btn-default btn-sm" />
+                <a href="@Url.Action("Index", "Courses")" type="button" class="btn btn-default btn-sm">
+                    @*<span class="glyphicon glyphicon-arrow-up">
+            </span>*@
+                    Tillbaka
                 </a>
-                <input type="submit" value="Spara ändring" class="btn btn-default  btn-sm" />
             </div>
         </div>
     </div>
