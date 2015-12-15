@@ -123,7 +123,7 @@
             </th>*@
         <th>
             @*@Html.DisplayNameFor(model => model.Email)*@
-            @Html.ActionLink("E-post", "Index", new { sortOrder = ViewBag.MailSortParm }, new { @class = "my-class1" })
+            @Html.ActionLink("Email", "Index", new { sortOrder = ViewBag.MailSortParm }, new { @class = "my-class1" })
             @if (ViewBag.sortOrder == "mail_desc")
             {
                 <i class="glyphicon glyphicon-sort-by-alphabet-alt"></i>
