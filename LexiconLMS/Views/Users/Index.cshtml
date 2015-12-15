@@ -68,9 +68,12 @@
             Användare
         </h2>        
         <p>
-            @*@Html.ActionLink("Registrera ny användare", "Register", "AccountController", )*@    
-            @Html.ActionLink("Registrera ny användare", "Create" )
-            
+          <span>
+              <a href="@Url.Action("Register", "Account")" class="btn btn-success">
+                  <span class="glyphicon glyphicon-plus-sign"></span>
+                  Registrera ny
+              </a>
+          </span>
         </p>
     }
 }

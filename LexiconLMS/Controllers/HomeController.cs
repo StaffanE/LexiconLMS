@@ -30,8 +30,11 @@ namespace LexiconLMS.Controllers
                 ViewBag.BaseUrl = "~/Groups/Details/" + user.GroupId;
            
             }
+
+            ViewBag.HomeCurrent = "subopen current";
+
+
             return Redirect(ViewBag.BaseUrl);
-            //ViewBag.HomeCurrent = "subopen current";
             //return View();
         }
 
