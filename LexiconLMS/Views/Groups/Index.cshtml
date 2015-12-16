@@ -137,7 +137,7 @@
                .Sanitized(false)
                .SetWidth(12)
                .RenderValueAs(
-            @<a href="@Url.Action("Edit", "Groups", new { id = item.Id })" class="btn btn-warning btn-xs">
+            @<a href="@Url.Action("Edit", "Groups", new { id = item.Id })" class="btn btn-warning btn-sm">
                 <span class="glyphicon glyphicon-edit"></span>
                 Ändra
             </a>);
@@ -146,7 +146,7 @@
               .Sanitized(false)
               .SetWidth(12)
               .RenderValueAs(
-            @<a href="@Url.Action("Details", "Groups", new { id = item.Id })" class=" btn btn-primary btn-xs">
+            @<a href="@Url.Action("Details", "Groups", new { id = item.Id })" class=" btn btn-primary btn-sm">
                 <span class="glyphicon glyphicon-exclamation-sign"></span>
                 Detaljer
             </a>);
@@ -155,7 +155,7 @@
             .Sanitized(false)
             .SetWidth(12)
             .RenderValueAs(
-            @<a href="@Url.Action("Delete","Groups", new { id = item.Id })" class="btn btn-danger btn-xs">
+            @<a href="@Url.Action("Delete","Groups", new { id = item.Id })" class="btn btn-danger btn-sm">
                 <span class="glyphicon glyphicon-minus-sign"></span>
                 Ta bort
             </a>);

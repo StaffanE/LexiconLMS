@@ -22,7 +22,7 @@ namespace LexiconLMS.Controllers
            // var courses = db.Courses.Include(c => c.Group);   // Original-rad
            // return View(courses.ToList());                    // Original-rad
             ViewBag.CourseCurrent = "subopen current";
-
+            
 
             var courses = db.Courses.Include(c=> c.Group);                                            
 
@@ -102,10 +102,11 @@ namespace LexiconLMS.Controllers
 
         // GET: Courses/Create
         [Authorize(Roles = "Teacher")]
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
             ViewBag.CourseCurrent = "subopen current";
             ViewBag.GroupId = new SelectList(db.Group, "Id", "Name");
+            ViewBag.GId = id;
             return View();
         }
 
