@@ -80,7 +80,11 @@ namespace LexiconLMS.Controllers {
                     users = users.OrderBy(u => u.LastName);
                     break;
             }
-            return View(users.ToList());
+            var Listan = users.ToList();
+            foreach (var ListElement in Listan) {
+                if (ListElement.Group == null) ListElement.Group = new Group();
+            }
+            return View(Listan);
         }
 
 
