@@ -7,23 +7,24 @@
     ViewBag.Title = "Grupper";
     ViewBag.OddOrEven = 0;
 }
-
-<div class="container-fluid topMarg">
+<h2>@ViewBag.Title </h2>
+@*<div class="container-fluid topMarg">
     <div class="col-sm-12">
-        <div>
-            <h2>@ViewBag.Title </h2>
-        </div>
-        <p>
-            @if (User.IsInRole("Teacher")) {
-                <span>
-                    <a href="@Url.Action("Create")" class="btn btn-success btn-sm">
-                        <span class="glyphicon glyphicon-plus-sign"></span>
-                        Lägg till
-                    </a>
-                </span>
+        <p>*@
+<div id="block_container">
+    <div id="block1">
+        @if (User.IsInRole("Teacher"))
+        {
+            <span>
+                <a href="@Url.Action("Create")" class="btn btn-success btn-sm">
+                    <span class="glyphicon glyphicon-plus-sign"></span>
+                    Lägg till
+                </a>
+            </span>
 
-            }
-        </p>
+        }
+        @*</p>*@
+      </div>
         @*<table class="table">
                 <tr>
                     <th>
@@ -101,7 +102,8 @@
                     }
 
             </table>*@
-        @Html.Grid(Model).Columns(columns => {
+        @Html.Grid(Model).Columns(columns =>
+   {
 
        /* Adding "OrderID" column: */
        columns.Add(model => model.Name)
@@ -159,7 +161,7 @@
                 <span class="glyphicon glyphicon-minus-sign"></span>
                 Ta bort
             </a>);
-            }).WithPaging(10).Sortable().Filterable().WithMultipleFilters()
+   }).WithPaging(10).Sortable().Filterable().WithMultipleFilters()
 
         @*/* Adding "Vip customer" column: */
             /*columns.Add(o => o.Customer.IsVip)
