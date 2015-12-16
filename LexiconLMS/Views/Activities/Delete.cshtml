@@ -76,12 +76,15 @@
                 @Html.AntiForgeryToken()
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <a href="@Url.Action("Index", "Activities")" type="button" class="btn btn-info btn-sm">
-                            <span class="glyphicon glyphicon-arrow-up">
-                            </span>
-                            Åter lista
+@if (User.IsInRole("Teacher")) {
+
+                        <input type="submit" value="Ta bort " class="btn btn-default btn-sm" />
+}
+                        <a href="@Url.Action("Index", "Activities")" type="button" class="btn btn-default btn-sm">
+                            @*<span class="glyphicon glyphicon-arrow-up">
+                        </span>*@
+                            Tillbaka
                         </a>
-                        <input type="submit" value="Ta bort " class="btn btn-sm glyphicon-minus" />
                     </div>
                 </div>
                 @*<div class="form-actions no-color">

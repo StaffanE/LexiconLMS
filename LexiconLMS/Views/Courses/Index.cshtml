@@ -63,6 +63,8 @@
     //        .RenderValueAs(@ExtensionMethods.PeriodStatus((model => model.StartDate),(model => model.EndDate)));
     
     /* Adding not mapped column, that renders body, using inline Razor html helper */
+if (User.IsInRole("Teacher")) {
+    
     columns.Add()
             .Encoded(false)
             .Sanitized(false)
@@ -72,6 +74,7 @@
                 <span class="glyphicon glyphicon-edit"></span>
                 Ändra
             </a>);
+}
      columns.Add()
             .Encoded(false)
             .Sanitized(false)
@@ -81,6 +84,9 @@
                 <span class="glyphicon glyphicon-exclamation-sign"></span>
                 Detaljer
             </a>);
+    
+if (User.IsInRole("Teacher")) {
+
                     columns.Add()
             .Encoded(false)
             .Sanitized(false)
@@ -90,6 +96,7 @@
                 <span class="glyphicon glyphicon-minus-sign"></span>
                 Ta bort
             </a>);
+}
         }).WithPaging(10).Sortable().Filterable().WithMultipleFilters()
 
 <div class="container botMarg">
