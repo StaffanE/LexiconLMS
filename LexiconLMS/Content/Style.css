@@ -1,7 +1,7 @@
-﻿/*body {
+﻿body {
     /*padding-top: 0%;
     align-content: center;*/
-    
+    overflow-y: scroll;
 }
 
 
@@ -9,15 +9,15 @@
     padding-top:0%;
         
      background-color: #f5f5f5;
-}*/
+}
 
-/*.topbar {
+.topbar {
     height: 110px;
     background-color: #0a0a0a;
 
-}*/
+}
 
-/*.navigation-bar {
+.navigation-bar {
     
     height:52px;
     background-color: #f5f5f5;
@@ -28,6 +28,21 @@
    
 }*/
 
+/*html {
+  overflow-y: scroll;
+  width: 100%; width: 100vw;
+  height:101%;
+}*/
+
+
+/*#contact{
+overflow: hidden;
+width: calc(1024px + 0);
+}
+
+#contact:hover{
+overflow-y:scoll;
+}*/
 
 .navigation-bar {
 
@@ -168,3 +183,22 @@ ul.line li {
 .subbar {
     background-color: #f5f5f5;
 }
+
+#loginnav a {
+    color: #51ef7a;
+}
+
+#loginnav a:hover {
+    color: #fff;
+}
+
+#loginnavtwo a {
+    color: #51ef7a;
+}
+
+#loginnavtwo a:hover {
+    color: #fff;
+}
+
+
+
