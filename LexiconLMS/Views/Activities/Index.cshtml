@@ -13,8 +13,7 @@
             <div>
                 <h2>@ViewBag.Title </h2>
             </div>
-            @if (User.IsInRole("Teacher"))
-            {
+            @if (User.IsInRole("Teacher")) {
                 <p>
                     <span>
                         <a href="@Url.Action("Create")" class="btn btn-success btn-xm">
@@ -26,158 +25,157 @@
             }
             <h4>Aktiviteter</h4>
             @*<table class="table">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Course.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ActivityType)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Description)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.StartTime)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.EndTime)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Deadline)
-                    </th>
-                    <th></th>
-                </tr>
-
-                @foreach (var item in Model)
-                {
-                    string visibleText = ExtensionMethods.trColorGrayWhite(ViewBag.OddOrEven);
-                    string GoToUrl = "../Activities/Details";
-                    string GoToUrlForId = @GoToUrl + "/" + item.Id;
-
-                    <tr style=@ExtensionMethods.trColorGrayWhite(ViewBag.OddOrEven) onclick="this.children[0].children[0].click();">
-                        <td>
-                            @Html.ActionLink((item.Course.Name), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
-                        </td>
-                        <td>
-                            @Html.ActionLink((@ExtensionMethods.DisplayFor(item.ActivityType)), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
-                        </td>
-                        <td>
-                            @Html.ActionLink((item.Name), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
-                        </td>
-                        <td>
-                            @Html.ActionLink((item.Description), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
-                        </td>
-                        <td>
-                            @Html.ActionLink(item.StartTime.ToString("yyyy-MM-dd"), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
-                        </td>
-                        <td>
-                            @Html.ActionLink(item.EndTime.ToString("yyyy-MM-dd"), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Deadline)
-                        </td>
-                        <td>
-
-                        <td>
-                            @if (User.IsInRole("Teacher"))
-                            {
-                                <span>
-                                    <a href="@Url.Action("Edit", "Activities", new { id = item.Id })" class="btn btn-warning btn-sm">
-                                        <span class="glyphicon glyphicon-edit"></span>
-                                        Redigera
-                                    </a>
-                                </span>
-                            }
-                        </td>
-                        <td>
-                            <span>
-                                <a href="@Url.Action("Details", "Activities", new { id = item.Id })" class=" btn btn-primary btn-sm">
-                                    <span class="glyphicon glyphicon-exclamation-sign"></span>
-                                    Detaljer
-                                </a>
-                            </span>
-                        </td>
-
-                        <td>
-                            @if (User.IsInRole("Teacher"))
-                            {
-                                <span>
-                                    <a href="@Url.Action("Delete","Activities", new { id = item.Id })" class="btn btn-danger btn-sm">
-                                        <span class="glyphicon glyphicon-minus-sign"></span>
-                                        Ta bort
-                                    </a>
-                                </span>
-                            }
-                        </td>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Course.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ActivityType)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.StartTime)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EndTime)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Deadline)
+                        </th>
+                        <th></th>
                     </tr>
-                            ViewBag.OddOrEven = ViewBag.OddOrEven + 1;
-                }
-            </table>*@
-             	
-            @Html.Grid(Model).Columns(columns =>
-         {
+
+                    @foreach (var item in Model)
+                    {
+                        string visibleText = ExtensionMethods.trColorGrayWhite(ViewBag.OddOrEven);
+                        string GoToUrl = "../Activities/Details";
+                        string GoToUrlForId = @GoToUrl + "/" + item.Id;
+
+                        <tr style=@ExtensionMethods.trColorGrayWhite(ViewBag.OddOrEven) onclick="this.children[0].children[0].click();">
+                            <td>
+                                @Html.ActionLink((item.Course.Name), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
+                            </td>
+                            <td>
+                                @Html.ActionLink((@ExtensionMethods.DisplayFor(item.ActivityType)), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
+                            </td>
+                            <td>
+                                @Html.ActionLink((item.Name), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
+                            </td>
+                            <td>
+                                @Html.ActionLink((item.Description), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
+                            </td>
+                            <td>
+                                @Html.ActionLink(item.StartTime.ToString("yyyy-MM-dd"), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
+                            </td>
+                            <td>
+                                @Html.ActionLink(item.EndTime.ToString("yyyy-MM-dd"), @GoToUrl, new { id = item.Id }, new { @class = @visibleText })
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Deadline)
+                            </td>
+                            <td>
+
+                            <td>
+                                @if (User.IsInRole("Teacher"))
+                                {
+                                    <span>
+                                        <a href="@Url.Action("Edit", "Activities", new { id = item.Id })" class="btn btn-warning btn-sm">
+                                            <span class="glyphicon glyphicon-edit"></span>
+                                            Redigera
+                                        </a>
+                                    </span>
+                                }
+                            </td>
+                            <td>
+                                <span>
+                                    <a href="@Url.Action("Details", "Activities", new { id = item.Id })" class=" btn btn-primary btn-sm">
+                                        <span class="glyphicon glyphicon-exclamation-sign"></span>
+                                        Detaljer
+                                    </a>
+                                </span>
+                            </td>
+
+                            <td>
+                                @if (User.IsInRole("Teacher"))
+                                {
+                                    <span>
+                                        <a href="@Url.Action("Delete","Activities", new { id = item.Id })" class="btn btn-danger btn-sm">
+                                            <span class="glyphicon glyphicon-minus-sign"></span>
+                                            Ta bort
+                                        </a>
+                                    </span>
+                                }
+                            </td>
+                        </tr>
+                                ViewBag.OddOrEven = ViewBag.OddOrEven + 1;
+                    }
+                </table>*@
+
+            @Html.Grid(Model).Columns(columns => {
              columns.Add(model => model.Course.Name)
                          .Sortable(true)
                      .Titled("Kurs")
-                     .SetWidth(20)
+                     .SetWidth("20px")
                      .ToString();
 
              columns.Add(model => model.ActivityType)
-                         .Sortable(true)
-                     .Titled("Aktivitetstyp")
-                     .SetWidth(20)
+                     .Sortable(true)
+                     .Titled("Typ")
+                     .SetWidth("25px")
+                     .RenderValueAs((model => ExtensionMethods.DisplayFor(model.ActivityType).ToString()))
                      .ToString();
 
              columns.Add(model => model.Name)
             .Sortable(true)
         .Titled("Aktivitet")
-                 //.RenderValueAs(model => model.Name == null ? " " : model.Name)
-        .SetWidth(20);
+        .SetWidth("20");
 
              columns.Add(model => model.Description)
                          .Sortable(true)
-                     .Titled("Beskrivning")
-                     .SetWidth(30)
+                     .Titled("Beskr.")
+                     .SetWidth("30px")
                      .RenderValueAs(
-                     (model => model.Description.Substring(0, Math.Min(model.Description.Length, 30))));
-           
+                     (model => model.Description.Substring(0, Math.Min(model.Description.Length, 25))));
+
              columns.Add(model => model.StartTime)
-             .Titled("Startdatum/tid")
+             .Titled("Start")
              .Format("{0:yyyy-MM-dd}")
               .Sortable(true)
-               .SetWidth(20)
+               .SetWidth("30px")
              .ThenSortByDescending(model => model.StartTime);
 
              columns.Add(model => model.EndTime)
-             .Titled("Startdatum/tid")
+             .Titled("Slut")
              .Format("{0:yyyy-MM-dd}")
               .Sortable(true)
-               .SetWidth(20)
+               .SetWidth("30px")
              .ThenSortByDescending(model => model.EndTime);
-             
+
              columns.Add(model => model.Deadline)
                   .Sortable(true)
-                  .Titled("Inlämningsuppgift")
-                   .SetWidth(12)
+                  .Titled("Inl.uppg.")
+                   .SetWidth("22px")
                    .RenderValueAs(model => model.Deadline == true ? "Ja" : "")
                   .ThenSortByDescending(model => model.Deadline)
              ;
              /* Adding not mapped column, that renders body, using inline Razor html helper */
-if (User.IsInRole("Teacher")) {
+             if (User.IsInRole("Teacher")) {
 
-             columns.Add()
-                     .Encoded(false)
-                     .Sanitized(false)
-                     .SetWidth(12)
-                     .RenderValueAs(
-                    @<a href="@Url.Action("Edit", "Activities", new { id = item.Id })" class="btn btn-warning btn-sm">
-                        <span class="glyphicon glyphicon-edit"></span>
-                        Ändra
-                    </a>);
-            }
+                 columns.Add()
+                         .Encoded(false)
+                         .Sanitized(false)
+                         .SetWidth(12)
+                         .RenderValueAs(
+                        @<a href="@Url.Action("Edit", "Activities", new { id = item.Id })" class="btn btn-warning btn-sm">
+                            <span class="glyphicon glyphicon-edit"></span>
+                            Ändra
+                        </a>);
+             }
              columns.Add()
                     .Encoded(false)
                     .Sanitized(false)
@@ -187,23 +185,25 @@ if (User.IsInRole("Teacher")) {
                         <span class="glyphicon glyphicon-exclamation-sign"></span>
                         Detaljer
                     </a>);
-  if (User.IsInRole("Teacher")) {
+             if (User.IsInRole("Teacher")) {
 
-             columns.Add()
-                  .Encoded(false)
-                  .Sanitized(false)
-                  .SetWidth(12)
-                  .RenderValueAs(
-  
-                @<a href="@Url.Action("Delete", "Activities", new { id = item.Id })" class="btn btn-danger btn-sm">
-                    <span class="glyphicon glyphicon-minus-sign"></span>
-                    Ta bort
-                </a>); }
-         }).WithPaging(10).Sortable().Filterable().WithMultipleFilters();
+                 columns.Add()
+                      .Encoded(false)
+                      .Sanitized(false)
+                      .SetWidth(12)
+                      .RenderValueAs(
+
+                    @<a href="@Url.Action("Delete", "Activities", new { id = item.Id })" class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-minus-sign"></span>
+                        Ta bort
+                    </a>);
+             }
+                }).WithPaging(10).Sortable().Filterable().WithMultipleFilters();
             <div class="col-sm-6">
             </div>
         </div>
     </div>
+</div>
     <div class="container botMarg">
         <div class="col-sm-12">
             <p>

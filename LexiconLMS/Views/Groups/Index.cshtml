@@ -7,24 +7,23 @@
     ViewBag.Title = "Grupper";
     ViewBag.OddOrEven = 0;
 }
-<h2>@ViewBag.Title </h2>
-@*<div class="container-fluid topMarg">
-    <div class="col-sm-12">
-        <p>*@
-<div id="block_container">
-    <div id="block1">
-        @if (User.IsInRole("Teacher"))
-        {
-            <span>
-                <a href="@Url.Action("Create")" class="btn btn-success btn-sm">
-                    <span class="glyphicon glyphicon-plus-sign"></span>
-                    Lägg till
-                </a>
-            </span>
 
-        }
-        @*</p>*@
-      </div>
+<div class="container-fluid topMarg">
+    <div class="col-sm-12">
+        <div>
+            <h2>@ViewBag.Title </h2>
+        </div>
+        <p>
+            @if (User.IsInRole("Teacher")) {
+                <span>
+                    <a href="@Url.Action("Create")" class="btn btn-success btn-sm">
+                        <span class="glyphicon glyphicon-plus-sign"></span>
+                        Lägg till
+                    </a>
+                </span>
+
+            }
+        </p>
         @*<table class="table">
                 <tr>
                     <th>
@@ -102,67 +101,67 @@
                     }
 
             </table>*@
-        @Html.Grid(Model).Columns(columns =>
-   {
+        <div class="table-responsive">
+            @Html.Grid(Model).Columns(columns => {
+           
+           /* Adding "OrderID" column: */
+           columns.Add(model => model.Name)
+               .Sortable(true)
+           .Titled("Namn")
+           .SetWidth(20);
 
-       /* Adding "OrderID" column: */
-       columns.Add(model => model.Name)
-           .Sortable(true)
-       .Titled("Namn")
-       .SetWidth(20);
+           columns.Add(model => (model.Description))
+               .Sortable(true)
+           .Titled("Beskrivning")
+           .SetWidth(30)
+           .RenderValueAs(
+           (model => model.Description.Substring(0, Math.Min(model.Description.Length, 30))));
 
-       columns.Add(model => (model.Description))
-           .Sortable(true)
-       .Titled("Beskrivning")
-       .SetWidth(30)
-       .RenderValueAs(
-       (model => model.Description.Substring(0, Math.Min(model.Description.Length, 30))));
+           columns.Add(model => model.StartDate)
+           .Titled("Starttdatum")
+           .Format("{0:yyyy-MM-dd}")
+            .Sortable(true)
+             .SetWidth(12)
+           .ThenSortByDescending(model => model.StartDate);
+           /*         .SortInitialDirection(GridSortDirection.Descending);
+                   .SetFilterWidgetType("DateTimeFilterWidget"); */
 
-       columns.Add(model => model.StartDate)
-       .Titled("Starttdatum")
-       .Format("{0:yyyy-MM-dd}")
-        .Sortable(true)
-         .SetWidth(12)
-       .ThenSortByDescending(model => model.StartDate);
-       /*         .SortInitialDirection(GridSortDirection.Descending);
-               .SetFilterWidgetType("DateTimeFilterWidget"); */
-
-       columns.Add(model => model.EndDate)
-           .Sortable(true)
-       .Titled("Slutdatum")
-       .Format("{0:yyyy-MM-dd}")
-                 .SetWidth(12)
-       .ThenSortByDescending(model => model.EndDate);
-       /* Adding not mapped column, that renders body, using inline Razor html helper */
-       columns.Add()
-               .Encoded(false)
-               .Sanitized(false)
-               .SetWidth(12)
-               .RenderValueAs(
-            @<a href="@Url.Action("Edit", "Groups", new { id = item.Id })" class="btn btn-warning btn-sm">
-                <span class="glyphicon glyphicon-edit"></span>
-                Ändra
-            </a>);
-       columns.Add()
-              .Encoded(false)
-              .Sanitized(false)
-              .SetWidth(12)
-              .RenderValueAs(
-            @<a href="@Url.Action("Details", "Groups", new { id = item.Id })" class=" btn btn-primary btn-sm">
-                <span class="glyphicon glyphicon-exclamation-sign"></span>
-                Detaljer
-            </a>);
-       columns.Add()
-            .Encoded(false)
-            .Sanitized(false)
-            .SetWidth(12)
-            .RenderValueAs(
-            @<a href="@Url.Action("Delete","Groups", new { id = item.Id })" class="btn btn-danger btn-sm">
-                <span class="glyphicon glyphicon-minus-sign"></span>
-                Ta bort
-            </a>);
-   }).WithPaging(10).Sortable().Filterable().WithMultipleFilters()
-
+           columns.Add(model => model.EndDate)
+               .Sortable(true)
+           .Titled("Slutdatum")
+           .Format("{0:yyyy-MM-dd}")
+                     .SetWidth(12)
+           .ThenSortByDescending(model => model.EndDate);
+           /* Adding not mapped column, that renders body, using inline Razor html helper */
+           columns.Add()
+                   .Encoded(false)
+                   .Sanitized(false)
+                   .SetWidth(12)
+                   .RenderValueAs(
+                @<a href="@Url.Action("Edit", "Groups", new { id = item.Id })" class="btn btn-warning btn-sm">
+                    <span class="glyphicon glyphicon-edit"></span>
+                    Ändra
+                </a>);
+           columns.Add()
+                  .Encoded(false)
+                  .Sanitized(false)
+                  .SetWidth(12)
+                  .RenderValueAs(
+                @<a href="@Url.Action("Details", "Groups", new { id = item.Id })" class=" btn btn-primary btn-sm">
+                    <span class="glyphicon glyphicon-exclamation-sign"></span>
+                    Detaljer
+                </a>);
+           columns.Add()
+                .Encoded(false)
+                .Sanitized(false)
+                .SetWidth(12)
+                .RenderValueAs(
+                @<a href="@Url.Action("Delete","Groups", new { id = item.Id })" class="btn btn-danger btn-sm">
+                    <span class="glyphicon glyphicon-minus-sign"></span>
+                    Ta bort
+                </a>);
+                }).WithPaging(10).Sortable().Filterable().WithMultipleFilters()
+        </div>
         @*/* Adding "Vip customer" column: */
             /*columns.Add(o => o.Customer.IsVip)
             .Titled("Vip customer")
@@ -173,7 +172,7 @@
 
         @*/*        }).SetRowCssClasses(item => item.Customer.IsVip ? "warning" : string.Empty).WithPaging(15).Sortable().Filterable().WithMultipleFilters()*/*@
     </div>
-
+</div>
 <div class="container botMarg">
     <div class="col-sm-12">
         <p>

@@ -4,7 +4,7 @@
 @using LexiconLMS;
 
 @{
-    ViewBag.Title = "Grupp - " + @Html.DisplayFor(model => model.Name);
+    ViewBag.Title = "Detaljerad gruppinformation " + @Html.DisplayFor(model => model.Name);
     //OddOrEven to keep track ArgumentOutOfRangeException witch tablerow wicch shuld be white or gray
     ViewBag.OddOrEven = 0;
 }
@@ -17,7 +17,7 @@
             </div>
             <div class="mini-box" style="background: #f2f2f2;color:#0000">
                 <dl class="dl-horizontal">
-                    @*<h2>Grupp @Html.DisplayFor(model => model.Name)</h2>*@
+                    <h2>Grupp @Html.DisplayFor(model => model.Name)</h2>
                     <dt>
                         @Html.DisplayNameFor(model => model.Name)
                     </dt>
@@ -119,20 +119,19 @@
 
         <div class="col-sm-6">
             <h2> Kurser som ingår i @Html.DisplayFor(model => model.Name) </h2>
-            <table class="infotables" id="courses">
+            <table id="courses" cellspacing="1">
                 <tr>
                     <td width="16">
-                        <strong>Startdatum</strong>
+                        Startdatum
                     </td>
                     <td>
-                        <strong>Namn</strong>
+                        Namn
                     </td>
                     <td>
-                        <strong>Beskrivning</strong>
+                        Beskrivning
                     </td>
                 </tr>
-                @foreach (var course in Model.GroupCourses)
-                {
+                @foreach (var course in Model.GroupCourses) {
                     string visibleText = ExtensionMethods.trTextColor(course.StartDate, course.EndDate);
                     string GoToUrl = "../Courses/Details";
                     string contDescr = " ...(Utförlig beskrivning finns)";
@@ -142,25 +141,17 @@
                     string dispDescription = course.Description.Substring(0, dispLength) + contDescr;
                     <tr style=@ExtensionMethods.trColorGrayWhite(ViewBag.OddOrEven) onclick="this.children[0].children[0].click();">
                         <td width="16">
-                            @*<a> @Html.ActionLink(course.StartDate.ToString("yyyy-MM-dd"), @GoToUrl, new { id = course.Id })</a>*@
-                            @*@Html.DisplayFor(course.StartDate.ToString("yyyy-MM-dd"))*@
-                            @Html.DisplayFor(model => course.StartDate)
+                            <a> @Html.ActionLink(course.StartDate.ToString("yyyy-MM-dd"), @GoToUrl, new { id = course.Id })</a>
                             @*@Html.DisplayFor(model => course.Name)*@
                         </td>
                         <td>
-                            @*<a> @Html.ActionLink(course.Name, @GoToUrl, new { id = course.Id })</a>*@
-                            @Html.DisplayFor(model => course.Name)
+                            <a> @Html.ActionLink(course.Name, @GoToUrl, new { id = course.Id })</a>
+                            @*@Html.DisplayFor(model => course.Name)*@
                         </td>
                         <td>
-                            @*@Html.ActionLink(@dispDescription, @GoToUrl, new { id = course.Id })*@
+                            @Html.ActionLink(@dispDescription, @GoToUrl, new { id = course.Id })
                             @*@Html.ActionLink(course.Description, @GoToUrl, new { id = course.Id })*@
                             @*@Html.DisplayFor(model => course.Description)*@
-
-                            <a href="@Url.Action("Details", "Courses", new { id = course.Id })" class=" btn btn-primary btn-xs">
-                                <span class="glyphicon glyphicon-exclamation-sign"></span>
-                                Detaljer
-                            </a>
-
                         </td>
                     </tr>
                     ViewBag.OddOrEven = ViewBag.OddOrEven + 1;
@@ -178,22 +169,21 @@
                     </span>
                 }
         </dl>
-        @*<div class="mini-box">
+        <div class="mini-box">
             <table class="infotables" id="users">
                 <h2> Elever i grupp @Html.DisplayFor(model => model.Name) </h2>
                 <tr>
                     <td width="300">
-                       <strong> @Html.DisplayNameFor(model => model.GroupStudents.First().FullName)</strong>
+                        @Html.DisplayNameFor(model => model.GroupStudents.First().FullName)
                     </td>
                     <td width="300">
-                        <strong>@Html.DisplayNameFor(model => model.GroupStudents.First().Email)</strong>
+                        @Html.DisplayNameFor(model => model.GroupStudents.First().Email)
                     </td>
                     <td></td>
                 </tr>
 
                 @{ViewBag.OddOrEven = 0;}
-                @foreach (var student in Model.GroupStudents)
-                {
+                @foreach (var student in Model.GroupStudents) {
                     <tr style=@ExtensionMethods.trColorGrayWhite(ViewBag.OddOrEven) onclick="this.children[0].children[0].click();">
                         <td>
                             @Html.DisplayFor(model => student.FullName)
