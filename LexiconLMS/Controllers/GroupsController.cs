@@ -128,6 +128,7 @@ namespace LexiconLMS.Controllers
         }
 
         // GET: Groups/Create
+        [Authorize(Roles = "Teacher")]
         public ActionResult Create()
         {
             ViewBag.GroupsCurrent = "subopen current";
@@ -140,6 +141,7 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Teacher")]
         public ActionResult Create([Bind(Include = "Id,Name,Description,StartDate,EndDate")] Group group)
         {
             ViewBag.GroupsCurrent = "subopen current";
@@ -155,6 +157,7 @@ namespace LexiconLMS.Controllers
         }
 
         // GET: Groups/Edit/5
+        [Authorize(Roles = "Teacher")]
         public ActionResult Edit(int? id)
         {
 
@@ -179,6 +182,7 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Teacher")]
         public ActionResult Edit([Bind(Include = "Id,Name,Description,StartDate,EndDate")] Group group)
         {
             if (ModelState.IsValid)
@@ -193,6 +197,7 @@ namespace LexiconLMS.Controllers
         }
 
         // GET: Groups/Delete/5
+        [Authorize(Roles = "Teacher")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -211,6 +216,7 @@ namespace LexiconLMS.Controllers
 
         // POST: Groups/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Teacher")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
