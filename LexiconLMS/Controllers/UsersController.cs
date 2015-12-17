@@ -91,6 +91,7 @@ namespace LexiconLMS.Controllers {
 
 
         // GET: Users/Details/5
+        [Authorize(Roles = "Teacher")]
         public ActionResult Details(string id) {
             if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
