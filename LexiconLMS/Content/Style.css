@@ -229,3 +229,8 @@ ul.line li {
 /*.buttonbig {
     width: 300px;
 }*/
+
+.phoneDisplay {
+     font-weight: bold;
+     font-style:normal;
+}

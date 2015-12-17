@@ -66,6 +66,7 @@ namespace LexiconLMS.Controllers
         }
 
         // GET: Activities/Edit/5
+        [Authorize(Roles = "Teacher")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -87,6 +88,7 @@ namespace LexiconLMS.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Teacher")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,ActivityType,Name,Description,StartTime,EndTime,Deadline,CourseId")] Activities activities)
         {
@@ -103,6 +105,7 @@ namespace LexiconLMS.Controllers
         }
 
         // GET: Activities/Delete/5
+        [Authorize(Roles = "Teacher")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -121,6 +124,7 @@ namespace LexiconLMS.Controllers
 
         // POST: Activities/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Teacher")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
