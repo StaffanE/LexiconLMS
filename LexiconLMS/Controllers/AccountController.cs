@@ -145,7 +145,8 @@ namespace LexiconLMS.Controllers
 
         //
         // GET: /Account/Register
-        [AllowAnonymous]
+        // [AllowAnonymous]
+        [Authorize(Roles = "Teacher")]
         public ActionResult Register()
         {
             ViewBag.GroupId = new SelectList(db.Group, "Id", "Name", null);      // Tillagd för att hantera dropdownlistan för group-id

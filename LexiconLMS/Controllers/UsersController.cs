@@ -138,51 +138,7 @@ namespace LexiconLMS.Controllers {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            //     var model = db.Users.Where(u => u.Id == id).Select(t => new UserListingViewModel
-            //       {
-            //            Id = t.Id,
-            //            FirstName = t.FirstName,
-            //            LastName = t.LastName,
-            //            Email = t.Email,
-            //            Role = db.Roles.Where(r => r.Id == t.Roles.FirstOrDefault().RoleId).FirstOrDefault().Name,
-            //            Group = db.Group.Where(g => g.Id == t.GroupId).FirstOrDefault().Name,
-            //            GroupId = db.Group.Where(g => g.Id == t.GroupId).FirstOrDefault().Id,
-            //            PhoneNumber = t.PhoneNumber,
-            //            UserName = t.UserName
-
-            //        }).FirstOrDefault();
-
-
-
-            //                if (model == null)
-            //    {
-            //        return HttpNotFound();
-            //    }
-
-
-            //    List<Group> group = db.Group.ToList();
-            //    group.Insert(0, null);
-
-
-
-            //    // ViewBag.Role = new SelectList(db.Roles, "Name", "Name");
-
-            //    ViewBag.GroupId = new SelectList(group, "Id", "Name", model.GroupId);//
-
-            //    return View(model);
-            //}
-
-
-
-
-
-
-
-
-
-
-
-
+            
             ApplicationUser applicationUser = db.Users.Find(id);  // orginal
             if (applicationUser == null) {
                 return HttpNotFound();
