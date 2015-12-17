@@ -7,17 +7,17 @@
     ViewBag.CourseId = Model.Id;
     ViewBag.OddOrEven = 0;
 }
-<h2>@Html.DisplayFor(model => model.Group.Name) / @Html.DisplayFor(model => model.Name)/</h2>
+@*<h2>@Html.DisplayFor(model => model.Group.Name) / @Html.DisplayFor(model => model.Name)/</h2>*@
 @using GridMvc.Html;
 @using LexiconLMS;
+<br />
    <div class="col-sm-12">
         <div class="col-sm-12">
             @*<div>
                 <h2>@ViewBag.Title </h2>
             </div>*@
-            <div class="mini-box" style="background: #f2f2f2;color:#0000">
-                <dl class="dl-horizontal">
-                    @*<h2 >Kurs @Html.DisplayFor(model => model.Name)</h2>*@
+            <div class="mini-box">
+                    <h2 >Kurs @Html.DisplayFor(model => model.Name)</h2>
                     <dl class="dl-horizontal">
                         <dt>
                             @Html.DisplayNameFor(model => model.Group.Name)
@@ -61,22 +61,23 @@
                             @Html.DisplayFor(model => model.EndDate)
                         </dd>
                     </dl>
-            </div>
-            @if (User.IsInRole("Teacher"))
-            {
-                <span>
-                    <a href="@Url.Action("Edit", "Courses", new { id = Model.Id })" class="btn btn-default btn-sm">
-                        @*<span class="glyphicon glyphicon-edit">
-                        </span>*@
-                        Ändra
+                    @if (User.IsInRole("Teacher"))
+                    {
+                        <span>
+                            <a href="@Url.Action("Edit", "Courses", new { id = Model.Id })" class="btn btn-default btn-sm">
+                                @*<span class="glyphicon glyphicon-edit">
+                    </span>*@
+                                Ändra
+                            </a>
+                        </span>
+                    }
+                    <a href="@Url.Action("Index", "Courses")" type="button" class="btn btn-default btn-sm">
+                        @*<span class="glyphicon glyphicon-arrow-up">
+                    </span>*@
+                        Tillbaka
                     </a>
-                </span>
-            }
-            <a href="@Url.Action("Index", "Courses")" type="button" class="btn btn-default btn-sm">
-                @*<span class="glyphicon glyphicon-arrow-up">
-                </span>*@
-                Tillbaka
-            </a>
+            </div>
+            <br />
         </div>
         <div class="col-sm-12">
             <table class="infotables" id="activities">
