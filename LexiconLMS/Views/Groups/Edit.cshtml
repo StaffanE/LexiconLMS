@@ -69,6 +69,50 @@
                         </div>
                     }
                 </div>
+                <br />
+                <br />
+                <br />
+                <br />
+                <div class="mini-box">
+                    <table class="infotables" id="users">
+                        <h2> Elever i grupp @Html.DisplayFor(model => model.Name) </h2>
+                        <tr>
+                            <td width="300">
+                                @Html.DisplayNameFor(model => model.GroupStudents.First().FullName)
+                            </td>
+                            <td width="300">
+                                @Html.DisplayNameFor(model => model.GroupStudents.First().Email)
+                            </td>
+                            <td></td>
+                        </tr>
+
+                        @{ViewBag.OddOrEven = 0;}
+                        @foreach (var student in Model.GroupStudents)
+                        {
+                            <tr style=@ExtensionMethods.trColorGrayWhite(ViewBag.OddOrEven) onclick="this.children[0].children[0].click();">
+                                <td>
+                                    @Html.DisplayFor(model => student.FullName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => student.Email)
+                                </td>
+                            </tr>
+                            ViewBag.OddOrEven = ViewBag.OddOrEven + 1;
+                        }
+                    </table>
+                    <dl>
+                        @if (User.IsInRole("Teacher"))
+                        {
+                            <span>
+                                <a href="@Url.Action("Register", "Account", new { id = Model.Id })" class="btn btn-success btn-sm">
+                                    <span class="glyphicon glyphicon-new-window">
+                                    </span>
+                                    Lägg till
+                                </a>
+                            </span>
+                        }
+                    </dl>
+                </div>
             </div>
             <div class="col-sm-6">
                 <h2> Kurser som ingår i @Html.DisplayFor(model => model.Name) </h2>
@@ -128,7 +172,7 @@
                         </span>
                     }
                 </dl>
-                <div class="mini-box">
+                @*<div class="mini-box">
                     <table class="infotables" id="users">
                         <h2> Elever i grupp @Html.DisplayFor(model => model.Name) </h2>
                         <tr>
@@ -167,7 +211,7 @@
                             </span>
                         }
                     </dl>
-                </div>
+                </div>*@
             </div>
             @*<div class="form-group">
                 @if (User.IsInRole("Teacher"))

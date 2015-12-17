@@ -10,14 +10,15 @@
 }
 
 <div class="container-fluid topMarg">
+    <br />
     <div class="col-sm-12">
         <div class="col-sm-6">
-            <div>
+            @*<div>
                 <h2>@ViewBag.Title </h2>
-            </div>
-            <div class="mini-box" style="background: #f2f2f2;color:#0000">
+            </div>*@
+            <div class="mini-box" >
+                <h2>Grupp @Html.DisplayFor(model => model.Name)</h2>
                 <dl class="dl-horizontal">
-                    <h2>Grupp @Html.DisplayFor(model => model.Name)</h2>
                     <dt>
                         @Html.DisplayNameFor(model => model.Name)
                     </dt>
@@ -50,25 +51,31 @@
                         @Html.DisplayFor(model => model.EndDate)
                     </dd>
                 </dl>
-            </div>
-            @if (User.IsInRole("Teacher")) {
-                <span>
-                    <a href="@Url.Action("Edit", "Groups", new { id = Model.Id })" class="btn btn-default">
-                        @*<span class="glyphicon glyphicon-edit">
-                        </span>*@
-                        Ändra
-                    </a>
-                    <span>               </span>
-                </span>
-            <a href="@Url.Action("Index", "Groups")" type="button" class="btn btn-default">
-                @*<span class="glyphicon glyphicon-arrow-up">
+
+                @if (User.IsInRole("Teacher"))
+                {
+                    <span>
+                        <a href="@Url.Action("Edit", "Groups", new { id = Model.Id })" class="btn btn-default">
+                            @*<span class="glyphicon glyphicon-edit">
                     </span>*@
-                Tillbaka
-            </a>
-            }
+                            Ändra
+                        </a>
+                        <span>               </span>
+                    </span>
+                    <a href="@Url.Action("Index", "Groups")" type="button" class="btn btn-default">
+                        @*<span class="glyphicon glyphicon-arrow-up">
+                </span>*@
+                        Tillbaka
+                    </a>
+                }
+            </div>
+              
+
+         
 
             @*@Html.ActionLink("Åter till lista", "Index")*@
     
+            <br />
 
 
             <div class="mini-box">
@@ -111,12 +118,10 @@
                     }
                 </dl>
             </div>
-
-
         </div>
 
 
-
+  
         <div class="col-sm-6">
             <h2> Kurser som ingår i @Html.DisplayFor(model => model.Name) </h2>
             <table class="infotables" id="courses" >
@@ -174,44 +179,44 @@
                     </span>
                 }
         </dl>
-        <div class="mini-box">
+        @*<div class="mini-box">
             <table class="infotables" id="users">
-                <h2> Elever i grupp @Html.DisplayFor(model => model.Name) </h2>
-                <tr>
-                    <td width="300">
-                        @Html.DisplayNameFor(model => model.GroupStudents.First().FullName)
-                    </td>
-                    <td width="300">
-                        @Html.DisplayNameFor(model => model.GroupStudents.First().Email)
-                    </td>
-                    <td></td>
-                </tr>
+        <h2> Elever i grupp @Html.DisplayFor(model => model.Name) </h2>
+        <tr>
+            <td width="300">
+                @Html.DisplayNameFor(model => model.GroupStudents.First().FullName)
+            </td>
+            <td width="300">
+                @Html.DisplayNameFor(model => model.GroupStudents.First().Email)
+            </td>
+            <td></td>
+        </tr>
 
-                @{ViewBag.OddOrEven = 0;}
-                @foreach (var student in Model.GroupStudents) {
-                    <tr style=@ExtensionMethods.trColorGrayWhite(ViewBag.OddOrEven) onclick="this.children[0].children[0].click();">
-                        <td>
-                            @Html.DisplayFor(model => student.FullName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => student.Email)
-                        </td>
-                    </tr>
-                    ViewBag.OddOrEven = ViewBag.OddOrEven + 1;
-                }
-            </table>
-            <dl>
-                @if (User.IsInRole("Teacher")) {
-                    <span>
-                        <a href="@Url.Action("Register", "Account", new { id = Model.Id })" class="btn btn-success btn-sm">
-                            <span class="glyphicon glyphicon-new-window">
-                            </span>
-                            Lägg till
-                        </a>
+        @{ViewBag.OddOrEven = 0;}
+        @foreach (var student in Model.GroupStudents) {
+            <tr style=@ExtensionMethods.trColorGrayWhite(ViewBag.OddOrEven) onclick="this.children[0].children[0].click();">
+                <td>
+                    @Html.DisplayFor(model => student.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => student.Email)
+                </td>
+            </tr>
+            ViewBag.OddOrEven = ViewBag.OddOrEven + 1;
+        }
+    </table>
+    <dl>
+        @if (User.IsInRole("Teacher")) {
+            <span>
+                <a href="@Url.Action("Register", "Account", new { id = Model.Id })" class="btn btn-success btn-sm">
+                    <span class="glyphicon glyphicon-new-window">
                     </span>
-                }
-            </dl>
-        </div>
+                    Lägg till
+                </a>
+            </span>
+        }
+    </dl>
+        </div>*@
     </div>
 </div>
 </div>

@@ -208,7 +208,9 @@ ul.line li {
     padding: 10px;
 }
 
-/*.mini-box {
-padding: 10px;
-}*/
-
+.mini-box {
+    padding: 20px;
+    border: 1px solid #dedede;
+    border-radius: 5px;
+    background: #f2f2f2;
+}
