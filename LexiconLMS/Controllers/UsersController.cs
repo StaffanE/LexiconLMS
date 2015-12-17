@@ -178,29 +178,29 @@ namespace LexiconLMS.Controllers {
         {
             ViewBag.UserCurrent = "subopen current";
 
-            var roleStore = new RoleStore<IdentityRole>(db);
-            var roleManager = new RoleManager<IdentityRole>(roleStore);
+            //var roleStore = new RoleStore<IdentityRole>(db);
+            //var roleManager = new RoleManager<IdentityRole>(roleStore);
 
-            var userStore = new UserStore<ApplicationUser>(db);
-            var userManager = new UserManager<ApplicationUser>(userStore);
+            //var userStore = new UserStore<ApplicationUser>(db);
+            //var userManager = new UserManager<ApplicationUser>(userStore);
             
             
             
             if (ModelState.IsValid) {
                 db.Entry(applicationUser).State = EntityState.Modified;
 
-                var user = userManager.FindByEmail(applicationUser.Email);            // letar upp usern
+            //    var user = userManager.FindByEmail(applicationUser.Email);            // letar upp usern
                     
-                    if (user.GroupId == null)
-                    {
-                        userManager.AddToRole(user.Id, "Teacher");             // Tilldelar en roll
-                        user.Title = "Teacher";
-                    }
-                    else
-                    {
-                        userManager.AddToRole(user.Id, "Student");             // Tilldelar en roll
-                        user.Title = "Student";
-                    }
+            //        if (user.GroupId == null)
+            //        {
+            //            userManager.AddToRole(user.Id, "Teacher");             // Tilldelar en roll
+            //            user.Title = "Teacher";
+            //        }
+            //        else
+            //        {
+            //            userManager.AddToRole(user.Id, "Student");             // Tilldelar en roll
+            //            user.Title = "Student";
+            //        }
                 
                 db.SaveChanges();
                 return RedirectToAction("Index");
