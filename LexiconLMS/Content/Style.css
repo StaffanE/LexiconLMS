@@ -200,5 +200,15 @@ ul.line li {
     color: #fff;
 }
 
+.infotables td {
+    padding: 10px;
+}
 
+.dl-horizontal {
+    padding: 10px;
+}
+
+/*.mini-box {
+padding: 10px;
+}*/
 
