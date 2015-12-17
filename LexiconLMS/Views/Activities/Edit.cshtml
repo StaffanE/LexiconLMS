@@ -71,16 +71,18 @@
                     @Html.LabelFor(model => model.CourseId, "CourseId", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.DropDownList("CourseId", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => Model.CourseId, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Spara " class="btn btn-default btn-sm" />
-                        <a href="@Url.Action("Index", "Activities")" type="button" class="btn btn-default btn-sm">
+                        @*<a href="@Url.Action("Index", "Activities")" type="button" class="btn btn-default btn-sm">*@
+                        <a href="@Url.Action("Details", "Courses", new { id = Model.CourseId } )" type="button" class="btn btn-default btn-sm">
+
                             @*<span class="glyphicon glyphicon-arrow-up">
-                        </span>*@
+            </span>*@
                             Tillbaka
                         </a>
                     </div>

@@ -87,12 +87,14 @@
                     </a>
                 </span>
             }
-            <a href="@Url.Action("Index", "Activities")" type="button" class="btn btn-default btn-sm">
-                @*<span class="glyphicon glyphicon-arrow-up">
-            </span>*@
-                Tillbaka
-            </a>            
-        </p>
+            @*<a href="@Url.Action("Index", "Activities")" type="button" class="btn btn-default btn-sm">*@
+
+                <a href="@Url.Action("Details", "Courses", new { id = Model.CourseId } )" type="button" class="btn btn-default btn-sm">
+                    @*<span class="glyphicon glyphicon-arrow-up">
+                </span>*@
+                    Tillbaka
+                </a>
+</p>
     </div>
     <div class="col-sm-3">
     </div>
