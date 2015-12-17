@@ -54,9 +54,10 @@
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
+                        <p>2015-10-31 00:00:00</p>
                     </div>
                 </div>
-
+               
                 <div class="form-group">
                     @Html.LabelFor(model => model.Deadline, htmlAttributes: new { @class = "control-label col-md-3" })
                     <div class="col-md-6">
