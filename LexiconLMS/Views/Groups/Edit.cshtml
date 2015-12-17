@@ -72,16 +72,16 @@
             </div>
             <div class="col-sm-6">
                 <h2> Kurser som ingår i @Html.DisplayFor(model => model.Name) </h2>
-                <table id="courses" cellspacing="1">
+                <table class="infotables" id="courses">
                     <tr>
-                        <td width="16">
-                            Startdatum
+                        <td>
+                            <strong>Startdatum</strong>
                         </td>
                         <td>
-                            Namn
+                            <strong>Namn</strong>
                         </td>
                         <td>
-                            Beskrivning
+                            <strong>Beskrivning</strong>
                         </td>
                     </tr>
                     @foreach (var course in Model.GroupCourses)
@@ -94,18 +94,22 @@
                         if (course.Description.Length < dispLength) { dispLength = course.Description.Length; contDescr = ""; };
                         string dispDescription = course.Description.Substring(0, dispLength) + contDescr;
                         <tr style=@ExtensionMethods.trColorGrayWhite(ViewBag.OddOrEven) onclick="this.children[0].children[0].click();">
-                            <td width="16">
-                                <a> @Html.ActionLink(course.StartDate.ToString("yyyy-MM-dd"), @GoToUrl, new { id = course.Id })</a>
-                                @*@Html.DisplayFor(model => course.Name)*@
+                            <td>
+                                @*<a> @Html.ActionLink(course.StartDate.ToString("yyyy-MM-dd"), @GoToUrl, new { id = course.Id })</a>*@
+                                @Html.DisplayFor(model => course.StartDate)
                             </td>
                             <td>
-                                <a> @Html.ActionLink(course.Name, @GoToUrl, new { id = course.Id })</a>
-                                @*@Html.DisplayFor(model => course.Name)*@
+                                @*<a> @Html.ActionLink(course.Name, @GoToUrl, new { id = course.Id })</a>*@
+                                @Html.DisplayFor(model => course.Name)
                             </td>
                             <td>
-                                @Html.ActionLink(@dispDescription, @GoToUrl, new { id = course.Id })
+                                @*@Html.ActionLink(@dispDescription, @GoToUrl, new { id = course.Id })*@
                                 @*@Html.ActionLink(course.Description, @GoToUrl, new { id = course.Id })*@
                                 @*@Html.DisplayFor(model => course.Description)*@
+                                <a href="@Url.Action("Details", "Courses", new { id = course.Id })" class=" btn btn-primary btn-xs">
+                                    <span class="glyphicon glyphicon-exclamation-sign"></span>
+                                    Detaljer
+                                </a>
                             </td>
                         </tr>
                         ViewBag.OddOrEven = ViewBag.OddOrEven + 1;
@@ -125,7 +129,7 @@
                     }
                 </dl>
                 <div class="mini-box">
-                    <table id="users">
+                    <table class="infotables" id="users">
                         <h2> Elever i grupp @Html.DisplayFor(model => model.Name) </h2>
                         <tr>
                             <td width="300">
