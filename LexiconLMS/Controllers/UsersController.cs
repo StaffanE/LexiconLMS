@@ -131,6 +131,7 @@ namespace LexiconLMS.Controllers {
         }
 
         // GET: Users/Edit/5
+        [Authorize(Roles = "Teacher")]
         public ActionResult Edit(string id) {
             ViewBag.UserCurrent = "subopen current";
 
@@ -170,14 +171,37 @@ namespace LexiconLMS.Controllers {
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Teacher")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Fullname,Title,GroupId,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
             //    public ActionResult Edit([Bind(Include = "FirstName,LastName,Title,GroupId,Email,PhoneNumber")] ApplicationUser applicationUser)
         {
             ViewBag.UserCurrent = "subopen current";
 
+            var roleStore = new RoleStore<IdentityRole>(db);
+            var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+            var userStore = new UserStore<ApplicationUser>(db);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+            
+            
+            
             if (ModelState.IsValid) {
                 db.Entry(applicationUser).State = EntityState.Modified;
+
+                var user = userManager.FindByEmail(applicationUser.Email);            // letar upp usern
+                    
+                    if (user.GroupId == null)
+                    {
+                        userManager.AddToRole(user.Id, "Teacher");             // Tilldelar en roll
+                        user.Title = "Teacher";
+                    }
+                    else
+                    {
+                        userManager.AddToRole(user.Id, "Student");             // Tilldelar en roll
+                        user.Title = "Student";
+                    }
+                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -186,6 +210,7 @@ namespace LexiconLMS.Controllers {
         }
 
         // GET: Users/Delete/5
+        [Authorize(Roles = "Teacher")]
         public ActionResult Delete(string id) {
             ViewBag.UserCurrent = "subopen current";
 
@@ -215,6 +240,7 @@ namespace LexiconLMS.Controllers {
 
         // POST: /Users/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Teacher")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(string id) {
 
