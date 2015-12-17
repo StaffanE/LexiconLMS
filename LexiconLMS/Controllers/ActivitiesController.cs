@@ -19,6 +19,7 @@ namespace LexiconLMS.Controllers
         {
             var activities = db.Activities.Include(a => a.Course);
             ViewBag.ActivitiesCurrent = "subopen current";
+
             return View(activities.ToList());
         }
 
@@ -39,8 +40,9 @@ namespace LexiconLMS.Controllers
         }
 
         // GET: Activities/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
+            ViewBag.bla = id;
             ViewBag.ActivitiesCurrent = "subopen current";
             ViewBag.CourseId = new SelectList(db.Courses, "Id", "Name");
             return View();
@@ -53,11 +55,15 @@ namespace LexiconLMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,ActivityType,Name,Description,StartTime,EndTime,Deadline,CourseId")] Activities activities)
         {
+            var courseID = activities.CourseId;
             if (ModelState.IsValid)
             {
                 db.Activities.Add(activities);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Details", "Courses", courseID);
+                return Redirect("~/Courses/Details/" + activities.CourseId);
+
+                //return RedirectToAction("Index");
             }
 
             ViewBag.ActivitiesCurrent = "subopen current";
@@ -144,5 +150,7 @@ namespace LexiconLMS.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public string CourseId { get; set; }
     }
 }
