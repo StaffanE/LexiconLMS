@@ -54,7 +54,7 @@
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
-                        <p>2015-10-31 00:00:00</p>
+                        <br> <p>Format: 2015-10-31 00:00:00</p>
                     </div>
                 </div>
                
@@ -68,12 +68,16 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                @*<div class="form-group">
                     @Html.LabelFor(model => model.CourseId, "CourseId", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.DropDownList("CourseId", null, htmlAttributes: new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => Model.CourseId, "", new { @class = "text-danger" })
                     </div>
+                </div>*@
+
+                <div class="form-group" style="display: none;">
+                    @Html.EditorFor(model => model.CourseId, new { htmlAttributes = new { @class = "form-control", @Value = @ViewBag.bla } })
                 </div>
 
                 <div class="form-group">

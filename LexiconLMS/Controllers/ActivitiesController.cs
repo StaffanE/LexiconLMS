@@ -86,6 +86,7 @@ namespace LexiconLMS.Controllers
             }
 
             ViewBag.ActivitiesCurrent = "subopen current";
+            ViewBag.bla = id;
             ViewBag.CourseId = new SelectList(db.Courses, "Id", "Name", activities.CourseId);
             return View(activities);
         }
@@ -102,12 +103,16 @@ namespace LexiconLMS.Controllers
             {
                 db.Entry(activities).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                // return RedirectToAction("Index");
+                return Redirect("~/Courses/Details/" + activities.CourseId);
+
             }
 
             ViewBag.ActivitiesCurrent = "subopen current";
             ViewBag.CourseId = new SelectList(db.Courses, "Id", "Name", activities.CourseId);
-            return View(activities);
+            // return View(activities);
+            return Redirect("~/Courses/Details/" + activities.CourseId);
+
         }
 
         // GET: Activities/Delete/5
