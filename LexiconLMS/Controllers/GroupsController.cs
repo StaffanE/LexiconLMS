@@ -216,7 +216,25 @@ namespace LexiconLMS.Controllers
         {
             Group group = db.Group.Find(id);
 
+            if (ModelState.IsValid) {
+                if (id == null) {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                if ((group.GroupStudents.Count() > 0)) {
+                    var studentID = group.GroupStudents.First().Id;
+                    ViewBag.GroupID = id;
+                    ViewBag.WarningMessage = "Obs Gruppen har studenter ta bort dom först";
+                    return Redirect("~/Users/Delete/" + studentID);
+                }
+                if ((group.GroupCourses.Count() > 0)) {
+                    ViewBag.GroupID = id;
+                    var courseID = group.GroupCourses.First().Id;
+                    ViewBag.WarningMessage = "Obs Gruppen har kurser ta bort dom först";
+                    return Redirect("~/Courses/Delete/" + courseID);
+                }
+            }
 
+            db.SaveChanges();
             db.Group.Remove(group);
             db.SaveChanges();
 
