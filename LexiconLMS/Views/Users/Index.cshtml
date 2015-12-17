@@ -12,7 +12,7 @@
             <p>
                 @if (User.IsInRole("Teacher")) {
                     <span>
-                        <a href="@Url.Action("Create")" class="btn btn-success btn-sm">
+                        <a href="@Url.Action("Register", "Account")" class="btn btn-success btn-sm">
                             <span class="glyphicon glyphicon-plus-sign"></span>
                             Lägg till
                         </a>
@@ -25,63 +25,73 @@
            columns.Add(model => model.Group.Name)
                .Sortable(true)
                .Titled("Grupp")
-               .RenderValueAs(model => model.Group.Name == null ? AltText : model.Group.Name)
-               .SetWidth("20px");
+               .RenderValueAs(model => model.Group.Name == null ? AltText : model.Group.Name);
+               //.SetWidth("20px");
 
-           columns.Add(model => model.LastName)
-                   .Sortable(true)
-               .Titled("Efternamn")
-               .SetWidth("20px")
-               .ToString();
 
-           columns.Add(model => model.FirstName)
-                   .Sortable(true)
-                   .Titled("Förnamn")
-                   .SetWidth("20px")
-                   .ToString();
+           columns.Add(model => model.FullName)
+                 .Sortable(true)
+             .Titled("Namn")
+             //.SetWidth("20px")
+             .ToString();         
+           
+           //columns.Add(model => model.LastName)
+           //        .Sortable(true)
+           //    .Titled("Efternamn")
+           //    .SetWidth("20px")
+           //    .ToString();
+
+           //columns.Add(model => model.FirstName)
+           //        .Sortable(true)
+           //        .Titled("Förnamn")
+           //        .SetWidth("20px")
+           //        .ToString();
 
            columns.Add(model => model.Email)
                    .Sortable(true)
                    .Titled("Email")
-                   .SetWidth("25px")
+                  // .SetWidth("25px")
                    .ToString();
            columns.Add(model => model.PhoneNumber)
                    .Sortable(true)
                    .Titled("Telefon")
-                   .SetWidth("25px")
+                   //.SetWidth("25px")
                    .ToString();
 
            if (User.IsInRole("Teacher")) {
                columns.Add()
                        .Encoded(false)
                        .Sanitized(false)
-                       .SetWidth("12em")
+                      // .Titled("Button")
+                       //.SetWidth("12em")
                        .RenderValueAs(
-                    @<a href="@Url.Action("Edit", "Users", new { id = item.Id })" class="btn btn-warning btn-sm">
+                    @<div class="buttons"><a href="@Url.Action("Edit", "Users", new { id = item.Id })" class="btn btn-warning btn-sm">
                         <span class="glyphicon glyphicon-edit"></span>
                         Ändra
-                    </a>);
+                    </a></div>);
                 }
                  columns.Add()
                     .Encoded(false)
                     .Sanitized(false)
-                    .SetWidth("12em")
-                    .RenderValueAs(@<a href="@Url.Action("Details", "Users", new { id = item.Id })" class="btn btn-primary btn-a btn-sm">
-                        <span class="glyphicon glyphicon- "></span>
-                        Detalj
-                    </a>);
-                if (User.IsInRole("Teacher")) {
-                   columns.Add()
-                  .Encoded(false)
-                    .Sanitized(false)
-                    .SetWidth("12em")
-                    .RenderValueAs(@<a href="@Url.Action("Delete", "Users", new { id = item.Id })" class="btn btn-danger btn-sm">
-                        <span class="glyphicon glyphicon-minus-sign"></span>
-                        ta bort
-                    </a>);
-               }
-                }).WithPaging(10).Sortable().Filterable().WithMultipleFilters()
-    </div>
+                   // .Titled("Button")
+                    //.SetWidth("12em")
+                    .RenderValueAs(@<div class="buttons"><a href="@Url.Action("Details", "Users", new { id = item.Id })" class="btn btn-primary btn-a btn-sm">
+        <span class="glyphicon glyphicon-exclamation-sign"></span>
+        Detaljer
+    </a></div>);
+    if (User.IsInRole("Teacher")) {
+    columns.Add()
+    .Encoded(false)
+    .Sanitized(false)
+    // .Titled("Button")
+    //.SetWidth("12em")
+    .RenderValueAs(@<div class="buttons"><a href="@Url.Action("Delete", "Users", new { id = item.Id })" class="btn btn-danger btn-sm">
+        <span class="glyphicon glyphicon-minus-sign"></span>
+        ta bort
+    </a></div>);
+    }
+    }).WithPaging(10).Sortable().Filterable().WithMultipleFilters()
+</div>
 </div>
 <div class="container botMarg">
     <div class="col-sm-12">

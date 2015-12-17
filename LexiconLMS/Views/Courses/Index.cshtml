@@ -8,97 +8,109 @@
     ViewBag.OddOrEven = 0;
 }
 
-<h2>@ViewBag.Title</h2>
+<div class="container-fluid topMarg">
+    <div class="col-sm-12">
+        <div>
+            <h2>@ViewBag.Title </h2>
+        </div>
+        <p>
+            @if (User.IsInRole("Teacher"))
+            {
+                <span>
+                    <a href="@Url.Action("Create")" class="btn btn-success btn-sm">
+                        <span class="glyphicon glyphicon-plus-sign"></span>
+                        Lägg till
+                    </a>
+                </span>
+            }
+        </p>
+        @Html.Grid(Model).Columns(columns =>
+{
 
-<p>
-    @if (User.IsInRole("Teacher")) {
-        <span>
-            <a href="@Url.Action("Create")" class="btn btn-success btn-sm">
-                <span class="glyphicon glyphicon-plus-sign"></span>
-                Lägg till
-            </a>
-        </span>
-    }
-</p>
-@Html.Grid(Model).Columns(columns =>{
+    /* Adding "Groupname" column: */
+    columns.Add(model => model.Group.Name)
+        .Sortable(true)
+        .Titled("Grupp");
+    //.SetWidth(20);
+    //columns.Add(model => model.Name)
 
-       /* Adding "Groupname" column: */
-        columns.Add(model => model.Group.Name)
-            .Sortable(true)
-            .Titled("Grupp")
-            .SetWidth(20);
+    //columns.Add(model => model.Name.Substring(0, Math.Min(model.Name.Length, 30)))
+    columns.Add(model => model.Name)
+    .Sortable(true)
+    .Titled("Kurs")
+    .RenderValueAs((model => model.Name.Substring(0, Math.Min(model.Name.Length, 30))));
 
-        columns.Add(model => model.Name)
-            .Sortable(true)
-            .Titled("Kurs")
-            .SetWidth(20);
-    
-        /* Using RenderValueAs to shorten longstrings to fit on one row in the table*/
-        columns.Add(model => model.Description)
-            .Titled("Beskrivning")
-            .Encoded(true)
-            .Sanitized(false)
-            .SetWidth(15)
-             .RenderValueAs((model => model.Description.Substring(0, Math.Min(model.Description.Length, 15))));
-      
-            columns.Add(model => model.StartDate)
-            .Titled("Starttdatum")
-            .Format("{0:yyyy-MM-dd}")
-            .Sortable(true)
-            .SetWidth(12)
-            .SortInitialDirection(GridSortDirection.Descending);
+    //.SetWidth(20);
 
-        columns.Add(model => model.EndDate)
-            .Sortable(true)
-            .Titled("Slutdatum")
-            .Format("{0:yyyy-MM-dd}")
-            .SetWidth(12)
-            .ThenSortByDescending(model => model.EndDate);
-    /*Work under construction trying to get the text "Avslutad" "pågående" or "Kommande" depending on the relation between period for Course and todays date */    
+    /* Using RenderValueAs to shorten longstrings to fit on one row in the table*/
+    //columns.Add(model => model.Description)
+    //    .Titled("Beskrivning")
+    //    .Encoded(true)
+    //    .Sanitized(false)
+    //    .SetWidth(15)
+    //     .RenderValueAs((model => model.Description.Substring(0, Math.Min(model.Description.Length, 15))));
+
+    columns.Add(model => model.StartDate)
+    .Titled("Starttdatum")
+    .Format("{0:yyyy-MM-dd}")
+    .Sortable(true)
+        //.SetWidth(12)
+    .SortInitialDirection(GridSortDirection.Descending);
+
+    columns.Add(model => model.EndDate)
+        .Sortable(true)
+        .Titled("Slutdatum")
+        .Format("{0:yyyy-MM-dd}")
+        //.SetWidth(12)
+        .ThenSortByDescending(model => model.EndDate);
+    /*Work under construction trying to get the text "Avslutad" "pågående" or "Kommande" depending on the relation between period for Course and todays date */
     //columns.Add()
     //        .Encoded(true)
     //        .Sanitized(false)
     //        .SetWidth(15)
     //        .Sortable(true)
     //        .RenderValueAs(@ExtensionMethods.PeriodStatus((model => model.StartDate),(model => model.EndDate)));
-    
+
     /* Adding not mapped column, that renders body, using inline Razor html helper */
-if (User.IsInRole("Teacher")) {
-    
+    if (User.IsInRole("Teacher"))
+    {
+
+        columns.Add()
+                .Encoded(false)
+                .Sanitized(false)
+            //.SetWidth(12)
+                .RenderValueAs(
+                @<div class="buttons"><a href="@Url.Action("Edit", "Courses", new { id = item.Id })" class="btn btn-warning btn-sm">
+        <span class="glyphicon glyphicon-edit"></span>
+        Ändra
+    </a></div>);
+    }
     columns.Add()
-            .Encoded(false)
-            .Sanitized(false)
-            .SetWidth(12)
-            .RenderValueAs(
-            @<a href="@Url.Action("Edit", "Courses", new { id = item.Id })" class="btn btn-warning btn-sm">
-                <span class="glyphicon glyphicon-edit"></span>
-                Ändra
-            </a>);
-}
-     columns.Add()
-            .Encoded(false)
-            .Sanitized(false)
-            .SetWidth(12)
-            .RenderValueAs(
-            @<a href="@Url.Action("Details", "Courses", new { id = item.Id })" class=" btn btn-primary btn-sm">
-                <span class="glyphicon glyphicon-exclamation-sign"></span>
-                Detaljer
-            </a>);
-    
-if (User.IsInRole("Teacher")) {
+    .Encoded(false)
+    .Sanitized(false)
+        //.SetWidth(12)
+    .RenderValueAs(
+    @<div class="buttons"><a href="@Url.Action("Details", "Courses", new { id = item.Id })" class=" btn btn-primary btn-sm">
+        <span class="glyphicon glyphicon-exclamation-sign"></span>
+        Detaljer
+    </a></div>);
 
-                    columns.Add()
-            .Encoded(false)
-            .Sanitized(false)
-            .SetWidth(12)
-            .RenderValueAs(
-            @<a href="@Url.Action("Delete", "Courses", new { id = item.Id })" class="btn btn-danger btn-sm">
-                <span class="glyphicon glyphicon-minus-sign"></span>
-                Ta bort
-            </a>);
-}
-        }).WithPaging(10).Sortable().Filterable().WithMultipleFilters()
+        if (User.IsInRole("Teacher"))
+        {
 
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        //.SetWidth(12)
+        .RenderValueAs(
+        @<div class="buttons"><a href="@Url.Action("Delete", "Courses", new { id = item.Id })" class="btn btn-danger btn-sm">
+        <span class="glyphicon glyphicon-minus-sign"></span>
+        Ta bort
+    </a></div>);
+    }
+    }).WithPaging(10).Sortable().Filterable().WithMultipleFilters()
+</div>
+</div>
 <div class="container botMarg">
     <div class="col-sm-12">
         <p>
