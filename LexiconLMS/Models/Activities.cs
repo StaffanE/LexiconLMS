@@ -45,19 +45,19 @@ namespace LexiconLMS.Models
         [DisplayFormat(NullDisplayText = "")]
         public string Description { get; set; }
 
-        [GridColumn(Title = "Startdatum/tid", SortEnabled = true, FilterEnabled = true)]
-        [Display(Name = "Startdatum/tid")]
+        [GridColumn(Title = "Startdatum", SortEnabled = true, FilterEnabled = true)]
+        [Display(Name = "Startdatum")]
         [DisplayFormat(NullDisplayText = "")]
         public DateTime StartTime { get; set; }
 
-        [GridColumn(Title = "Slutdatum/tid", SortEnabled = true, FilterEnabled = true)]
-        [Display(Name = "Slutdatum/tid")]
+        [GridColumn(Title = "Slutdatum", SortEnabled = true, FilterEnabled = true)]
+        [Display(Name = "Slutdatum")]
         [DisplayFormat(NullDisplayText = "")]
         public DateTime EndTime { get; set; }
         //public DateTime Deadline  { get; set; }
 
-        [GridColumn(Title = "Inlämningsuppgift", SortEnabled = true, FilterEnabled = true)]
-        [Display(Name = "Inlämningsuppgift")]
+        [GridColumn(Title = "Inlämning", SortEnabled = true, FilterEnabled = true)]
+        [Display(Name = "Inlämning")]
         [DisplayFormat(NullDisplayText = "")]
         public bool Deadline { get; set; }
 

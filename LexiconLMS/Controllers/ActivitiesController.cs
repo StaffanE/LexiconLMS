@@ -45,7 +45,18 @@ namespace LexiconLMS.Controllers
             ViewBag.bla = id;
             ViewBag.ActivitiesCurrent = "subopen current";
             ViewBag.CourseId = new SelectList(db.Courses, "Id", "Name");
+           // ViewBag.CourseName = db.Courses.Where(c => c.Id == id).Select;
+
+
+            //ViewBag.CourseName = from db.Courses
+            //                     where db.Courses.Id==id
+            //                     select db.Courses.Name;
+
+            ViewBag.CourseName = db.Courses.Where(c => c.Id == id).FirstOrDefault().Name;
+
             return View();
+
+
         }
 
         // POST: Activities/Create
