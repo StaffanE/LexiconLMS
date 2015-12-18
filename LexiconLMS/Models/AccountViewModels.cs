@@ -105,7 +105,7 @@ namespace LexiconLMS.Models
         //public string FullName { get; set; }
 
         [Required]
-        [Display(Name = "Telefonnummer")]
+        [Display(Name = "Mobil")]
         [DisplayFormat(NullDisplayText = "")]
         public string PhoneNumber { get; set; }
 
