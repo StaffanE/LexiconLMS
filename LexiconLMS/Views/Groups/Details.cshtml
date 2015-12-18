@@ -133,18 +133,26 @@
                         <strong>Namn</strong>
                     </td>
                     <td>
-                        <strong>Beskrivning</strong>
+                        @*<strong>Beskrivning</strong>*@
                     </td>
                 </tr>
                 @foreach (var course in Model.GroupCourses)
                 {
                     string visibleText = ExtensionMethods.trTextColor(course.StartDate, course.EndDate);
                     string GoToUrl = "../Courses/Details";
-                    string contDescr = " ...(Utförlig beskrivning finns)";
+                    //string contDescr = " ...(Utförlig beskrivning finns)";
+                    string contName = "...";
+                    
                     //if The text in description is long then shorten it down and display the first 25 characters for more detailed description go to Detail/Edit/Delete-Views
-                    int dispLength = 20;
-                    if (course.Description.Length < dispLength) { dispLength = course.Description.Length; contDescr = ""; };
-                    string dispDescription = course.Description.Substring(0, dispLength) + contDescr;
+                    //int dispLength = 20;
+                    //if (course.Description.Length < dispLength) { dispLength = course.Description.Length; contDescr = ""; };
+                    //string dispDescription = course.Description.Substring(0, dispLength) + contDescr;
+
+                    int dispLength = 42;
+                    if (course.Name.Length < dispLength) { dispLength = course.Name.Length; contName = ""; };
+                    string dispName = course.Name.Substring(0, dispLength) + contName;
+                                        
+                    
                     <tr style=@ExtensionMethods.trColorGrayWhite(ViewBag.OddOrEven) onclick="this.children[0].children[0].click();">
                         <td>
                             @*<a> @Html.ActionLink(course.StartDate.ToString("yyyy-MM-dd"), @GoToUrl, new { id = course.Id })</a>*@
@@ -152,7 +160,9 @@
                         </td>
                         <td>
                             @*<a> @Html.ActionLink(course.Name, @GoToUrl, new { id = course.Id })</a>*@
-                            @Html.DisplayFor(model => course.Name)
+                            @*@Html.DisplayFor(model => course.Name)*@
+                            @Html.DisplayFor(model => @dispName)
+                           @*@Html.DisplayFor(course.Name.Substring(0, Math.Min(course.Name.Length, 15)))*@
                         </td>
                         <td>
                             @*@Html.ActionLink(@dispDescription, @GoToUrl, new { id = course.Id })*@
